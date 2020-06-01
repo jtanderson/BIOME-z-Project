@@ -8,3 +8,6 @@
 - Data labeling changes (in future): move from "Biological Distal Psychological Intermediate" to "Biological-Distal Psychological-Intermediate" tag format
 - Existing library uploaded as `BIOMEz.rdf`
   - The ADMIN ONLY... folder is unclassified articles
+- **Goals**
+  - Get data import from `.rdf` file working into python objects
+  - Begin finding data format requirements for PyTorch
