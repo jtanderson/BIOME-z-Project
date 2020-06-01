@@ -1,1 +1,8 @@
 # BIOME-z-Project
+
+## Meeting 6/1/2020
+
+- Data flow: `.bib` format -> Python objects -> PyTorch classifier -> RDF format to organize
+  - RDF parsing library: [https://rdflib.readthedocs.io/en/stable/index.html](https://rdflib.readthedocs.io/en/stable/index.html)
+  - Python bibtex library: [https://bibtexparser.readthedocs.io/en/master](https://bibtexparser.readthedocs.io/en/master)
+- Data labeling changes (in future): move from "Biological Distal Psychological Intermediate" to "Biological-Distal Psychological-Intermediate" tag format
