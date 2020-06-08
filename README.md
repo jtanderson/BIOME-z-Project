@@ -1,5 +1,7 @@
 # BIOME-z-Project
 
+TODO: Write project summary/notes/howto here.
+
 ## Meetings 
 
 Prior to each meeting, make a note under each goal with your name/handle/initials and a note about what you did or worked on to address that goal
