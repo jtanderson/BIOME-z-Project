@@ -4404,7 +4404,6 @@ PMID: 32113509</dc:description>
     </z:Attachment>
     <z:Attachment rdf:about="#item_306">
         <z:itemType>attachment</z:itemType>
-        <rdf:resource rdf:resource="files/306/Stebbing et al. - 2020 - COVID-19 combining antiviral and anti-inflammator.pdf"/>
         <dc:title>Full Text PDF</dc:title>
         <dc:identifier>
             <dcterms:URI>
