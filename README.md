@@ -1,5 +1,14 @@
 # BIOME-z-Project
 
+## Procedures
+- Prior to each meeting, make a note under each goal with your name/handle/initials and a note about what you did or worked on to address that goal
+
+## Meeting 6/8/2020
+- When parsing RDF, sub-collection is captured by "foreign-key" style within the RDF (collections have a "hasPart" with collection id of subcollection)
+- **Goals**
+  - Upload notes, code, comments to repository for future discussion
+  - Continue to data imported from `.rdf` file working into python objects, capture structure. Start getting into pytorch data format.
+
 ## Meeting 6/1/2020
 
 - Data flow: RDF format -> Python objects -> PyTorch classifier -> RDF format to organize
