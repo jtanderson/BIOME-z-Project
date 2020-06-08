@@ -8,6 +8,7 @@ Prior to each meeting, make a note under each goal with your name/handle/initial
 
 ### 6/8/2020
 - When parsing RDF, sub-collection is captured by "foreign-key" style within the RDF (collections have a "hasPart" with collection id of subcollection)
+- Dr. Maier will be heading the conversion to hyphenated tags within the BIOMEz library
 - **Goals**
   - Upload notes, code, comments to repository for future discussion
   - Continue to data imported from `.rdf` file working into python objects, capture structure. Start getting into pytorch data format.
