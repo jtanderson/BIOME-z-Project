@@ -11,7 +11,9 @@ Prior to each meeting, make a note under each goal with your name/handle/initial
 - Dr. Maier will be heading the conversion to hyphenated tags within the BIOMEz library
 - **Goals**
   - Upload notes, code, comments to repository for future discussion
+    - D.S: Added another pytorch neural network for *convolutional* datasets - different type of dataset processing, but explores different functions in Pytorch nonetheless.
   - Continue to data imported from `.rdf` file working into python objects, capture structure. Start getting into pytorch data format.
+    - D.S: Jack & I are considering only using the abstract text as input data for Pytorch.
 
 ### 6/1/2020
 - Data flow: RDF format -> Python objects -> PyTorch classifier -> RDF format to organize
