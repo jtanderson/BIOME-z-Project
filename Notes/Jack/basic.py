@@ -18,7 +18,7 @@ from pprint  import pprint
 from rdflib.namespace import RDF, RDFS, OWL, FOAF
 
 # file = 'tester.rdf'
-file = '../GitHub/BIOME-z-Project/BIOME-z.rdf'
+file = '../../BIOME-z.rdf'
 
 g = rdflib.Graph()
 
