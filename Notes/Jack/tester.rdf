@@ -1,0 +1,60 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:link="http://purl.org/rss/1.0/modules/link/"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
+ xmlns:vcard="http://nwalsh.com/rdf/vCard#">
+
+
+    <bib:Article rdf:about="http://www.sciencedirect.com/science/article/pii/S0092867406001929">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0092-8674"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ley</foaf:surname>
+                        <foaf:givenName>Ruth E.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Peterson</foaf:surname>
+                        <foaf:givenName>Daniel A.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Gordon</foaf:surname>
+                        <foaf:givenName>Jeffrey I.</foaf:givenName>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <link:link rdf:resource="#item_1404"/>
+        <link:link rdf:resource="#item_1405"/>
+        <dc:subject>environment</dc:subject>
+        <dc:subject>biological</dc:subject>
+        <dc:subject>micro</dc:subject>
+        <dc:subject>distal</dc:subject>
+        <dc:subject>ecological</dc:subject>
+        <dc:subject>diversity</dc:subject>
+        <dc:title>Ecological and Evolutionary Forces Shaping Microbial Diversity in the Human Intestine</dc:title>
+        <dcterms:abstract>The human gut is populated with as many as 100 trillion cells, whose collective genome, the microbiome, is a reflection of evolutionary selection pressures acting at the level of the host and at the level of the microbial cell. The ecological rules that govern the shape of microbial diversity in the gut apply to mutualists and pathogens alike.</dcterms:abstract>
+        <dc:date>February 24, 2006</dc:date>
+        <z:libraryCatalog>ScienceDirect</z:libraryCatalog>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.sciencedirect.com/science/article/pii/S0092867406001929</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dcterms:dateSubmitted>2019-02-05 16:30:53</dcterms:dateSubmitted>
+        <bib:pages>837-848</bib:pages>
+    </bib:Article>
+    
+
+ </rdf:RDF>
