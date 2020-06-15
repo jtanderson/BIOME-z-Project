@@ -6,6 +6,11 @@ TODO: Write project summary/notes/howto here.
 
 Prior to each meeting, make a note under each goal with your name/handle/initials and a note about what you did or worked on to address that goal
 
+### 6/15/2020
+- Next steps: integrate RDF-pulled data into text-classification framework demonstrated in [https://pytorch.org/tutorials/beginner/text_sentiment_ngrams_tutorial.html](https://pytorch.org/tutorials/beginner/text_sentiment_ngrams_tutorial.html).
+- In addition to abstract text, use the article tags/subjects/keyword as well (remove "correct" ones before training).
+- Start with "top-level" tags first.
+
 ### 6/8/2020
 - When parsing RDF, sub-collection is captured by "foreign-key" style within the RDF (collections have a "hasPart" with collection id of subcollection)
 - Dr. Maier will be heading the conversion to hyphenated tags within the BIOMEz library
