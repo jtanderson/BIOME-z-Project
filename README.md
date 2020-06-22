@@ -8,6 +8,7 @@ Prior to each meeting, make a note under each goal with your name/handle/initial
 
 ### 6/15/2020
 - Next steps: integrate RDF-pulled data into text-classification framework demonstrated in [https://pytorch.org/tutorials/beginner/text_sentiment_ngrams_tutorial.html](https://pytorch.org/tutorials/beginner/text_sentiment_ngrams_tutorial.html).
+  - D.S: Created a .py file using the above tutorial. Wrote down a bunch of comments reflecting how we would setup our text classification with respect to our dataset.
 - In addition to abstract text, use the article tags/subjects/keyword as well (remove "correct" ones before training).
 - Start with "top-level" tags first.
 
