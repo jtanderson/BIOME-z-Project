@@ -1,7 +1,24 @@
 Jack's Notes
-==============
-June 8 - Jun 14
------------------	
+=============
+
+June 22 - June 28
+------------------
+### Notes on rdf_to_csv.py
+
+#### Purpose
+The program is to convert the `BIOME-z.rdf` file from Zotero to a `.csv` file that we can use to train our neural network.
+The pytorch functions in the `TC Pytoch Tutorial.py` use a .csv file that contains a new article's infomation. 
+Our intention is to make a `.csv` file with our data in the same format with the hopes of reusing the PyTorch Tutorial.
+
+### Current Problems
+1. The program does not create a connected graph from the `.rdf` file and will not read over every file when searching for tags/subjects (see program output).
+2. When searching for the tags/subject, only a slect few will get identified properly. 
+3. The functions used to replace `\n` characters in the `.csv` file are not catching every character.
+4. The program runs in 10 - 30 seconds depending on how the graph was made and searched. 
+
+
+June 08 - June 14
+------------------	
 ### Notes on RDF Triple Structures
 
 When the data file is parsed, the data is stored in a graph made of triples. The triples have 
