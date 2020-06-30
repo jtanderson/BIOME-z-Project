@@ -6,12 +6,13 @@ from rdflib.namespace import RDF, RDFS, OWL, FOAF
 from rdflib import Literal, URIRef, XSD
 
 class paper:
-	def __init__(self, title, abstract, bio, psych, social):
-		self.title = title
-		self.abstract = abstract
-		self.bio = bio
-		self.psych = psych
-		self.social = social
+	def __init__(self):
+		self.subject = URIRef("")
+		self.title = ""
+		self.abstract = ""
+		self.bio = 0
+		self.psych = 0
+		self.social = 0
 
 def isConnected(graph):
 	print("Enter at", time.ctime())
@@ -23,11 +24,43 @@ def isConnected(graph):
 	else:
 		end = time.time()
 		print("Exit at", time.ctime(), '(', end - start, ") - Connected")
-def replacer(title, abstract):
-	title.replace("\n", "\\")
-	title.replace("\"", "\"\"")
-	abstract.replace("\n", "\\")
-	abstract.replace("\"", "\"\"")
+
+def replacer(words):
+	words.replace("\n", "\\")
+	words.replace("\"", "\"\"")
+	return words
+
+def insert(collection, subject, object, category):
+	found = False
+	marker = -1
+	for i in range(len(collection)):
+		# print(collection[i].subject, "=", subject)
+		if collection[i].subject == subject:
+			# pint("DOPUND")
+			found = True
+			marker = i
+	if not found:
+		obj = paper()
+		obj.subject = subject
+		marker = len(collection)
+		collection.append(obj)
+	# print (marker)
+	if category == 'a':
+		# collection[marker].abstract = object
+		collection[marker].abstract = replacer(ascii(str(object)))
+	elif category == 't':
+		# collection[marker].title = object
+		collection[marker].title = replacer(ascii(str(object)))
+	elif category == 'b':
+		collection[marker].bio = 1
+	elif category == 'p':
+		collection[marker].psych = 2
+	elif category == 's':
+		collection[marker].social = 3
+	return collection
+
+
+
 
 #file = 'tester.rdf'
 file = '../../BIOME-z.rdf'
@@ -35,8 +68,14 @@ output = open("./data.csv", "w")
 
 graph = rdflib.Graph()
 
+start = time.time()
+
 #Parses the .rdf files and stores it into the graph
 graph.parse(file)
+
+end = time.time()
+
+print("{0:.2f} seconds to parse BIOME-z.rdf".format((end - start)))
 
 # A test to see if the graph made by the .parse() function is connected (It is NOT)
 # isConnected(graph)
@@ -52,104 +91,44 @@ PSYCH = Literal("psychological")
 SOCIAL = Literal("social")
 
 # Making a set of subject URIRef ID's. These will be used later, but we dont want repeats
-subjects = set()
+collection = []
 
-counter = 0
-# domain_count = [0, 0, 0]
+counter = -1
+domain_count = [0, 0, 0]
 
 # This will find the URIRef ID for every paper that has an abstract attached to it
 start = time.time()
 for s, p, o in graph:
 	if ABSTRACT in p:
+		collection = insert(collection, s, o, 'a')
 		counter += 1
-		subjects.add(s)
-'''
-	# This block of code, prints out every tuple that contains the subjects biological, psychological, and social 
-	if (SUBJECT in p) and BIO in graph.value(s, p, None):
-		rdfbio = (graph.value(s, p, None)).lower()
-		print("BIO - ",s, " - ", p)
-		print(graph.value(s, p, None), "\n")
+	if TITLE in p:
+		collection = insert(collection, s, o, 't')
+	if SUBJECT in p and BIO in o:
+		collection = insert(collection, s, o, 'b')
 		domain_count[0] += 1
-	elif (SUBJECT in p) and PSYCH in graph.value(s, p, None):
-		rdfpsych = (graph.value(s, p, None)).lower()
-		print("PSYCH - ",s, " - ", p)
-		print(graph.value(s, p, None), "\n")
+	if SUBJECT in p and PSYCH in o:
+		collection = insert(collection, s, o, 'p')
 		domain_count[1] += 1
-	elif (SUBJECT in p) and SOCIAL in graph.value(s, p, None):
-		rdfsocial = (graph.value(s, p, None)).lower() 
-		print("SOCIAL - ", s, " - ", p)
-		print(graph.value(s, p, None), "\n")
-		domain_count[2] += 
-'''
+	if SUBJECT in p and SOCIAL in o:
+		collection = insert(collection, s, o, 's')
+		domain_count[2] += 1
+
 end = time.time()
 
 print("{0:.2f} seconds to ID {1:d} articles".format((end - start), counter))
-# print("Bio    -", domain_count[0])
-# print("Psych  -", domain_count[1])
-# print("Social -", domain_count[2])
-
-# List of paper objects
-list = []
-
-domain_count = [0, 0, 0]
-
-counter = 0
-
-# For every URIRef ID found in the last loop, we will search the graph for the associated abstracts and tags
-start = time.time()
-for x in subjects:
-	abstract = ""
-	title = ""
-	# domain = [0, 0, 0]	# Make three seperate variables
-	d1 = 0
-	d2 = 0
-	d3 = 0
-	for s, p, o in graph:
-		if x == s and TITLE in p:
-			title = graph.value(s, p, None)
-		elif x == s and ABSTRACT in p:
-			abstract = graph.value(s, p, None)
-		elif x == s and SUBJECT in p:
-			if BIO == graph.value(s, p, None):
-				d1 = 1
-				domain_count[0] += 1
-			elif PSYCH == graph.value(s, p, None):
-				d2 = 2
-				domain_count[1] += 1
-			elif SOCIAL == graph.value(s, p, None):
-				d3 = 3
-				domain_count[2] += 1
-	# print(domain, "\n")
-	# replacer(title, abstract)
-	title.replace("\n", "\\")
-	title.replace("\"", "\"\"")
-	abstract.replace("\n", "\\")
-	abstract.replace("\"", "\"\"")
-	if d1 == 1:
-		output.write("\"1\",\"{}\",\"{}\"\n".format(title, abstract))
-		counter += 1
-	elif d2 == 2:
-		output.write("\"2\",\"{}\",\"{}\"\n".format(title, abstract))
-		counter += 1
-	elif d3 == 3:
-		output.write("\"3\",\"{}\",\"{}\"\n".format(title, abstract))
-		counter += 1
-	# list.append(paper(title, abstract, d1, d2, d3))
-end = time.time()
-
-print("{0:.2f} seconds to get {1:d} article titles, abstracts, and BIOME domains".format(end - start, counter))
 print("Bio    -", domain_count[0])
 print("Psych  -", domain_count[1])
 print("Social -", domain_count[2])
 
+for obj in collection:
+		if obj.bio != 0:
+			output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.bio), str(obj.title), str(obj.abstract)))
+		if obj.psych != 0:
+			output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.psych), str(obj.title), str(obj.abstract)))
+		if obj.social != 0:
+			output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.social), str(obj.title), str(obj.abstract)))
 
-# For every object in the lsit that has been identified in one of the biome domains, print the paper's title and biome
-# output = open("data.csv", "w")
-# for obj in list:
-# 		if obj.bio != 0:
-# 			output.write('"' + str(obj.bio) + "\",\"" + obj.title + "\" \n")
-# 		elif obj.psych != 0:
-# 			output.write('"' + str(obj.psych) + "\",\"" + obj.title + "\" \n")
-# 		elif obj.social != 0:
-# 			output.write('"' + str(obj.social) + "\",\"" + obj.title + "\" \n")
 output.close()
+
+exit()
