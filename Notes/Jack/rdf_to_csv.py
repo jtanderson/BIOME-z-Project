@@ -26,17 +26,16 @@ def isConnected(graph):
 		print("Exit at", time.ctime(), '(', end - start, ") - Connected")
 
 def replacer(words):
-	words.replace("\n", "\\")
-	words.replace("\"", "\"\"")
+	# Need to replace \n with \ and " with '
+	words = words.replace('\n', " \\ ")
+	words = words.replace('\"', '\'')
 	return words
 
 def insert(collection, subject, object, category):
 	found = False
 	marker = -1
 	for i in range(len(collection)):
-		# print(collection[i].subject, "=", subject)
 		if collection[i].subject == subject:
-			# pint("DOPUND")
 			found = True
 			marker = i
 	if not found:
@@ -46,11 +45,9 @@ def insert(collection, subject, object, category):
 		collection.append(obj)
 	# print (marker)
 	if category == 'a':
-		# collection[marker].abstract = object
-		collection[marker].abstract = replacer(ascii(str(object)))
+		collection[marker].abstract = replacer(str(object))
 	elif category == 't':
-		# collection[marker].title = object
-		collection[marker].title = replacer(ascii(str(object)))
+		collection[marker].title = replacer(str(object))
 	elif category == 'b':
 		collection[marker].bio = 1
 	elif category == 'p':
