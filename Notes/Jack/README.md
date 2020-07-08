@@ -12,9 +12,12 @@ Our intention is to make a `.csv` file with our data in the same format with the
 
 ### Current Problems
 ~~1. The program does not create a connected graph from the `.rdf` file and will not read over every file when searching for tags/subjects (see program output).~~
-~~2. When searching for the tags/subject, only a slect few will get identified properly. ~~
+
+~~2. When searching for the tags/subject, only a slect few will get identified properly.~~
+
 ~~3. The functions used to replace `\n` characters in the `.csv` file are not catching every character.~~
-~~4. The program runs in 10 - 30 seconds depending on how the graph was made and searched. ~~
+
+~~4. The program runs in 10 - 30 seconds depending on how the graph was made and searched.~~
 
 
 June 08 - June 14
