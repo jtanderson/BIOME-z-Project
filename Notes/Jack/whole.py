@@ -230,7 +230,9 @@ class TextClassificationDataset(torch.utils.data.Dataset):
         print("TextClassificationDataset get_vocab")
         return self._vocab
 
-def _setup_datasets(train_csv_path, test_csv_path, ngrams=1, vocab=None, include_unk=False):
+def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False):
+
+	# Need to split data file into train.csv and test.csv
 
     if vocab is None:
         logging.info('Building Vocab based on {}'.format(train_csv_path))
@@ -255,13 +257,6 @@ def _setup_datasets(train_csv_path, test_csv_path, ngrams=1, vocab=None, include
 
     return (TextClassificationDataset(vocab, train_data, train_labels),
             TextClassificationDataset(vocab, test_data, test_labels))
-
-# Slpits the main .csv file into a training and testing file
-def spliter(data_file='./data.csv', root='./'):
-	
-	
-	return setup_datasets2(train_csv_path, test_csv_path, ngrams=NGRAMS, vocab=None)
-
 
 ############################### Text Classification with TorchText ################################
 import os
@@ -371,15 +366,14 @@ def predict(text, model, vocab, ngrams):
         return output.argmax(1).item() + 1
 
 # Declans classifier program 
-def classifier(train_dataset='train.csv', test_dataset='test.csv'):
+def classifier(data_file='./data.csv', root='./'):
 	NGRAMS = 2 # How it groups the words together
 	# NGRAMS = 3 --> 'Apples are healthy'
 	# NGRAMS = 2 --> 'Apples are'
 
 
-	train_dataset = TextClassification(vocab, )
+	train_data, test_data = setup_datasets(data=data_file, root=root, ngrams=ngrams, vocab=vocab)
 
-	print(type(train_dataset), " - ", type(train_dataset))
 
 	# The size of the batch.
 	BATCH_SIZE = 16
@@ -446,5 +440,4 @@ if not os.path.isdir(root):
 data_file = './.data/BIOME-z/data.csv'
 
 parser(data_file)
-train_data, test_data = spliter(data_file, root)
-classifier(tran_data, test_data)
+classifier(data_file, root)
