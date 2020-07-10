@@ -197,6 +197,7 @@ class TextClassificationDataset(torch.utils.data.Dataset):
         return self._vocab
 
 def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False):
+	
 	# Need to split data file into train.csv and test.csv
 	train_csv_path = root + 'train.csv'
 	test_csv_path = root + 'test.csv'
@@ -341,7 +342,7 @@ def classifier(data_file='./data.csv', root='./'):
 	# Create the model (initialize weights and layers).
 	model = TextSentiment(VOCAB_SIZE, EMBED_DIM, NUM_CLASS).to(device)
 
-	EPOCHS = 12
+	EPOCHS = 24
 
 	min_valid_loss = float('inf')
 
@@ -352,7 +353,7 @@ def classifier(data_file='./data.csv', root='./'):
 	optimizer = torch.optim.SGD(model.parameters(), lr=4.0)
 
 	# Used to change learning rate (Descending Learning Rate)
-	scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=0.9)
+	scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=.8)
 
 	train_len = int(len(train_dataset) * 0.95)
 	sub_train_, sub_valid_ =     random_split(train_dataset, [train_len, len(train_dataset) - train_len])
