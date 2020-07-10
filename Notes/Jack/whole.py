@@ -61,7 +61,7 @@ def insert(collection, subject, object, category):
 def parser(data_file='./data.csv'):
 	#file = 'tester.rdf'
 	file = '../../BIOME-z.rdf'
-	output = open(data_file)
+	output = open(data_file, 'w')
 
 	graph = rdflib.Graph()
 
@@ -142,7 +142,6 @@ from torchtext.vocab import Vocab
 from tqdm import tqdm
 
 def _csv_iterator(data_path, ngrams, yield_cls=False):
-    print("_csv_iterator")
     tokenizer = get_tokenizer("basic_english")
     with io.open(data_path, encoding="utf8") as f:
         reader = unicode_csv_reader(f)
@@ -155,7 +154,6 @@ def _csv_iterator(data_path, ngrams, yield_cls=False):
                 yield ngrams_iterator(tokens, ngrams)
 
 def _create_data_from_iterator(vocab, iterator, include_unk):
-    print("_create_data_from_iterator")
     data = []
     labels = []
     with tqdm(unit_scale=0, unit='lines') as t:
@@ -174,35 +172,8 @@ def _create_data_from_iterator(vocab, iterator, include_unk):
     return data, set(labels)
 
 class TextClassificationDataset(torch.utils.data.Dataset):
-    """Defines an abstract text classification datasets.
-       Currently, we only support the following datasets:
-
-             - AG_NEWS
-             - SogouNews
-             - DBpedia
-             - YelpReviewPolarity
-             - YelpReviewFull
-             - YahooAnswers
-             - AmazonReviewPolarity
-             - AmazonReviewFull
-    """
 
     def __init__(self, vocab, data, labels):
-        print("TextClassificationDataset __init__")
-        """Initiate text-classification dataset.
-
-            Arguments:
-                vocab: Vocabulary object used for dataset.
-                data: a list of label/tokens tuple. tokens are a tensor after
-                    numericalizing the string tokens. label is an integer.
-                    [(label1, tokens1), (label2, tokens2), (label2, tokens3)]
-                label: a set of the labels.
-                    {label1, label2}
-
-            Examples:
-                See the examples in examples/text_classification/
-        """
-
         super(TextClassificationDataset, self).__init__()
         self._data = data
         self._labels = labels
@@ -210,53 +181,51 @@ class TextClassificationDataset(torch.utils.data.Dataset):
 
 
     def __getitem__(self, i):
-        print("TextClassificationDataset __getitem__")
         return self._data[i]
 
     def __len__(self):
-        print("TextClassificationDataset __len__")
         return len(self._data)
 
     def __iter__(self):
-        print("TextClassificationDataset __iter__")
         for x in self._data:
             yield x
 
     def get_labels(self):
-        print("TextClassificationDataset get_labels")
         return self._labels
 
     def get_vocab(self):
-        print("TextClassificationDataset get_vocab")
         return self._vocab
 
 def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False):
-
 	# Need to split data file into train.csv and test.csv
+	train_csv_path = root + 'train.csv'
+	test_csv_path = root + 'test.csv'
 
-    if vocab is None:
-        logging.info('Building Vocab based on {}'.format(train_csv_path))
-        vocab = build_vocab_from_iterator(_csv_iterator(train_csv_path, ngrams))
+	if vocab is None:
+		logging.info('Building Vocab based on {}'.format(train_csv_path))
+		vocab = build_vocab_from_iterator(_csv_iterator(train_csv_path, ngrams))
 
-    else:
-        if not isinstance(vocab, Vocab):
-            raise TypeError("Passed vocabulary is not of type Vocab")
+	else:
+		if not isinstance(vocab, Vocab):
+			raise TypeError("Passed vocabulary is not of type Vocab")
 
-    logging.info('Vocab has {} entries'.format(len(vocab)))
+	logging.info('Vocab has {} entries'.format(len(vocab)))
 
-    logging.info('Creating training data')
-    train_data, train_labels = _create_data_from_iterator(
-        vocab, _csv_iterator(train_csv_path, ngrams, yield_cls=True), include_unk)
+	logging.info('Creating training data')
+	train_data, train_labels = _create_data_from_iterator(
+		vocab, _csv_iterator(train_csv_path, ngrams, yield_cls=True), include_unk)
 
-    logging.info('Creating testing data')
-    test_data, test_labels = _create_data_from_iterator(
-        vocab, _csv_iterator(test_csv_path, ngrams, yield_cls=True), include_unk)
+	logging.info('Creating testing data')
+	test_data, test_labels = _create_data_from_iterator(
+		vocab, _csv_iterator(test_csv_path, ngrams, yield_cls=True), include_unk)
 
-    if len(train_labels ^ test_labels) > 0:
-        raise ValueError("Training and test labels don't match")
+	# print(train_labels, "^", test_labels, "=", len(train_labels ^ test_labels))
+	# exit()
+	if len(train_labels ^ test_labels) > 0:
+		raise ValueError("Training and test labels don't match")
 
-    return (TextClassificationDataset(vocab, train_data, train_labels),
-            TextClassificationDataset(vocab, test_data, test_labels))
+	return (TextClassificationDataset(vocab, train_data, train_labels),
+		TextClassificationDataset(vocab, test_data, test_labels))
 
 ############################### Text Classification with TorchText ################################
 import os
@@ -269,38 +238,30 @@ import torch.nn.functional as F
 
 from torch.utils.data import DataLoader
 
+import time
 from torch.utils.data.dataset import random_split
 
-import re
-from torchtext.data.utils import ngrams_iterator
-from torchtext.data.utils import get_tokenizer
-
 class TextSentiment(nn.Module):
-    # Initialization
-    def __init__(self, vocab_size, embed_dim, num_class):
-        super().__init__()
-        # Set "embedding" to a new instance of "EmbeddingBag"
-        self.embedding = nn.EmbeddingBag(vocab_size, embed_dim, sparse=True)
-        # Set fc to a linear transformation of embed_dim(input), and num_class(output)
-        self.fc = nn.Linear(embed_dim, num_class)
-        # Call the function to initialize weights.
-        self.init_weights()
-    
-    # Initializes the weights of the layer.
-    # Another method is "Encoding & Decoding":
-    # Instead of associating different words with one another in a dense structure (Embedding),
-    # it takes assigns a placement of a unique word in a vector.
-    
-    def init_weights(self):
-        initrange = 0.5
-        self.embedding.weight.data.uniform_(-initrange, initrange)
-        self.fc.weight.data.uniform_(-initrange, initrange)
-        self.fc.bias.data.zero_()
-  
-    # Slitches all layers together.
-    def forward(self, text, offsets):
-        embedded = self.embedding(text, offsets)
-        return self.fc(embedded)
+	    # Initialization
+	    def __init__(self, vocab_size, embed_dim, num_class):
+	        super().__init__()
+	        # Set "embedding" to a new instance of "EmbeddingBag"
+	        self.embedding = nn.EmbeddingBag(vocab_size, embed_dim, sparse=True)
+	        # Set fc to a linear transformation of embed_dim(input), and num_class(output)
+	        self.fc = nn.Linear(embed_dim, num_class)
+	        # Call the function to initialize weights.
+	        self.init_weights()
+	    
+	    def init_weights(self):
+	        initrange = 0.5
+	        self.embedding.weight.data.uniform_(-initrange, initrange)
+	        self.fc.weight.data.uniform_(-initrange, initrange)
+	        self.fc.bias.data.zero_()
+	  
+	    # Slitches all layers together.
+	    def forward(self, text, offsets):
+	        embedded = self.embedding(text, offsets)
+	        return self.fc(embedded)
 
 # A custom function to create batch sizes given varying text sizes.
 def generate_batch(batch):
@@ -313,73 +274,60 @@ def generate_batch(batch):
     text = torch.cat(text)
     return text, offsets, label
 
-# Function for training the model.
-def train_func(sub_train_):
-    train_loss = 0
-    train_acc = 0
-    
-    # Load the data in: (dataset, batchsize, shuffle, collate_fn)
-    data = DataLoader(sub_train_, batch_size=BATCH_SIZE, shuffle=True,
-                     collate_fn=generate_batch)
-    
-    
-    for i, (text, offsets, cls) in enumerate(data):
-        
-        # Zeros our gradience (related to loss)
-        optimizer.zero_grad()
-        text, offsets, cls = text.to(device), offsets.to(device), cls.to(device)
-        
-        # Run out data through our model.
-        output = model(text, offsets)
-        
-        # Get the loss value.
-        loss = criterion(output, cls)
-        train_loss += loss.item()
-        loss.backward() # Back propagate (calculate weight change).
-        optimizer.step() # Apply weight changes.
-        train_acc += (output.argmax(1) == cls).sum().item()
-        
-    # Adjust learning rate:
-    scheduler.step()
-    return train_loss / len(sub_train_), train_acc / len(sub_train_)
-
-def test(data_):
-    loss = 0
-    acc = 0
-    data = DataLoader(data_, batch_size=BATCH_SIZE, collate_fn=generate_batch)
-    for text, offsets, cls in data:
-        text, offsets, cls = text.to(device), offsets.to(device), cls.to(device)
-        with torch.no_grad():
-            output = model(text, offsets)
-            loss = criterion(output, cls)
-            loss += loss.item()
-            acc += (output.argmax(1) == cls).sum().item()
-            
-    return loss / len(data_), acc / len(data_)
-
-def predict(text, model, vocab, ngrams):
-    tokenizer = get_tokenizer("basic_english")
-    with torch.no_grad():
-        text = torch.tensor([vocab[token]
-                            for token in ngrams_iterator(tokenizer(text), ngrams)])
-        output = model(text, torch.tensor([0]))
-        return output.argmax(1).item() + 1
-
 # Declans classifier program 
 def classifier(data_file='./data.csv', root='./'):
+
+	# Function for training the model.
+	def train_func(sub_train_):
+	    train_loss = 0
+	    train_acc = 0
+	    
+	    # Load the data in: (dataset, batchsize, shuffle, collate_fn)
+	    data = DataLoader(sub_train_, batch_size=BATCH_SIZE, shuffle=True,
+	                     collate_fn=generate_batch)
+	    
+	    
+	    for i, (text, offsets, cls) in enumerate(data):
+	        
+	        # Zeros our gradience (related to loss)
+	        optimizer.zero_grad()
+	        text, offsets, cls = text.to(device), offsets.to(device), cls.to(device)
+	        
+	        # Run out data through our model.
+	        output = model(text, offsets)
+	        
+	        # Get the loss value.
+	        loss = criterion(output, cls)
+	        train_loss += loss.item()
+	        loss.backward() # Back propagate (calculate weight change).
+	        optimizer.step() # Apply weight changes.
+	        train_acc += (output.argmax(1) == cls).sum().item()
+	        
+	    # Adjust learning rate:
+	    scheduler.step()
+	    return train_loss / len(sub_train_), train_acc / len(sub_train_)
+
+	def test(data_):
+	    loss = 0
+	    acc = 0
+	    data = DataLoader(data_, batch_size=BATCH_SIZE, collate_fn=generate_batch)
+	    for text, offsets, cls in data:
+	        text, offsets, cls = text.to(device), offsets.to(device), cls.to(device)
+	        with torch.no_grad():
+	            output = model(text, offsets)
+	            loss = criterion(output, cls)
+	            loss += loss.item()
+	            acc += (output.argmax(1) == cls).sum().item()
+	            
+	    return loss / len(data_), acc / len(data_)
+
 	NGRAMS = 2 # How it groups the words together
-	# NGRAMS = 3 --> 'Apples are healthy'
-	# NGRAMS = 2 --> 'Apples are'
+	
+	train_dataset, test_dataset = _setup_datasets(data=data_file, root=root, ngrams=NGRAMS, vocab=None)
 
-
-	train_data, test_data = setup_datasets(data=data_file, root=root, ngrams=ngrams, vocab=vocab)
-
-
-	# The size of the batch.
 	BATCH_SIZE = 16
 
 	device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # I am using the CPU in this case.
-	# Creates a copy of the Tensor and formats it for either the GPU (cuda) or CPU.
 
 	# Set variables for testing and learning.
 	VOCAB_SIZE = len(train_dataset.get_vocab()) # 1,308,844
@@ -393,9 +341,7 @@ def classifier(data_file='./data.csv', root='./'):
 	# Create the model (initialize weights and layers).
 	model = TextSentiment(VOCAB_SIZE, EMBED_DIM, NUM_CLASS).to(device)
 
-
-
-	EPOCHS = 8
+	EPOCHS = 12
 
 	min_valid_loss = float('inf')
 
@@ -409,7 +355,7 @@ def classifier(data_file='./data.csv', root='./'):
 	scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=0.9)
 
 	train_len = int(len(train_dataset) * 0.95)
-	sub_train_, sub_valid_ = random_split(train_dataset, [train_len, len(train_dataset) - train_len])
+	sub_train_, sub_valid_ =     random_split(train_dataset, [train_len, len(train_dataset) - train_len])
 
 	# For each epoch:
 	for epoch in range(EPOCHS):
@@ -430,14 +376,18 @@ def classifier(data_file='./data.csv', root='./'):
 	    print(f'\tLoss: {train_loss:.4f}(train)\t|\tAcc: {train_acc * 100:.1f}%(train)')
 	    print(f'\tLoss: {valid_loss:.4f}(valid)\t|\tAcc: {valid_acc * 100:.1f}%(valid)')
 
+	print('Checking the results of test dataset...')
+	test_loss, test_acc = test(test_dataset)
+	print(f'\tLoss: {test_loss:.4f}(test)\t|\tAcc: {test_acc * 100:.1f}%(test)')
+
 ############################################# "Main" ##############################################
 
-root = './.data/BIOME-z'	
+root = './.data/BIOME-z/'	
 
 if not os.path.isdir(root):
     os.mkdir(root)
 
-data_file = './.data/BIOME-z/data.csv'
+data_file = root + 'data.csv'
 
 parser(data_file)
 classifier(data_file, root)
