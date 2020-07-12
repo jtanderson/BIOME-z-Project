@@ -119,12 +119,13 @@ def parser(data_file='./data.csv'):
 	print("Social -", domain_count[2])
 
 	for obj in collection:
-			if obj.social != 0:
-				output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.social), str(obj.title), str(obj.abstract)))
-			elif obj.psych != 0:
-				output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.psych), str(obj.title), str(obj.abstract)))
-			elif obj.bio != 0:
-				output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.bio), str(obj.title), str(obj.abstract)))
+			if obj.abstract != "":
+				if obj.social != 0:
+					output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.social), str(obj.title), str(obj.abstract)))
+				elif obj.psych != 0:
+					output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.psych), str(obj.title), str(obj.abstract)))
+				elif obj.bio != 0:
+					output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.bio), str(obj.title), str(obj.abstract)))
 			
 			
 
@@ -134,6 +135,8 @@ def parser(data_file='./data.csv'):
 import logging
 import torch
 import io
+from random import seed
+from random import randint
 from torchtext.utils import download_from_url, extract_archive, unicode_csv_reader
 from torchtext.data.utils import ngrams_iterator
 from torchtext.data.utils import get_tokenizer
@@ -197,36 +200,55 @@ class TextClassificationDataset(torch.utils.data.Dataset):
         return self._vocab
 
 def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False):
-	
-	# Need to split data file into train.csv and test.csv
-	train_csv_path = root + 'train.csv'
-	test_csv_path = root + 'test.csv'
+	while True:
+		train_csv_path, test_csv_path = splitter(data, root)
+		if vocab is None:
+			logging.info('Building Vocab based on {}'.format(train_csv_path))
+			vocab = build_vocab_from_iterator(_csv_iterator(train_csv_path, ngrams))
+			# vocab.load_vectors(vectors='glove.6B.100d')
+		else:
+			if not isinstance(vocab, Vocab):
+				raise TypeError("Passed vocabulary is not of type Vocab")
 
-	if vocab is None:
-		logging.info('Building Vocab based on {}'.format(train_csv_path))
-		vocab = build_vocab_from_iterator(_csv_iterator(train_csv_path, ngrams))
+		logging.info('Vocab has {} entries'.format(len(vocab)))
 
-	else:
-		if not isinstance(vocab, Vocab):
-			raise TypeError("Passed vocabulary is not of type Vocab")
+		logging.info('Creating training data')
+		train_data, train_labels = _create_data_from_iterator(
+			vocab, _csv_iterator(train_csv_path, ngrams, yield_cls=True), include_unk)
 
-	logging.info('Vocab has {} entries'.format(len(vocab)))
+		logging.info('Creating testing data')
+		test_data, test_labels = _create_data_from_iterator(
+			vocab, _csv_iterator(test_csv_path, ngrams, yield_cls=True), include_unk)
 
-	logging.info('Creating training data')
-	train_data, train_labels = _create_data_from_iterator(
-		vocab, _csv_iterator(train_csv_path, ngrams, yield_cls=True), include_unk)
-
-	logging.info('Creating testing data')
-	test_data, test_labels = _create_data_from_iterator(
-		vocab, _csv_iterator(test_csv_path, ngrams, yield_cls=True), include_unk)
-
-	# print(train_labels, "^", test_labels, "=", len(train_labels ^ test_labels))
-	# exit()
-	if len(train_labels ^ test_labels) > 0:
-		raise ValueError("Training and test labels don't match")
-
+		# print(train_labels, "^", test_labels, "=", len(train_labels ^ test_labels))
+		if len(train_labels ^ test_labels) == 0:
+			break
+			# raise ValueError("Training and test labels don't match")
 	return (TextClassificationDataset(vocab, train_data, train_labels),
 		TextClassificationDataset(vocab, test_data, test_labels))
+
+def splitter(data, root):
+	train_csv_path = root + 'train.csv'
+	test_csv_path = root + 'test.csv'
+	train_file = open(train_csv_path, 'w')
+	test_file = open(test_csv_path, 'w')
+
+	line_count = len(open(data).readlines())
+	seed(time.time())
+	lines = set()
+
+	while len(lines) < line_count * .1:
+		lines.add(randint(0,line_count))
+		
+	with open(data) as data_file:
+		for lineno, line in enumerate(data_file):
+			if lineno in lines:
+				test_file.write(line)
+			else:
+				train_file.write(line)
+	train_file.close()
+	test_file.close()
+	return train_csv_path, test_csv_path
 
 ############################### Text Classification with TorchText ################################
 import os
@@ -386,7 +408,8 @@ def classifier(data_file='./data.csv', root='./'):
 root = './.data/BIOME-z/'	
 
 if not os.path.isdir(root):
-    os.mkdir(root)
+	os.mkdir('./.data')
+	os.mkdir(root)
 
 data_file = root + 'data.csv'
 
