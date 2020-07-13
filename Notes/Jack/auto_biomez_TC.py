@@ -369,22 +369,21 @@ EPOCHS = 256
 # LEARNING_RATE = 1.0
 # STEP_SIZE = 1
 # GAMMA = 0.9
-for NGRAMS in my_range(1, 11, 1):
-	for BATCH_SIZE in my_range(16, 144, 16):
-		for EMBED_DIM in my_range(16, 144, 16):
-			for LEARNING_RATE in my_range(.1, 1.6, .1):
-				for STEP_SIZE in my_range(1, 11, 1):
-					for GAMMA in my_range(.1, 1.6, .1):
+for NGRAMS in my_range(1, 10, 1):
+	for BATCH_SIZE in my_range(16, 128, 16):
+		for EMBED_DIM in my_range(16, 128, 16):
+			for LEARNING_RATE in my_range(1, 6, .5):
+				for STEP_SIZE in my_range(1, 10, 1):
+					for GAMMA in my_range(.1, .9, .1):
 						printout.write("NGRAMS \t BATCH_SIZE \t EMBED_DIM \t LEARNING_RATE \t STEP_SIZE \t GAMMA \n")
 						printout.write("{} \t\t\t {} \t\t\t {} \t\t {} \t\t\t {} \t\t {} \n".format(NGRAMS, BATCH_SIZE, EMBED_DIM, LEARNING_RATE, STEP_SIZE, GAMMA))
 
 						# print("NGRAMS \t BATCH_SIZE \t EMBED_DIM \t LEARNING_RATE \t STEP_SIZE \t GAMMA \n")
-						# print("{} \t\t\t {} \t\t\t {} \t\t {} \t\t\t {} \t\t {} \n".format(NGRAMS, BATCH_SIZE, EMBED_DIM, LEARNING_RATE, STEP_SIZE, GAMMA))
+						print("{} \t {} \t {} \t {} \t {} \t {} \n".format(NGRAMS, BATCH_SIZE, EMBED_DIM, LEARNING_RATE, STEP_SIZE, GAMMA))
 	
 						train_dataset, test_dataset = _setup_datasets(data=data_file, root=root, ngrams=NGRAMS, vocab=None)
 
 						device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # I am using the CPU in this case.
-
 						# Set variables for testing and learning.
 						VOCAB_SIZE = len(train_dataset.get_vocab()) # 1,308,844
 
@@ -419,7 +418,8 @@ for NGRAMS in my_range(1, 11, 1):
 						    # Run training and testing.
 						    train_loss, train_acc = train_func(sub_train_)
 						    valid_loss, valid_acc = test(sub_valid_)
-						    
+						    if train_loss > 0:
+						        continue 
 						    # Calculate time values.
 						    # secs = int(time.time() - start_time)
 						    # mins = secs / 60
