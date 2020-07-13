@@ -1,0 +1,1492 @@
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 1 		 0.1 
+Checking the results of test dataset...	Loss: 0.1244(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 1 		 0.2 
+Checking the results of test dataset...	Loss: 0.1252(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 1 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.0909(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 1 		 0.4 
+Checking the results of test dataset...	Loss: 0.1068(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 1 		 0.5 
+Checking the results of test dataset...	Loss: 0.1287(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 1 		 0.6 
+Checking the results of test dataset...	Loss: 0.1647(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 1 		 0.7 
+Checking the results of test dataset...	Loss: 0.0913(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 1 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1666(test)	|	Acc: 58.3%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 1 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.0901(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 2 		 0.1 
+Checking the results of test dataset...	Loss: 0.1239(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 2 		 0.2 
+Checking the results of test dataset...	Loss: 0.1447(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 2 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1442(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 2 		 0.4 
+Checking the results of test dataset...	Loss: 0.1236(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 2 		 0.5 
+Checking the results of test dataset...	Loss: 0.1602(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 2 		 0.6 
+Checking the results of test dataset...	Loss: 0.1089(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 2 		 0.7 
+Checking the results of test dataset...	Loss: 0.1374(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 2 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.0884(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 2 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1411(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 3 		 0.1 
+Checking the results of test dataset...	Loss: 0.1121(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 3 		 0.2 
+Checking the results of test dataset...	Loss: 0.1073(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 3 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1876(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 3 		 0.4 
+Checking the results of test dataset...	Loss: 0.1794(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 3 		 0.5 
+Checking the results of test dataset...	Loss: 0.0927(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 3 		 0.6 
+Checking the results of test dataset...	Loss: 0.1210(test)	|	Acc: 75.0%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 3 		 0.7 
+Checking the results of test dataset...	Loss: 0.1137(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 3 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1084(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 3 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1803(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 4 		 0.1 
+Checking the results of test dataset...	Loss: 0.0901(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 4 		 0.2 
+Checking the results of test dataset...	Loss: 0.1975(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 4 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1423(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 4 		 0.4 
+Checking the results of test dataset...	Loss: 0.1623(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 4 		 0.5 
+Checking the results of test dataset...	Loss: 0.1881(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 4 		 0.6 
+Checking the results of test dataset...	Loss: 0.1292(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 4 		 0.7 
+Checking the results of test dataset...	Loss: 0.1574(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 4 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1084(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 4 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1108(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 5 		 0.1 
+Checking the results of test dataset...	Loss: 0.1564(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 5 		 0.2 
+Checking the results of test dataset...	Loss: 0.1235(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 5 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.0943(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 5 		 0.4 
+Checking the results of test dataset...	Loss: 0.1077(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 5 		 0.5 
+Checking the results of test dataset...	Loss: 0.1059(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 5 		 0.6 
+Checking the results of test dataset...	Loss: 0.2281(test)	|	Acc: 38.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 5 		 0.7 
+Checking the results of test dataset...	Loss: 0.1160(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 5 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.0963(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 5 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.0836(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 6 		 0.1 
+Checking the results of test dataset...	Loss: 0.1110(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 6 		 0.2 
+Checking the results of test dataset...	Loss: 0.1240(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 6 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1238(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 6 		 0.4 
+Checking the results of test dataset...	Loss: 0.1612(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 6 		 0.5 
+Checking the results of test dataset...	Loss: 0.1134(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 6 		 0.6 
+Checking the results of test dataset...	Loss: 0.1397(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 6 		 0.7 
+Checking the results of test dataset...	Loss: 0.1418(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 6 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1274(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 6 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1353(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 7 		 0.1 
+Checking the results of test dataset...	Loss: 0.1061(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 7 		 0.2 
+Checking the results of test dataset...	Loss: 0.1088(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 7 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1465(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 7 		 0.4 
+Checking the results of test dataset...	Loss: 0.1457(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 7 		 0.5 
+Checking the results of test dataset...	Loss: 0.1420(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 7 		 0.6 
+Checking the results of test dataset...	Loss: 0.1251(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 7 		 0.7 
+Checking the results of test dataset...	Loss: 0.1949(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 7 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1102(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 7 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1024(test)	|	Acc: 83.3%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 8 		 0.1 
+Checking the results of test dataset...	Loss: 0.0927(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 8 		 0.2 
+Checking the results of test dataset...	Loss: 0.1282(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 8 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1506(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 8 		 0.4 
+Checking the results of test dataset...	Loss: 0.1117(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 8 		 0.5 
+Checking the results of test dataset...	Loss: 0.1071(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 8 		 0.6 
+Checking the results of test dataset...	Loss: 0.1125(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 8 		 0.7 
+Checking the results of test dataset...	Loss: 0.1165(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 8 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1401(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 8 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1366(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 9 		 0.1 
+Checking the results of test dataset...	Loss: 0.1228(test)	|	Acc: 75.0%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 9 		 0.2 
+Checking the results of test dataset...	Loss: 0.1037(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 9 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1049(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 9 		 0.4 
+Checking the results of test dataset...	Loss: 0.1462(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 9 		 0.5 
+Checking the results of test dataset...	Loss: 0.1592(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 9 		 0.6 
+Checking the results of test dataset...	Loss: 0.1405(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 9 		 0.7 
+Checking the results of test dataset...	Loss: 0.1607(test)	|	Acc: 66.7%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 9 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1104(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 9 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1515(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 10 		 0.1 
+Checking the results of test dataset...	Loss: 0.1301(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 10 		 0.2 
+Checking the results of test dataset...	Loss: 0.1392(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 10 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1214(test)	|	Acc: 75.0%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 10 		 0.4 
+Checking the results of test dataset...	Loss: 0.1236(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 10 		 0.5 
+Checking the results of test dataset...	Loss: 0.1118(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 10 		 0.6 
+Checking the results of test dataset...	Loss: 0.1495(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 10 		 0.7 
+Checking the results of test dataset...	Loss: 0.1365(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 10 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1309(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1 			 10 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1685(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 1 		 0.1 
+Checking the results of test dataset...	Loss: 0.1147(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 1 		 0.2 
+Checking the results of test dataset...	Loss: 0.1263(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 1 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1394(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 1 		 0.4 
+Checking the results of test dataset...	Loss: 0.0937(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 1 		 0.5 
+Checking the results of test dataset...	Loss: 0.1483(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 1 		 0.6 
+Checking the results of test dataset...	Loss: 0.1391(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 1 		 0.7 
+Checking the results of test dataset...	Loss: 0.1851(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 1 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.0945(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 1 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1229(test)	|	Acc: 75.0%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 2 		 0.1 
+Checking the results of test dataset...	Loss: 0.1292(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 2 		 0.2 
+Checking the results of test dataset...	Loss: 0.1257(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 2 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1709(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 2 		 0.4 
+Checking the results of test dataset...	Loss: 0.1848(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 2 		 0.5 
+Checking the results of test dataset...	Loss: 0.1048(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 2 		 0.6 
+Checking the results of test dataset...	Loss: 0.1239(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 2 		 0.7 
+Checking the results of test dataset...	Loss: 0.1287(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 2 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1823(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 2 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1115(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 3 		 0.1 
+Checking the results of test dataset...	Loss: 0.1820(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 3 		 0.2 
+Checking the results of test dataset...	Loss: 0.2215(test)	|	Acc: 41.7%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 3 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1142(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 3 		 0.4 
+Checking the results of test dataset...	Loss: 0.1527(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 3 		 0.5 
+Checking the results of test dataset...	Loss: 0.1667(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 3 		 0.6 
+Checking the results of test dataset...	Loss: 0.1282(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 3 		 0.7 
+Checking the results of test dataset...	Loss: 0.1198(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 3 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1375(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 3 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1542(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 4 		 0.1 
+Checking the results of test dataset...	Loss: 0.0921(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 4 		 0.2 
+Checking the results of test dataset...	Loss: 0.1545(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 4 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1071(test)	|	Acc: 83.3%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 4 		 0.4 
+Checking the results of test dataset...	Loss: 0.1467(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 4 		 0.5 
+Checking the results of test dataset...	Loss: 0.1628(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 4 		 0.6 
+Checking the results of test dataset...	Loss: 0.1601(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 4 		 0.7 
+Checking the results of test dataset...	Loss: 0.0942(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 4 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1693(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 4 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1196(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 5 		 0.1 
+Checking the results of test dataset...	Loss: 0.1298(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 5 		 0.2 
+Checking the results of test dataset...	Loss: 0.1961(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 5 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.0930(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 5 		 0.4 
+Checking the results of test dataset...	Loss: 0.1485(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 5 		 0.5 
+Checking the results of test dataset...	Loss: 0.0915(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 5 		 0.6 
+Checking the results of test dataset...	Loss: 0.1357(test)	|	Acc: 66.7%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 5 		 0.7 
+Checking the results of test dataset...	Loss: 0.0885(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 5 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1281(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 5 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1406(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 6 		 0.1 
+Checking the results of test dataset...	Loss: 0.1473(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 6 		 0.2 
+Checking the results of test dataset...	Loss: 0.1060(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 6 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1107(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 6 		 0.4 
+Checking the results of test dataset...	Loss: 0.1075(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 6 		 0.5 
+Checking the results of test dataset...	Loss: 0.1471(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 6 		 0.6 
+Checking the results of test dataset...	Loss: 0.1187(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 6 		 0.7 
+Checking the results of test dataset...	Loss: 0.0874(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 6 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1157(test)	|	Acc: 75.0%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 6 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1447(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 7 		 0.1 
+Checking the results of test dataset...	Loss: 0.1109(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 7 		 0.2 
+Checking the results of test dataset...	Loss: 0.2221(test)	|	Acc: 50.0%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 7 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1210(test)	|	Acc: 75.0%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 7 		 0.4 
+Checking the results of test dataset...	Loss: 0.1376(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 7 		 0.5 
+Checking the results of test dataset...	Loss: 0.2094(test)	|	Acc: 41.7%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 7 		 0.6 
+Checking the results of test dataset...	Loss: 0.1754(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 7 		 0.7 
+Checking the results of test dataset...	Loss: 0.0877(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 7 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1604(test)	|	Acc: 58.3%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 7 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.0820(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 8 		 0.1 
+Checking the results of test dataset...	Loss: 0.1128(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 8 		 0.2 
+Checking the results of test dataset...	Loss: 0.1452(test)	|	Acc: 66.7%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 8 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1441(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 8 		 0.4 
+Checking the results of test dataset...	Loss: 0.1682(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 8 		 0.5 
+Checking the results of test dataset...	Loss: 0.1610(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 8 		 0.6 
+Checking the results of test dataset...	Loss: 0.1647(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 8 		 0.7 
+Checking the results of test dataset...	Loss: 0.0942(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 8 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1202(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 8 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.0945(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 9 		 0.1 
+Checking the results of test dataset...	Loss: 0.1530(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 9 		 0.2 
+Checking the results of test dataset...	Loss: 0.1355(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 9 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1218(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 9 		 0.4 
+Checking the results of test dataset...	Loss: 0.1055(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 9 		 0.5 
+Checking the results of test dataset...	Loss: 0.1150(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 9 		 0.6 
+Checking the results of test dataset...	Loss: 0.1283(test)	|	Acc: 75.0%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 9 		 0.7 
+Checking the results of test dataset...	Loss: 0.1824(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 9 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1248(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 9 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1667(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 10 		 0.1 
+Checking the results of test dataset...	Loss: 0.0919(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 10 		 0.2 
+Checking the results of test dataset...	Loss: 0.1631(test)	|	Acc: 58.3%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 10 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.0886(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 10 		 0.4 
+Checking the results of test dataset...	Loss: 0.1423(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 10 		 0.5 
+Checking the results of test dataset...	Loss: 0.1017(test)	|	Acc: 83.3%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 10 		 0.6 
+Checking the results of test dataset...	Loss: 0.1461(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 10 		 0.7 
+Checking the results of test dataset...	Loss: 0.1109(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 10 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.0928(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 1.5 			 10 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.0888(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 1 		 0.1 
+Checking the results of test dataset...	Loss: 0.0963(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 1 		 0.2 
+Checking the results of test dataset...	Loss: 0.1171(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 1 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.0918(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 1 		 0.4 
+Checking the results of test dataset...	Loss: 0.0923(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 1 		 0.5 
+Checking the results of test dataset...	Loss: 0.1612(test)	|	Acc: 58.3%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 1 		 0.6 
+Checking the results of test dataset...	Loss: 0.1571(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 1 		 0.7 
+Checking the results of test dataset...	Loss: 0.1884(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 1 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1477(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 1 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1193(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 2 		 0.1 
+Checking the results of test dataset...	Loss: 0.1636(test)	|	Acc: 58.3%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 2 		 0.2 
+Checking the results of test dataset...	Loss: 0.1537(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 2 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.0959(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 2 		 0.4 
+Checking the results of test dataset...	Loss: 0.0916(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 2 		 0.5 
+Checking the results of test dataset...	Loss: 0.2310(test)	|	Acc: 38.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 2 		 0.6 
+Checking the results of test dataset...	Loss: 0.1250(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 2 		 0.7 
+Checking the results of test dataset...	Loss: 0.1294(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 2 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1632(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 2 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1307(test)	|	Acc: 66.7%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 3 		 0.1 
+Checking the results of test dataset...	Loss: 0.1685(test)	|	Acc: 58.3%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 3 		 0.2 
+Checking the results of test dataset...	Loss: 0.1726(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 3 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1380(test)	|	Acc: 66.7%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 3 		 0.4 
+Checking the results of test dataset...	Loss: 0.1470(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 3 		 0.5 
+Checking the results of test dataset...	Loss: 0.1053(test)	|	Acc: 83.3%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 3 		 0.6 
+Checking the results of test dataset...	Loss: 0.1427(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 3 		 0.7 
+Checking the results of test dataset...	Loss: 0.1824(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 3 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1111(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 3 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1668(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 4 		 0.1 
+Checking the results of test dataset...	Loss: 0.1568(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 4 		 0.2 
+Checking the results of test dataset...	Loss: 0.1568(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 4 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1369(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 4 		 0.4 
+Checking the results of test dataset...	Loss: 0.1244(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 4 		 0.5 
+Checking the results of test dataset...	Loss: 0.1039(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 4 		 0.6 
+Checking the results of test dataset...	Loss: 0.1056(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 4 		 0.7 
+Checking the results of test dataset...	Loss: 0.1458(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 4 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1117(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 4 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1236(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 5 		 0.1 
+Checking the results of test dataset...	Loss: 0.1080(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 5 		 0.2 
+Checking the results of test dataset...	Loss: 0.1700(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 5 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1086(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 5 		 0.4 
+Checking the results of test dataset...	Loss: 0.1410(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 5 		 0.5 
+Checking the results of test dataset...	Loss: 0.1546(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 5 		 0.6 
+Checking the results of test dataset...	Loss: 0.1147(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 5 		 0.7 
+Checking the results of test dataset...	Loss: 0.1230(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 5 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1587(test)	|	Acc: 58.3%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 5 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.0820(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 6 		 0.1 
+Checking the results of test dataset...	Loss: 0.1268(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 6 		 0.2 
+Checking the results of test dataset...	Loss: 0.1653(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 6 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1167(test)	|	Acc: 75.0%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 6 		 0.4 
+Checking the results of test dataset...	Loss: 0.1643(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 6 		 0.5 
+Checking the results of test dataset...	Loss: 0.1448(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 6 		 0.6 
+Checking the results of test dataset...	Loss: 0.0874(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 6 		 0.7 
+Checking the results of test dataset...	Loss: 0.1697(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 6 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1827(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 6 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1559(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 7 		 0.1 
+Checking the results of test dataset...	Loss: 0.1272(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 7 		 0.2 
+Checking the results of test dataset...	Loss: 0.1228(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 7 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1215(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 7 		 0.4 
+Checking the results of test dataset...	Loss: 0.1772(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 7 		 0.5 
+Checking the results of test dataset...	Loss: 0.1233(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 7 		 0.6 
+Checking the results of test dataset...	Loss: 0.1101(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 7 		 0.7 
+Checking the results of test dataset...	Loss: 0.0940(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 7 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1179(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 7 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1251(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 8 		 0.1 
+Checking the results of test dataset...	Loss: 0.1048(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 8 		 0.2 
+Checking the results of test dataset...	Loss: 0.1574(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 8 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1185(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 8 		 0.4 
+Checking the results of test dataset...	Loss: 0.1133(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 8 		 0.5 
+Checking the results of test dataset...	Loss: 0.1513(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 8 		 0.6 
+Checking the results of test dataset...	Loss: 0.1219(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 8 		 0.7 
+Checking the results of test dataset...	Loss: 0.0705(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 8 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1696(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 8 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1400(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 9 		 0.1 
+Checking the results of test dataset...	Loss: 0.1416(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 9 		 0.2 
+Checking the results of test dataset...	Loss: 0.1868(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 9 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1022(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 9 		 0.4 
+Checking the results of test dataset...	Loss: 0.1321(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 9 		 0.5 
+Checking the results of test dataset...	Loss: 0.1327(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 9 		 0.6 
+Checking the results of test dataset...	Loss: 0.1101(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 9 		 0.7 
+Checking the results of test dataset...	Loss: 0.1510(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 9 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1437(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 9 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1277(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 10 		 0.1 
+Checking the results of test dataset...	Loss: 0.1026(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 10 		 0.2 
+Checking the results of test dataset...	Loss: 0.1235(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 10 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1149(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 10 		 0.4 
+Checking the results of test dataset...	Loss: 0.1162(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 10 		 0.5 
+Checking the results of test dataset...	Loss: 0.1341(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 10 		 0.6 
+Checking the results of test dataset...	Loss: 0.1605(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 10 		 0.7 
+Checking the results of test dataset...	Loss: 0.0802(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 10 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.0902(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.0 			 10 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1592(test)	|	Acc: 75.0%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 1 		 0.1 
+Checking the results of test dataset...	Loss: 0.1843(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 1 		 0.2 
+Checking the results of test dataset...	Loss: 0.1421(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 1 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1077(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 1 		 0.4 
+Checking the results of test dataset...	Loss: 0.1393(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 1 		 0.5 
+Checking the results of test dataset...	Loss: 0.1224(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 1 		 0.6 
+Checking the results of test dataset...	Loss: 0.1264(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 1 		 0.7 
+Checking the results of test dataset...	Loss: 0.1901(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 1 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.0898(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 1 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.0998(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 2 		 0.1 
+Checking the results of test dataset...	Loss: 0.1419(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 2 		 0.2 
+Checking the results of test dataset...	Loss: 0.1047(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 2 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1143(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 2 		 0.4 
+Checking the results of test dataset...	Loss: 0.1471(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 2 		 0.5 
+Checking the results of test dataset...	Loss: 0.1296(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 2 		 0.6 
+Checking the results of test dataset...	Loss: 0.1381(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 2 		 0.7 
+Checking the results of test dataset...	Loss: 0.0932(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 2 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1227(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 2 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1190(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 3 		 0.1 
+Checking the results of test dataset...	Loss: 0.1063(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 3 		 0.2 
+Checking the results of test dataset...	Loss: 0.1270(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 3 		 0.30000000000000004 
+Checking the results of test dataset...	Loss: 0.1397(test)	|	Acc: 69.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 3 		 0.4 
+Checking the results of test dataset...	Loss: 0.1148(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 3 		 0.5 
+Checking the results of test dataset...	Loss: 0.1022(test)	|	Acc: 76.9%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 3 		 0.6 
+Checking the results of test dataset...	Loss: 0.0924(test)	|	Acc: 84.6%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 3 		 0.7 
+Checking the results of test dataset...	Loss: 0.1494(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 3 		 0.7999999999999999 
+Checking the results of test dataset...	Loss: 0.1446(test)	|	Acc: 61.5%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 3 		 0.8999999999999999 
+Checking the results of test dataset...	Loss: 0.1475(test)	|	Acc: 46.2%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 4 		 0.1 
+Checking the results of test dataset...	Loss: 0.1660(test)	|	Acc: 53.8%(test) 
+
+
+NGRAMS 	 BATCH_SIZE 	 EMBED_DIM 	 LEARNING_RATE 	 STEP_SIZE 	 GAMMA 
+1 			 16 			 16 		 2.5 			 4 		 0.2 
