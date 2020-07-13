@@ -6,6 +6,10 @@ TODO: Write project summary/notes/howto here.
 
 Prior to each meeting, make a note under each goal with your name/handle/initials and a note about what you did or worked on to address that goal
 
+### 7/13/2020
+- Work with different hyperparameters (batch size, dimensions, n-grams, etc.) to see different training/testing performance
+- Start thinking about poster format and content
+
 ### 6/29/2020
 - Load data with TorchText
 - Experiment with different learning rates, optimizes, other hyperparameters
