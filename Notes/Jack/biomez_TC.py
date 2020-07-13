@@ -144,6 +144,18 @@ from torchtext.vocab import build_vocab_from_iterator
 from torchtext.vocab import Vocab
 from tqdm import tqdm
 
+
+NGRAMS = int(input("Enter NGRAMS: "))
+
+BATCH_SIZE = int(input("Enter Batch Size: "))
+
+EMBED_DIMMENSION = int(input("Enter Embed Dim: "))
+
+INITIAL_LEARNING_RATE = float(input("Enter Initial Learning Rate: "))
+
+INITIALIZATION_RANGE = float(input("Enter Initialization weight range: "))
+
+
 def _csv_iterator(data_path, ngrams, yield_cls=False):
     tokenizer = get_tokenizer("basic_english")
     with io.open(data_path, encoding="utf8") as f:
@@ -278,8 +290,9 @@ class TextSentiment(nn.Module):
 	        self.init_weights()
 	    
 	    def init_weights(self):
-	        initrange = 0.5
+	        initrange = 1.5
 	        self.embedding.weight.data.uniform_(-initrange, initrange)
+                # Randomizes the initial weights uniform to (-initrange to initrange)
 	        self.fc.weight.data.uniform_(-initrange, initrange)
 	        self.fc.bias.data.zero_()
 	  
@@ -357,28 +370,23 @@ data_file = root + 'data.csv'
 
 parser(data_file)
 
-
-NGRAMS = 2 # How it groups the words together
+# User input parameters: ngrams, batch size, embed dim, initial learning rate.
 	
 train_dataset, test_dataset = _setup_datasets(data=data_file, root=root, ngrams=NGRAMS, vocab=None)
-
-BATCH_SIZE = 16
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # I am using the CPU in this case.
 
 # Set variables for testing and learning.
-VOCAB_SIZE = len(train_dataset.get_vocab()) # 1,308,844
+VOCAB_SIZE = len(train_dataset.get_vocab())
 
-# Input size for first layer.
-EMBED_DIM = 32
 
 # Output size for the first layer.
 NUM_CLASS = len(train_dataset.get_labels())
 
 # Create the model (initialize weights and layers).
-model = TextSentiment(VOCAB_SIZE, EMBED_DIM, NUM_CLASS).to(device)
+model = TextSentiment(VOCAB_SIZE, EMBED_DIMMENSION, NUM_CLASS).to(device)
 
-EPOCHS = 8
+EPOCHS = 100
 
 min_valid_loss = float('inf')
 
@@ -386,14 +394,16 @@ min_valid_loss = float('inf')
 criterion = torch.nn.CrossEntropyLoss().to(device)
 
 # SGD uses stochastic gradient descent method.
-optimizer = torch.optim.SGD(model.parameters(), lr=4.0)
+optimizer = torch.optim.SGD(model.parameters(), lr=INITIAL_LEARNING_RATE)
 
 # Used to change learning rate (Descending Learning Rate)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=.8)
+scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=0.9)
 
 train_len = int(len(train_dataset) * 0.95)
 sub_train_, sub_valid_ =     random_split(train_dataset, [train_len, len(train_dataset) - train_len])
 
+
+# Create an automation for optimizing the parameters (Ngrams, Embed_dim, batch size, etc)
 # For each epoch:
 for epoch in range(EPOCHS):
     
