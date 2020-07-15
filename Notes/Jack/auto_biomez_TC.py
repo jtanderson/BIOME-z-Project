@@ -200,10 +200,10 @@ class TextClassificationDataset(torch.utils.data.Dataset):
         return self._vocab
 
 def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False):
-	# train_csv_path = root + 'train.csv'
-	# test_csv_path = root + 'test.csv'
+	train_csv_path = root + 'train.csv'
+	test_csv_path = root + 'test.csv'
 	while True:
-		train_csv_path, test_csv_path = splitter(data, root)
+		# train_csv_path, test_csv_path = splitter(data, root)
 		if vocab is None:
 			logging.info('Building Vocab based on {}'.format(train_csv_path))
 			vocab = build_vocab_from_iterator(_csv_iterator(train_csv_path, ngrams))
@@ -369,12 +369,24 @@ EPOCHS = 256
 # LEARNING_RATE = 1.0
 # STEP_SIZE = 1
 # GAMMA = 0.9
-for NGRAMS in my_range(1, 10, 1):
-	for BATCH_SIZE in my_range(16, 128, 16):
-		for EMBED_DIM in my_range(16, 128, 16):
-			for LEARNING_RATE in my_range(1, 6, .5):
-				for STEP_SIZE in my_range(1, 10, 1):
-					for GAMMA in my_range(.1, .9, .1):
+
+'''
+Run 1:
+
+Run 2:
+
+Run 3:
+
+
+'''
+
+
+for EMBED_DIM in my_range(16, 32, 16):
+	for BATCH_SIZE in my_range(16, 32, 16):
+		for NGRAMS in my_range(1, 5, 1):
+			for LEARNING_RATE in my_range(4, 5.5, .5):
+				for STEP_SIZE in my_range(8, 10, 1):
+					for GAMMA in my_range(.8, .9, .1):
 						printout.write("NGRAMS \t BATCH_SIZE \t EMBED_DIM \t LEARNING_RATE \t STEP_SIZE \t GAMMA \n")
 						printout.write("{} \t\t\t {} \t\t\t {} \t\t {} \t\t\t {} \t\t {} \n".format(NGRAMS, BATCH_SIZE, EMBED_DIM, LEARNING_RATE, STEP_SIZE, GAMMA))
 
@@ -407,6 +419,7 @@ for NGRAMS in my_range(1, 10, 1):
 						train_len = int(len(train_dataset) * 0.95)
 						sub_train_, sub_valid_ =     random_split(train_dataset, [train_len, len(train_dataset) - train_len])
 
+						num_epoch = 0
 						# For each epoch:
 						train_loss, train_acc = train_func(sub_train_)
 						valid_loss, valid_acc = test(sub_valid_)
@@ -417,19 +430,18 @@ for NGRAMS in my_range(1, 10, 1):
 						    
 						    # Run training and testing.
 						    train_loss, train_acc = train_func(sub_train_)
-						    valid_loss, valid_acc = test(sub_valid_)
-						    if train_loss > 0:
-						        continue 
+						    valid_loss, valid_acc = test(sub_valid_) 
 						    # Calculate time values.
 						    # secs = int(time.time() - start_time)
 						    # mins = secs / 60
 						    # secs = secs % 60
 					        
 						    if (epoch+1) % 64 == 0:
-						        printout.write('Epoch: %d \n' %(epoch + 1))
-						        printout.write(f'\tLoss: {train_loss:.4f}(train)\t|\tAcc: {train_acc * 100:.1f}%(train) \n')
-						        printout.write(f'\tLoss: {valid_loss:.4f}(valid)\t|\tAcc: {valid_acc * 100:.1f}%(valid) \n\n')
-						printout.write('Checking the results of test dataset...')
+						    	printout.write('Epoch: %d \n' %(epoch + 1))
+						    	printout.write(f'\tLoss: {train_loss:.4f}(train)\t|\tAcc: {train_acc * 100:.1f}%(train) \n')
+						    	printout.write(f'\tLoss: {valid_loss:.4f}(valid)\t|\tAcc: {valid_acc * 100:.1f}%(valid) \n\n')
+						    num_epoch = epoch
+						printout.write('Checking the results of test dataset after {} epochs...'.format(num_epoch))
 						test_loss, test_acc = test(test_dataset)
 						printout.write(f'\tLoss: {test_loss:.4f}(test)\t|\tAcc: {test_acc * 100:.1f}%(test) \n\n\n')
 						
