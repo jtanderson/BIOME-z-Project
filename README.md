@@ -46,6 +46,12 @@ hpcl6-2.salisbury.edu
 hpcl6-3.salisbury.edu
 hpcl6-4.salisbury.edu
 
+- Maybe integrate article full text to get more data (instead of just abstract + keywords)
+- Add more detailed accuracy diagnostics to see where we need more data (which categories are wrong?)
+- Start working on a prototype of program to use the learned model:
+  - Ask user for abstract/keyword input
+  - Report predicted labels
+    - Future: save back to Zotero with predicted labels
 
 ### 7/13/2020
 - Work with different hyperparameters (batch size, dimensions, n-grams, etc.) to see different training/testing performance
