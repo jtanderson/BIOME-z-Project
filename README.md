@@ -6,6 +6,47 @@ TODO: Write project summary/notes/howto here.
 
 Prior to each meeting, make a note under each goal with your name/handle/initials and a note about what you did or worked on to address that goal
 
+### 7/20/2020
+- When using CUDA through pytorch in hpcl, run on a workstation:
+CUDA is deployed to the HPCL. I believe installing PyTorch with pip's --user flag should work, but if they run into trouble that way I can deploy it to the system image. All of the workstations have GPUs in them. hpcl1-[1-5] and hpcl[2-5]-[1-6] have workstation cards in them, and hpcl6-[1-4] have a standard graphics card in them. I haven't done any performance tests between the two cards so I don't really have any advice on which to choose.
+
+SSH is working between hslinux and all of the cluster machines, the hostnames are:
+
+hpcl1-1.salisbury.edu
+hpcl1-2.salisbury.edu
+hpcl1-3.salisbury.edu
+hpcl1-4.salisbury.edu
+hpcl1-5.salisbury.edu
+hpcl2-1.salisbury.edu
+hpcl2-2.salisbury.edu
+hpcl2-3.salisbury.edu
+hpcl2-4.salisbury.edu
+hpcl2-5.salisbury.edu
+hpcl2-6.salisbury.edu
+hpcl3-1.salisbury.edu
+hpcl3-2.salisbury.edu
+hpcl3-3.salisbury.edu
+hpcl3-4.salisbury.edu
+hpcl3-5.salisbury.edu
+hpcl3-6.salisbury.edu
+hpcl4-1.salisbury.edu
+hpcl4-2.salisbury.edu
+hpcl4-3.salisbury.edu
+hpcl4-4.salisbury.edu
+hpcl4-5.salisbury.edu
+hpcl4-6.salisbury.edu
+hpcl5-1.salisbury.edu
+hpcl5-2.salisbury.edu
+hpcl5-3.salisbury.edu
+hpcl5-4.salisbury.edu
+hpcl5-5.salisbury.edu
+hpcl5-6.salisbury.edu
+hpcl6-1.salisbury.edu
+hpcl6-2.salisbury.edu
+hpcl6-3.salisbury.edu
+hpcl6-4.salisbury.edu
+
+
 ### 7/13/2020
 - Work with different hyperparameters (batch size, dimensions, n-grams, etc.) to see different training/testing performance
 - Start thinking about poster format and content
