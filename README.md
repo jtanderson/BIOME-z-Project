@@ -6,6 +6,11 @@ TODO: Write project summary/notes/howto here.
 
 Prior to each meeting, make a note under each goal with your name/handle/initials and a note about what you did or worked on to address that goal
 
+### 7/27/2020
+- Explore APA PsycNet, ResearchGate, SocArxiv, etc. as sources of extra data
+- Explore journal/research articles for similar attempts, looking for additional methods to compare and contrast with this work. Think about what is the rationale for this approach, why does it make sense or improve upon existing work?
+- "Interface" to tie results from model back into zotero database; automatic tagging and saving tags back to `.rdf` source 
+
 ### 7/20/2020
 - When using CUDA through pytorch in hpcl, run on a workstation:
 CUDA is deployed to the HPCL. I believe installing PyTorch with pip's --user flag should work, but if they run into trouble that way I can deploy it to the system image. All of the workstations have GPUs in them. hpcl1-[1-5] and hpcl[2-5]-[1-6] have workstation cards in them, and hpcl6-[1-4] have a standard graphics card in them. I haven't done any performance tests between the two cards so I don't really have any advice on which to choose.
