@@ -4,16 +4,3 @@ Even Cartoons: https://www.nesta.org.uk/feature/minds-machines-tales-future/
 AI applied to cancer research:
 https://www.abstractsonline.com/pp8/#!/9045/session/250 
 
-
-8/3/20
-Leads on existing research classification:
-Dr. Anderson and I were eventually going to engage the team in the following two challenges, but since these are ongoing, there is now a lot here that other teams have developed and shared that I think will be directly relevant to our programming efforts. There is great information about different approaches and performance data on extracting information from research literature - which is essentially what we’re doing. There is a ton here to explore, so at least take a look to see what you might glean from these resources – I think there will be a lot we can use, so no need to reinvent the wheel:
-•	TREC-COVID Challenge: https://ir.nist.gov/covidSubmit/?et_rid=593298929&et_cid=3294732 ,  https://ir.nist.gov/covidSubmit/archive.html .
-•	COVID-19 Open Research Dataset Challenge (CORD-19) https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge/tasks?taskId=563 
-
-Some other findings:
-•	Although this won’t directly inform how to code, this article provides some conceptual background to database searching that could apply to inform our general approach, including concepts of effectiveness, efficiency, and reproducibility of searches across different databases: https://onlinelibrary.wiley.com/doi/full/10.1002/jrsm.1378 
-
-•	JEL Classification Codes used for EconLit database: This is a classification system, but I didn’t see anything about what programming is used to enter articles into EconLit or search EconLit
-https://en.wikipedia.org/wiki/JEL_classification_codes 
- https://www.aeaweb.org/jel/guide/jel.php 
