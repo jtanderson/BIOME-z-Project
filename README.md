@@ -14,10 +14,13 @@ Prior to each meeting, make a note under each goal with your name/handle/initial
 - "user interface" to add and classify new articles
   - Saving/loading model
 - move to CUDA/mpi backend for scalability
-- *this week*
+- review previous work on Kaggle (see Dr. Maier's notes folder for some) to get some ideas/inspiration
+- **this week**
   - work on gui/frontend to add/modify labels of data
     - ask user to enter new paper or load existing one
     - present with NN "guess", allow them to accept or override with manual label
+  - add the ability to re-run the training process with GUI-set parameters
+    - integrate visuals/assessment/metrics for the training of the data
   
 ---
 
