@@ -6,11 +6,27 @@ TODO: Write project summary/notes/howto here.
 
 Prior to each meeting, make a note under each goal with your name/handle/initials and a note about what you did or worked on to address that goal
 
+### 9/8/2020
+- Work with APA/Psychnet for foundational model
+- Break through "fast plateau"
+  - more data
+  - more layers/connections
+- "user interface" to add and classify new articles
+  - Saving/loading model
+- move to CUDA/mpi backend for scalability
+- *this week*
+  - work on gui/frontend to add/modify labels of data
+    - ask user to enter new paper or load existing one
+    - present with NN "guess", allow them to accept or override with manual label
+  
+---
+
 ### 8/3/2020
 - Jack will train off of the databases saved by Declan from PsycNet, then compare with models run on BIOME-z data. 
 - Jack will communicate with Declan hard outcomes for Declan to share in his absence on our 8/10/20 meeting.
 - Continue to develop poster ideas - probably based on 3-4 slides depicting various steps/iterative process of the project as discussed today.
 - Dr. Maier continue to update & clean BIOME-z database. He will also share information about existing code to classify research articles (now posted under Notes/Karl by BPSEF).
+
 ### 7/27/2020
 - Explore APA PsycNet, ResearchGate, SocArxiv, etc. as sources of extra data
 - Explore journal/research articles for similar attempts, looking for additional methods to compare and contrast with this work. Think about what is the rationale for this approach, why does it make sense or improve upon existing work?
