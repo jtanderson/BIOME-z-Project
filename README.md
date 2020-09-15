@@ -4,7 +4,12 @@ TODO: Write project summary/notes/howto here.
 
 ## Meetings 
 
-Prior to each meeting, make a note under each goal with your name/handle/initials and a note about what you did or worked on to address that goal
+Prior to each meeting, make a note under each goal with your name/handle/initials and a note about what you did or worked on to address that goal.
+
+### 9/8/2020
+- Break apart program into modules
+- Try `tkinter`
+- Use [PyInstaller]*https://www.pyinstaller.org/) for a "releasable" program
 
 ### 9/8/2020
 - Work with APA/Psychnet for foundational model
