@@ -97,26 +97,26 @@ class Application(Frame):
 		articleTitleLabel.place(x=5,y=20)
 
 		# Create a text field for the title of the article.
-		titleText = Text(self.frame_test, height=5, width=69)
-		titleText.grid(row=0, column=0, sticky='nsew', pady=40)
+		self.titleText = Text(articleTestingLF, height=3, width=59)
+		self.titleText.grid(row=0, column=0, sticky='nsew', pady=40)
 
 		# Create a scroll bar and attach it to the title text field.
-		titleScroll = Scrollbar(self.frame_test, command=titleText.yview)
+		titleScroll = Scrollbar(articleTestingLF, command=self.titleText.yview)
 		titleScroll.grid(row=0, column=1, sticky='nsew', pady=40)
-		titleText['yscrollcommand'] = titleScroll.set
+		self.titleText['yscrollcommand'] = titleScroll.set
 
 		# Create a label to prompt the user to enter an corresponding abstract.
 		abstractLabel = Label(self.frame_test, text="Enter an abstract:")
 		abstractLabel.place(x=5, y=110)
 
 		# Create a text field for the abstract of the article.
-		abstractText = Text(self.frame_test, height=20, width=69)
-		abstractText.grid(row=1, column=0, sticky='nsew')
+		self.abstractText = Text(articleTestingLF, height=9, width=59)
+		self.abstractText.grid(row=1, column=0, sticky='nsew')
 
 		# Create another scroll bar and attach it to the abstract text field.
-		abstractScroll = Scrollbar(self.frame_test, command=titleText.yview)
+		abstractScroll = Scrollbar(articleTestingLF, command=self.abstractText.yview)
 		abstractScroll.grid(row=1, column=1, sticky='nsew')
-		abstractText['yscrollcommand'] = abstractScroll.set
+		self.abstractText['yscrollcommand'] = abstractScroll.set
 
 		# Create a Label Frame to hold the prediction options.
 		predictionsLF = LabelFrame(self.frame_test, text='HAL 9000 predications', height=550, width=490)
@@ -124,11 +124,11 @@ class Application(Frame):
 
 		# A button to confirm the neural networks predictions.
 		confirmButton = Button(self.frame_test, text='Confirm', height=1, width=7)
-		confirmButton.place(x=400, y=800)
+		confirmButton.place(x=400, y=800, width=80, height=25)
 
 		# An override button the user clicks in case an incorrect prediction is displayed.
 		overrideButton = Button(self.frame_test, text='Override', height=1, width=7)
-		overrideButton.place(x=400, y=850)
+		overrideButton.place(x=400, y=850, width=80, height=25)
 
 		# ========== Creating an options menu for each of the labels ===========
 		labelOptions = []
@@ -140,7 +140,7 @@ class Application(Frame):
 		var.set(labelOptions[0])
 
 		labelOptionsMenu = OptionMenu(self.frame_test, var, *labelOptions)
-		labelOptionsMenu.place(x=5, y=850)
+		labelOptionsMenu.place(x=10, y=850, width=100, height=25)
 		# ======================================================================
 
 
@@ -165,13 +165,21 @@ class Application(Frame):
 			justify='left',
 			font=15)
 
-		manualInfoLabel.place(x=60, y=100, width=900, height=300)
+		manualInfoLabel.place(x=50, y=150, width=900, height=300)
 
 	# Class function to setup the building tab.
 	def generateBuildTab(self):
 		# Create a button to open a smaller window for label editing.
 		editLabelButton = Button(self.frame_build, text='Edit Labels', command=self.openLabelWindow)
-		editLabelButton.place(x=800, y=50)
+		editLabelButton.place(x=800, y=50, width=135, height=25)
+
+		# Setup a button for building the network.
+		buildNNButton = Button(self.frame_build, text='Build Neural Network')
+		buildNNButton.place(x=20, y=850, width=135, height=25)
+
+		# Setup a button for re-running the neural network.
+		rerunButton = Button(self.frame_build, text='Re-run')
+		rerunButton.place(x=800, y=850, width=135, height=25)
 
 	# Class function to create the smaller window for editing labels.
 	def openLabelWindow(self):
@@ -262,7 +270,7 @@ class Application(Frame):
 	def updateListBox(self):
 
 		# Delete "ALL" in label list box.
-		self.labelListBox.delete(0, 100)
+		self.labelListBox.delete(0, END)
 
 		# Add labels from the updated label list.
 		for label in self.labelList:
@@ -290,7 +298,7 @@ class Application(Frame):
 
 			# If the file is of incorrect format, place an error.
 			if ext != '.rdf':
-				self.fileError.place(x=700, y=37)
+				self.fileError.place(x=700, y=38)
 			else:
 				self.fileError.place_forget()
 
@@ -303,6 +311,18 @@ class Application(Frame):
 		fp = open('./manual.txt', 'r')
 		self.manual_text.set(fp.read())
 		fp.close()
+
+
+
+	# In order to let the GUI work in the back-end (pytorch/rdflib), there needs to be
+	# a handful of getters and setters?
+	# Get the article title the user entered.
+	def getArticleTitle(self):
+		return (self.titleText.get("1.0", END))
+
+	# Get the article abstract the user entered.
+	def getAbstractTitle(self):
+		return (self.abstractText.get("1.0", END))		
 
 
 # Define the main to start the GUI:
