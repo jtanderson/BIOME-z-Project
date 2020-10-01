@@ -1,7 +1,13 @@
 import os
 from tkinter import *
+from converter import parser
 from PIL import ImageTk, Image as PILImage
 from tkinter import Tk, Frame, Menu, ttk, filedialog, simpledialog
+
+# Consider using markdown for manual.
+# 
+# 
+
 
 # Create a class to hold the Gui:
 class Application(Frame):
@@ -19,7 +25,6 @@ class Application(Frame):
 
 		# A Class variable for the name of the rdf file.
 		self.rdf_file_name = StringVar()
-
 		self.manual_text = StringVar()
 
 		self.create_UI()
@@ -59,45 +64,46 @@ class Application(Frame):
 
 		# Run a class function to setup the testing tab.
 		self.generateTestTab()
-		self.generateManualTab()
 		self.generateBuildTab()
+		self.generateManualTab()
 
 		self.importManualInfo()
 
 
-
+# ======================================== TESTING TAB ========================================
+	# Class function for creating the testing tab.
 	def generateTestTab(self):
 		self.rdf_file_name.set("No File Chosen")
 
 		# Separates the left half of the frame for the article testing section.
 		articleTestingLF = LabelFrame(self.frame_test, text="Article Testing", height=1000, width=500)
-		articleTestingLF.place(x=0, y=0)
+		articleTestingLF.pack(side=LEFT, fill=Y)
 
 		# Separates the right half of the frame for loading existing articles section.
 		loadArticleLF = LabelFrame(self.frame_test, text="Load Existing Article", height=1000, width=500)
-		loadArticleLF.place(x=500, y=0)
+		loadArticleLF.pack(side=RIGHT, fill=Y)
 
 		# A label to ask the user to select a file using the below button.
-		chooseFileLabel = Label(self.frame_test, text="Select an RDF file to load:")
-		chooseFileLabel.place(x=505, y=20)
+		chooseFileLabel = Label(loadArticleLF, text="Select an RDF file to load:")
+		chooseFileLabel.place(x=5, y=20)
 
 		# A button that opens a prompt for the user to select an rdf file to load.
-		chooseRdfButton = Button(self.frame_test, text="Choose File", command=self.openFileDialog)
-		chooseRdfButton.place(x=700, y=15)
+		chooseRdfButton = Button(loadArticleLF, text="Choose File", command=self.openFileDialog)
+		chooseRdfButton.place(x=200, y=15)
 
 		# A label for the loaded/selected file name.
-		fileNameLabel = Label(self.frame_test, textvariable=self.rdf_file_name)
-		fileNameLabel.place(x=810, y=20)
+		fileNameLabel = Label(loadArticleLF, textvariable=self.rdf_file_name)
+		fileNameLabel.place(x=310, y=20)
 
 		# Create an error label for invalid file types.
-		self.fileError = Label(self.frame_test, fg="red", text='Error: Invalid file format.')
+		self.fileError = Label(loadArticleLF, fg="red", text='Error: Invalid file format.')
 
 		# Create a label to prompt the user to enter a title.
-		articleTitleLabel = Label(self.frame_test, text="Enter a title below:")
+		articleTitleLabel = Label(articleTestingLF, text="Enter a title below:")
 		articleTitleLabel.place(x=5,y=20)
 
 		# Create a text field for the title of the article.
-		self.titleText = Text(articleTestingLF, height=3, width=59)
+		self.titleText = Text(articleTestingLF, height=4, width=69)
 		self.titleText.grid(row=0, column=0, sticky='nsew', pady=40)
 
 		# Create a scroll bar and attach it to the title text field.
@@ -106,44 +112,63 @@ class Application(Frame):
 		self.titleText['yscrollcommand'] = titleScroll.set
 
 		# Create a label to prompt the user to enter an corresponding abstract.
-		abstractLabel = Label(self.frame_test, text="Enter an abstract:")
-		abstractLabel.place(x=5, y=110)
+		abstractLabel = Label(articleTestingLF, text="Enter an abstract:")
+		abstractLabel.place(x=5, y=150)
 
 		# Create a text field for the abstract of the article.
 		self.abstractText = Text(articleTestingLF, height=9, width=59)
-		self.abstractText.grid(row=1, column=0, sticky='nsew')
+		self.abstractText.grid(row=1, column=0, sticky='nsew', pady=40)
 
 		# Create another scroll bar and attach it to the abstract text field.
 		abstractScroll = Scrollbar(articleTestingLF, command=self.abstractText.yview)
-		abstractScroll.grid(row=1, column=1, sticky='nsew')
+		abstractScroll.grid(row=1, column=1, sticky='nsew', pady=40)
 		self.abstractText['yscrollcommand'] = abstractScroll.set
 
 		# Create a Label Frame to hold the prediction options.
-		predictionsLF = LabelFrame(self.frame_test, text='HAL 9000 predications', height=550, width=490)
-		predictionsLF.place(x=5, y=400)
+		predictionsLF = LabelFrame(self.frame_test, text='HAL 9000 predications', height=500, width=500)
+		predictionsLF.place(x=0, y=475)
 
 		# A button to confirm the neural networks predictions.
-		confirmButton = Button(self.frame_test, text='Confirm', height=1, width=7)
-		confirmButton.place(x=400, y=800, width=80, height=25)
+		confirmButton = Button(predictionsLF, text='Confirm', height=1, width=7)
+		confirmButton.place(x=400, y=400, width=80, height=25)
 
 		# An override button the user clicks in case an incorrect prediction is displayed.
-		overrideButton = Button(self.frame_test, text='Override', height=1, width=7)
-		overrideButton.place(x=400, y=850, width=80, height=25)
+		overrideButton = Button(predictionsLF, text='Override', height=1, width=7)
+		overrideButton.place(x=400, y=450, width=80, height=25)
 
 		# ========== Creating an options menu for each of the labels ===========
 		labelOptions = []
 		for label in self.labelList:
 			labelOptions.append(label.strip())
 
-
 		var = StringVar(self.frame_test)
 		var.set(labelOptions[0])
 
-		labelOptionsMenu = OptionMenu(self.frame_test, var, *labelOptions)
-		labelOptionsMenu.place(x=10, y=850, width=100, height=25)
+		labelOptionsMenu = OptionMenu(predictionsLF, var, *labelOptions)
+		labelOptionsMenu.place(x=10, y=450, width=100, height=25)
 		# ======================================================================
+# =============================================================================================
 
 
+
+# ======================================== BUILD TAB ========================================
+	# Class function to setup the building tab.
+	def generateBuildTab(self):
+		# Create a button to open a smaller window for label editing.
+		editLabelButton = Button(self.frame_build, text='Edit Labels', command=self.openLabelWindow)
+		editLabelButton.place(x=800, y=50, width=150, height=25)
+
+		# Setup a button for building the network.
+		buildNNButton = Button(self.frame_build, text='Build Neural Network')
+		buildNNButton.place(x=50, y=850, width=150, height=25)
+
+		# Setup a button for re-running the neural network.
+		rerunButton = Button(self.frame_build, text='Re-run')
+		rerunButton.place(x=800, y=850, width=150, height=25)
+# ============================================================================================
+
+
+# ======================================== MANUAL TAB ========================================
 	# Class function to setup the manual tab.
 	def generateManualTab(self):
 		# Create a title for the manual.
@@ -166,20 +191,7 @@ class Application(Frame):
 			font=15)
 
 		manualInfoLabel.place(x=50, y=150, width=900, height=300)
-
-	# Class function to setup the building tab.
-	def generateBuildTab(self):
-		# Create a button to open a smaller window for label editing.
-		editLabelButton = Button(self.frame_build, text='Edit Labels', command=self.openLabelWindow)
-		editLabelButton.place(x=800, y=50, width=135, height=25)
-
-		# Setup a button for building the network.
-		buildNNButton = Button(self.frame_build, text='Build Neural Network')
-		buildNNButton.place(x=20, y=850, width=135, height=25)
-
-		# Setup a button for re-running the neural network.
-		rerunButton = Button(self.frame_build, text='Re-run')
-		rerunButton.place(x=800, y=850, width=135, height=25)
+# ============================================================================================
 
 	# Class function to create the smaller window for editing labels.
 	def openLabelWindow(self):
@@ -298,7 +310,7 @@ class Application(Frame):
 
 			# If the file is of incorrect format, place an error.
 			if ext != '.rdf':
-				self.fileError.place(x=700, y=38)
+				self.fileError.place(x=200, y=40)
 			else:
 				self.fileError.place_forget()
 
@@ -347,7 +359,7 @@ def main():
 
 	# Anything after this line below will execute after the GUI is exited.
 	root.mainloop()
-
+	# parser('/home/declan/BIOME-Z/pythonGui/BIOME-z.rdf')
 
 # Run the main:
 if __name__ == '__main__':
