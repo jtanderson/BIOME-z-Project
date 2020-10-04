@@ -84,7 +84,7 @@ def parser(rdf_file):
 	file, newDir = makeDir(rdf_file)
 	data_file = newDir + "data.csv"
 
-	output = open(data_file, 'w')
+	output = open(data_file, 'w', encoding='utf-8')
 	# exit()
 
 	graph = rdflib.Graph()
