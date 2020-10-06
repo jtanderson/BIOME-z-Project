@@ -1,14 +1,14 @@
-import os
-import re
-import sys
-import csv
+import os, re, sys, csv
+from tkhtmlview import HTMLLabel
+from markdown2 import Markdown
 from tkinter import *
 from tkintertable import TableCanvas, TableModel
 from converter import parser
 from PIL import ImageTk, Image as PILImage
 from tkinter import Tk, Frame, ttk, filedialog, simpledialog
 
-# Consider using markdown for manual.
+# Author: Declan Sheehan
+
 # TODO:
 # 1: Ensure the search method works:
 # 	- Searches using the BEST possible REGEX.
@@ -228,8 +228,10 @@ class Application(Frame):
 # ======================================== MANUAL TAB ========================================
 	# Class function to setup the manual tab.
 	def generateManualTab(self):
+		mkdn2 = Markdown()
+		self.importManualInfo()
 		# Create a title for the manual.
-		manualTitleLabel = Label(self.frame_manual, text="Biome-z GUI Version 1.0", font=35)
+		manualTitleLabel = Label(self.frame_manual, text="Biome-z GUI Version 1.0", font=('Times', '25'))
 		manualTitleLabel.place(x=400, y=5)
 
 		# Create a small image at the top left corner.
@@ -238,17 +240,16 @@ class Application(Frame):
 		manualIcon.image = sammyImage
 		manualIcon.place(x=20, y=20)
 
-		# Setup a label to a variable which will be populated in another function.
-		manualInfoLabel = Label(self.frame_manual,
-			textvariable=self.manual_text,
-			bd=1,
-			relief=SUNKEN,
-			anchor='nw',
-			justify='left',
-			font=15)
+		# Make a label frame to put the HTML Label inside.
+		manualLF = LabelFrame(self.frame_manual, relief=SUNKEN)
+		manualLF.place(x=50, y=150, width=900, height=700)
 
-		manualInfoLabel.place(x=50, y=150, width=900, height=300)
-		self.importManualInfo()
+		# Make HTML label for the contents of the manual.md to be put in.
+		manualLabel = HTMLLabel(manualLF)
+		manualLabel.pack(fill=BOTH)
+
+		# Set the contents of the manual.md to the text of the HTML Label.
+		manualLabel.set_html(mkdn2.convert(self.manual_text.get()))
 # ============================================================================================
 
 	# Class function to create the smaller window for editing labels.
@@ -425,7 +426,7 @@ class Application(Frame):
 	# Open the file contents of manual.txt instead of writing instructions
 	# inside of this Python file.
 	def importManualInfo(self):
-		fd = open('./manual.txt', 'r')
+		fd = open('./manual.md', 'r')
 		self.manual_text.set(fd.read())
 		fd.close()
 
