@@ -1,46 +1,43 @@
-import os, re, sys, csv
-from tkhtmlview import HTMLLabel
-from markdown2 import Markdown
-from tkinter import *
-from tkintertable import TableCanvas, TableModel
-from converter import parser
-from PIL import ImageTk, Image as PILImage
-from tkinter import Tk, Frame, ttk, filedialog, simpledialog
+import os, sys, csv
+from tkinter import * # Tkinter
+from tkinter import ttk, scrolledtext, filedialog, simpledialog # Submodules
+from tkintertable import TableCanvas, TableModel # Tkinter table
+from PIL import ImageTk, Image as PILImage # Imaging for icon(s)
+from fuzzysearch import find_near_matches # Searching csv file(s)
+from tkhtmlview import HTMLLabel # Displaying html.
+from markdown2 import Markdown # Converting mkdn to html.
+from converter import parser # Converting .rdf to .csv & other.
 
 # Author: Declan Sheehan
 
 # TODO:
-# 1: Ensure the search method works:
-# 	- Searches using the BEST possible REGEX.
-# 2: Organize the spaghetti.
+# 1: Organize the spaghetti.
+# 2: Style the Gui up.
+# 3: Create manual contents.
 
-# Create a class to hold the Gui:
+
 class Application(Frame):
 
 	# Initialization: Declare important global variables, run functions to make gui components.
 	def __init__(self):
 		super().__init__()
 
-		# A dynamic list of labels for the neural network.
-		# This may change. It may be loaded from a file.
-		self.labelList = []
-		self.getLabels()
+		self.labelList = [] # List of labels the neural network will use to classify.
+		self.getLabels()    # Read in labels from a file.
 
-		# Execute class function to setup styles.
-		# self.configureStyles()
+		# self.configureStyles() # Set the styling for the gui.
 
 		# Important variables:
 		self.rdf_csv_file_name, self.manual_text = StringVar(), StringVar()
+		self.checkButtons = [IntVar(), IntVar()]
 		self.csv_path = ''
 
 		# Build the GUI.
 		self.create_UI()
 
-
 	def configureStyles(self):
 		deleteme = 0
 		# TODO: Create style(s) here to use in the program.
-		# Note: It is a pain in the butt to implement (so far).
 
 	def create_UI(self):
 		# ========== Creating the base framework for the tabs ==========
@@ -48,7 +45,7 @@ class Application(Frame):
 		self.notebook = ttk.Notebook(self.master)
 
 		# Geometrically pack the notebook to the main frame.
-		self.notebook.pack()
+		self.notebook.pack(fill=BOTH, expand=YES)
 
 		# Create four frames for the one notebook.
 		self.frame_test = Frame(self.notebook, width=1000, height=1000)
@@ -81,11 +78,11 @@ class Application(Frame):
 
 		# Separates the left half of the frame for the article testing section.
 		articleTestingLF = LabelFrame(self.frame_test, text="Article Testing", height=1000, width=500)
-		articleTestingLF.pack(side=LEFT, fill=Y)
+		articleTestingLF.pack(side=LEFT, fill=BOTH, expand=YES)
 
 		# Separates the right half of the frame for loading existing articles section.
 		loadArticleLF = LabelFrame(self.frame_test, text="Load Existing Article", height=1000, width=500)
-		loadArticleLF.pack(side=RIGHT, fill=Y)
+		loadArticleLF.pack(side=RIGHT, fill=BOTH, expand=YES)
 
 		# A label to ask the user to select a file using the below button.
 		chooseFileLabel = Label(loadArticleLF, text="Select an RDF file to load:")
@@ -111,86 +108,80 @@ class Application(Frame):
 		searchLabel.place(x=5, y=103)
 
 		# A text entry to act as the search bar.
-		self.searchEntry = Entry(loadArticleLF, text='Search', width=45)
-		self.searchEntry.place(x=125, y=103)
+		self.searchEntry = Entry(loadArticleLF, text='Search')
+		self.searchEntry.place(relx=0.25, y=103, relwidth=0.57, height=23)
 
 		# The search button to to execute the search.
 		self.searchButton = Button(loadArticleLF, text='Search', state=DISABLED, command=self.searchCSV)
-		self.searchButton.place(x=410, y=100, width=80, height=25)
+		self.searchButton.place(relx=0.840, y=103, relwidth=0.15, height=23)
+
+		# Create a label to prompt the user to search in either title and/or abstract.
+		searchInLabel = Label(loadArticleLF, text='Search in: ')
+		searchInLabel.place(x=5, y=136)
+
+		# Create a Checkbutton that will control what if the search searches in title or not.
+		self.titleCB = Checkbutton(loadArticleLF, text='Title', variable=self.checkButtons[0])
+		self.checkButtons[0].set(1) # Set the title check button on.
+		self.titleCB.place(x=75, y=135)
+
+		# Create a Checkbutton that will control what if the search searches in abstract or not.
+		self.abstractCB = Checkbutton(loadArticleLF, text='Abstract', variable=self.checkButtons[1])
+		self.abstractCB.place(x=145, y=135)
 
 		# A lable frame for the tkintertable, since I cannot place the table anywhere in
 		# the load article label frame.
 		tableLF = LabelFrame(loadArticleLF)
-		tableLF.place(x=3, y=135, width=490, height=490)
+		tableLF.place(x=3, y=165, relwidth=0.99, relheight=0.5)
 
 		# Create the model for the table.
 		self.tableModel = TableModel()
 
 		# Set the default data.
-		self.data = {'r1': {'Title': '', 'Abstract':''},
-		'r2': {'Title': '', 'Abstract':''},
-		'r3': {'Title': '', 'Abstract':''},
-		'r4': {'Title': '', 'Abstract':''},
-		'r5': {'Title': '', 'Abstract':''},
-		'r6': {'Title': '', 'Abstract':''},
-		'r7': {'Title': '', 'Abstract':''},
-		'r8': {'Title': '', 'Abstract':''},
-		'r9': {'Title': '', 'Abstract':''},
-		'r10': {'Title': '', 'Abstract':''}}
+		self.data = {num: {'Title': '', 'Abstract': ''} for num in range(25)}
 
 		# Create the table given parameters.
 		self.searchTable = TableCanvas(tableLF,
 			data=self.data,
-			cellwidth=250,
+			cellwidth=325,
 			model=self.tableModel,
 			rowheaderwidth=0,
 			showkeynamesinheader=False,
-			editable=False) # THIS DOES NOT WORK!? :(
+			editable=False)
 
 		# Finally, show the table on startup.
 		self.searchTable.show()
 
 		# A button below the table to transfer the contents of the row to text fields.
-		transferRowButton = Button(loadArticleLF, text='<----', command=self.pushRowContents)
-		transferRowButton.place(x=200, y=650)
-
+		transferRowButton = Button(loadArticleLF, text='<-- Send', command=self.pushRowContents)
+		transferRowButton.place(relx=0.03, rely=0.75, relwidth=0.12, height=23)
+		# |---------------------------------------------------------------------|
 		# Create a label to prompt the user to enter a title.
 		articleTitleLabel = Label(articleTestingLF, text="Enter a title below:")
 		articleTitleLabel.place(x=5, y=20)
 
-		# Create a text field for the title of the article.
-		self.titleText = Text(articleTestingLF, height=4, width=59)
-		self.titleText.grid(row=0, column=0, sticky='nsew', pady=40)
-
-		# Create a scroll bar and attach it to the title text field.
-		titleScroll = Scrollbar(articleTestingLF, command=self.titleText.yview)
-		titleScroll.grid(row=0, column=1, sticky='nsew', pady=40)
-		self.titleText['yscrollcommand'] = titleScroll.set
+		# Create a scrollable text for the user to input the title.
+		self.titleText = scrolledtext.ScrolledText(articleTestingLF)
+		self.titleText.place(x=5, y=50, relwidth=0.98, height=75)
 
 		# Create a label to prompt the user to enter an corresponding abstract.
 		abstractLabel = Label(articleTestingLF, text="Enter an abstract below:")
-		abstractLabel.place(x=5, y=167)
+		abstractLabel.place(x=5, y=140)
 
-		# Create a text field for the abstract of the article.
-		self.abstractText = Text(articleTestingLF, height=9, width=59)
-		self.abstractText.grid(row=1, column=0, sticky='nsew', pady=40)
-
-		# Create another scroll bar and attach it to the abstract text field.
-		abstractScroll = Scrollbar(articleTestingLF, command=self.abstractText.yview)
-		abstractScroll.grid(row=1, column=1, sticky='nsew', pady=40)
-		self.abstractText['yscrollcommand'] = abstractScroll.set
+		# Create a scrollable text for the user to input the abstract.
+		self.abstractText = scrolledtext.ScrolledText(articleTestingLF)
+		self.abstractText.place(x=5, y=175, relwidth=0.98, height=150)
 		
 		# Create a Label Frame to hold the prediction options.
-		predictionsLF = LabelFrame(self.frame_test, text='HAL 9000 predications', height=500, width=492)
-		predictionsLF.place(x=3, y=471)
+		predictionsLF = LabelFrame(articleTestingLF, text='HAL 9000 predications')
+		predictionsLF.place(relx=0.01, rely=0.5, relwidth=0.99, relheight=0.50)
 
 		# A button to confirm the neural networks predictions.
-		confirmButton = Button(predictionsLF, text='Confirm', height=1, width=7)
-		confirmButton.place(x=400, y=375, width=80, height=25)
+		confirmButton = Button(predictionsLF, text='Confirm')
+		confirmButton.place(relx=0.800, rely=0.80, relwidth=0.15, height=23)
 
 		# An override button the user clicks in case an incorrect prediction is displayed.
-		overrideButton = Button(predictionsLF, text='Override', height=1, width=7)
-		overrideButton.place(x=400, y=425, width=80, height=25)
+		overrideButton = Button(predictionsLF, text='Override')
+		overrideButton.place(relx=0.800, rely=0.90, relwidth=0.15, height=23)
 
 		# ========== Creating an options menu for each of the labels ===========
 		labelOptions = []
@@ -201,7 +192,7 @@ class Application(Frame):
 		var.set(labelOptions[0])
 
 		labelOptionsMenu = OptionMenu(predictionsLF, var, *labelOptions)
-		labelOptionsMenu.place(x=10, y=425, width=100, height=25)
+		labelOptionsMenu.place(relx=0.02, rely=0.90, relwidth=0.2, height=23)
 		# ======================================================================
 # =============================================================================================
 
@@ -212,15 +203,15 @@ class Application(Frame):
 	def generateBuildTab(self):
 		# Create a button to open a smaller window for label editing.
 		editLabelButton = Button(self.frame_build, text='Edit Labels', command=self.openLabelWindow)
-		editLabelButton.place(x=800, y=50, width=150, height=25)
+		editLabelButton.place(relx=0.80, rely=0.10, width=150, height=25)
 
 		# Setup a button for building the network.
 		buildNNButton = Button(self.frame_build, text='Build Neural Network')
-		buildNNButton.place(x=50, y=850, width=150, height=25)
+		buildNNButton.place(relx=0.05, rely=0.90, width=150, height=25)
 
 		# Setup a button for re-running the neural network.
 		rerunButton = Button(self.frame_build, text='Re-run')
-		rerunButton.place(x=800, y=850, width=150, height=25)
+		rerunButton.place(relx=0.80, rely=0.90, width=150, height=25)
 # ============================================================================================
 
 
@@ -232,7 +223,7 @@ class Application(Frame):
 		self.importManualInfo()
 		# Create a title for the manual.
 		manualTitleLabel = Label(self.frame_manual, text="Biome-z GUI Version 1.0", font=('Times', '25'))
-		manualTitleLabel.place(x=400, y=5)
+		manualTitleLabel.place(x=350, y=5)
 
 		# Create a small image at the top left corner.
 		sammyImage = ImageTk.PhotoImage(PILImage.open('./sammy.ico'))
@@ -242,7 +233,7 @@ class Application(Frame):
 
 		# Make a label frame to put the HTML Label inside.
 		manualLF = LabelFrame(self.frame_manual, relief=SUNKEN)
-		manualLF.place(x=50, y=150, width=900, height=700)
+		manualLF.place(x=50, y=150, relwidth=0.900, relheight=0.700)
 
 		# Make HTML label for the contents of the manual.md to be put in.
 		manualLabel = HTMLLabel(manualLF)
@@ -355,27 +346,31 @@ class Application(Frame):
 	# A function tied to the search button that queries and displays results in the table.
 	def searchCSV(self):
 		# Clear the table.
-		for num in range(10):
+		for num in range(25):
 			self.searchTable.model.deleteCellRecord(num, 0)
 			self.searchTable.model.deleteCellRecord(num, 1)
-
-		# Grab the entry bars input and create a Reg Ex to search with.
+		# Get the search entry.
 		find = self.searchEntry.get()
-		find = '^.*(' + find + ').*$'
 		count = 0
-
-		# Read the csv file to get data row by row.
+		# Get each row of the csv file:
 		csv_file = csv.reader(open(self.csv_path, 'r', encoding='utf-8'), delimiter=',')
-
-		# Search row by row in order to grab as many as ten results.
+		
+		# Loop through to see if the input gets any matches, then display them in to table.
 		for row in csv_file:
-			if count > 9:
+			if count > 24:
 				break
-			result = re.search(find, row[1])
-			if result is not None:
+			if self.checkButtons[0].get() == 1 and self.checkButtons[1].get() == 0 or self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 0:
+				result = find_near_matches(find, row[1], max_deletions=1, max_insertions=1, max_substitutions=0)
+			elif self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 1:				
+				result = find_near_matches(find, row[2], max_deletions=1, max_insertions=1, max_substitutions=0)
+			else:
+				both = row[1] + ' ' + row[2]
+				result = find_near_matches(find, both, max_deletions=1, max_insertions=1, max_substitutions=0)
+			if not not result:
 				self.searchTable.model.setValueAt(row[1], count, 0)
 				self.searchTable.model.setValueAt(row[2], count, 1)
 				count += 1
+
 		# Update the table.
 		self.searchTable.redrawTable()
 
@@ -445,6 +440,7 @@ class Application(Frame):
 		return (self.abstractText.get("1.0", END))		
 
 
+
 # Define the main to start the GUI:
 def main():
 	# Sets the root.
@@ -453,8 +449,10 @@ def main():
 	root.title("Biomez Graphical User Interface")
 	# Gives the dimensions for the program at startup.
 	root.geometry("1000x1000")
+	# Set the minimum size of the GUI.
+	root.minsize(1000, 750)
 	# Prevent resizing of the application.
-	root.resizable(False, False)
+	root.resizable(True, True)
 	# Run the class
 	app = Application()
 	# Set the topbar icon for the GUI.
