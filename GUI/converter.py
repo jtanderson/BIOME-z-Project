@@ -4,6 +4,7 @@
 import os
 import time
 import rdflib
+import shutil
 from shutil import copy
 from rdflib import Literal, URIRef, XSD
 from rdflib.namespace import RDF, RDFS, OWL, FOAF
@@ -13,9 +14,7 @@ class paper:
 		self.subject = URIRef("")
 		self.title = ""
 		self.abstract = ""
-		self.bio = 0
-		self.psych = 0
-		self.social = 0
+		self.category = 0
 
 def isConnected(graph):
 	print("Enter at", time.ctime())
@@ -30,46 +29,47 @@ def isConnected(graph):
 
 def replacer(words):
 	# Need to replace \n with \ and " with '
-	words = words.replace('\n', " \\ ")
 	words = words.replace('\"', '\'')
+	words = words.replace('\n', " \\ ")
 	return words
 
-def insert(collection, subject, object, category):
-	found = False
+def insert(collection, subject, object, cat, catNum):
 	marker = -1
+	found = False
+
 	for i in range(len(collection)):
 		if collection[i].subject == subject:
 			found = True
 			marker = i
+
 	if not found:
 		obj = paper()
 		obj.subject = subject
 		marker = len(collection)
 		collection.append(obj)
-	# print (marker)
-	if category == 'a':
+	
+	if cat == 'a':
 		collection[marker].abstract = replacer(str(object))
-	elif category == 't':
+	elif cat == 't':
 		collection[marker].title = replacer(str(object))
-	elif category == 'b':
-		collection[marker].bio = 1
-	elif category == 'p':
-		collection[marker].psych = 2
-	elif category == 's':
-		collection[marker].social = 3
+	elif cat == 'c':
+		collection[marker].category = catNum
+
 	return collection
 
 def makeDir(rdf_file):
+	name = ""
 	root = "./.data/"
+
 	if not os.path.isdir(root):
 		os.mkdir(root)	
 
-	name = ""
 	for i in range(1,len(rdf_file)):
 		if rdf_file[-i] == '/' and name == "":
 			name = rdf_file[-(i-1):]
 
 	newDir = root + (name.replace(".rdf", "/"))
+
 	if not os.path.isdir(newDir):
 		os.mkdir(newDir)
 
@@ -82,21 +82,41 @@ def makeDir(rdf_file):
 def parser(rdf_file):
 	
 	file, newDir = makeDir(rdf_file)
-	data_file = newDir + "data.csv"
 
+	if os.path.exists('./labels.txt'):
+		if os.path.getsize('./labels.txt'):
+			shutil.copy(os.path.join(os.getcwd(),'labels.txt'), os.path.join(newDir, 'labels.txt'))
+	else:
+		return -1
+
+
+	data_file = newDir + "data.csv"
 	output = open(data_file, 'w', encoding='utf-8')
-	# exit()
 
 	graph = rdflib.Graph()
 
 	start = time.time()
 
-	#Parses the .rdf files and stores it into the graph
 	graph.parse(file)
 
 	end = time.time()
 
-	print(f"{(end-start):.2f} seconds to parse {file}.\n")
+	print(f"{(end-start):.2f} seconds to parse BIOME-z.rdf \n")
+	print(newDir)
+	categories = []
+	labels = open(newDir + 'labels.txt', 'r')
+
+	for line in labels:
+		categories.append(line.replace('\n', ''))
+	categories.sort(reverse=False)
+
+	counter = -1
+	domain_count = []
+	true_domain_count = []
+
+	for i in range(len(categories)):
+		domain_count.append(0)
+		true_domain_count.append(0)
 
 	# A test to see if the graph made by the .parse() function is connected (It is NOT)
 	# isConnected(graph)
@@ -106,55 +126,38 @@ def parser(rdf_file):
 	ABSTRACT = "http://purl.org/dc/terms/abstract"
 	SUBJECT = "http://purl.org/dc/elements/1.1/subject"
 
-	
-	BIO = "biological"
-	PSYCH = "psychological"
-	SOCIAL = "social"
-
-	# Making a set of subject URIRef ID's. These will be used later, but we dont want repeats
 	collection = []
 
-	counter = -1
-	true_domain_count = [0, 0, 0]
-	domain_count = [0, 0, 0]
 
 	# This will find the URIRef ID for every paper that has an abstract attached to it
 	start = time.time()
-	for s, p, o in graph:
-		obj = str(o)
-		obj = obj.lower()
-		if ABSTRACT in p:
-			collection = insert(collection, s, o, 'a')
-			counter += 1
-		if TITLE in p:
-			collection = insert(collection, s, o, 't')
-		if SUBJECT in p:
-			if BIO in obj:
-				true_domain_count[0] += 1
-				collection = insert(collection, s, o, 'b')
-			if PSYCH in obj:
-				true_domain_count[1] += 1
-				collection = insert(collection, s, o, 'p')
-			if SOCIAL in obj:
-				true_domain_count[2] += 1
-				collection = insert(collection, s, o, 's')
+	for i in range(len(categories)):
+		for s, p, o in graph:
+			obj = str(o)
+			obj = obj.lower()
+			if ABSTRACT in p:
+				collection = insert(collection, s, o, 'a', 0)
+				counter += 1
+			if TITLE in p:
+				collection = insert(collection, s, o, 't', 0)
+			if SUBJECT in p:
+				if categories[i].lower() in obj:
+					true_domain_count[i] += 1
+					collection = insert(collection, s, o, 'c', i+1)
 
 	end = time.time()
 
 	print(f"{(end-start):.2f} seconds to ID {counter} articles \n")
 
+	newArr = true_domain_count.copy()
+	newArr.sort(reverse=False)
+
 	start = time.time()
 	for obj in collection:
 			if obj.abstract != "":
-				if obj.psych != 0:
-					domain_count[1] += 1
-					output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.psych), str(obj.title), str(obj.abstract)))
-				elif obj.social != 0:
-					domain_count[2] += 1
-					output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.social), str(obj.title), str(obj.abstract)))
-				elif obj.bio != 0:
-					domain_count[0] += 1
-					output.write("\"{}\",\"{}\",\"{}\"\n".format(str(obj.bio), str(obj.title), str(obj.abstract)))
+				if obj.category != 0:
+					domain_count[obj.category-1] += 1
+					output.write(f"\"{str(obj.category)}\",\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n")	
 	
 	end = time.time()
 	counter = 0
@@ -163,11 +166,9 @@ def parser(rdf_file):
 		counter = counter + domain_count[i]
 	print(f"{(end-start):.2f} seconds to write {counter} articles to a .csv file \n")
 
-	print("Bio    -", domain_count[0], '/', true_domain_count[0])
-	print("Psycho  -", domain_count[1], '/', true_domain_count[1])
-	print("Social -", domain_count[2], '/', true_domain_count[2])
+	for i in range(len(categories)):
+		print(f"{categories[i]} - {domain_count[i]} / {true_domain_count[i]}")
 	print()	
 
 	output.close()
 	return domain_count
-

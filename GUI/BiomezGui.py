@@ -1,6 +1,6 @@
-import os, sys, csv
+import os, sys, csv, platform
 from tkinter import * # Tkinter
-from tkinter import ttk, scrolledtext, filedialog, simpledialog # Submodules
+from tkinter import ttk, scrolledtext, filedialog, simpledialog, messagebox # Submodules
 from tkintertable import TableCanvas, TableModel # Tkinter table
 from PIL import ImageTk, Image as PILImage # Imaging for icon(s)
 from fuzzysearch import find_near_matches # Searching csv file(s)
@@ -29,6 +29,8 @@ class Application(Frame):
 
 		# Important variables:
 		self.rdf_csv_file_name, self.manual_text = StringVar(), StringVar()
+		self.scales = []
+		self.neuralNetworkVar = [DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar()]
 		self.checkButtons = [IntVar(), IntVar()]
 		self.csv_path = ''
 
@@ -146,7 +148,8 @@ class Application(Frame):
 			model=self.tableModel,
 			rowheaderwidth=0,
 			showkeynamesinheader=False,
-			editable=False)
+			editable=False
+		)
 
 		# Finally, show the table on startup.
 		self.searchTable.show()
@@ -172,7 +175,7 @@ class Application(Frame):
 		self.abstractText.place(x=5, y=175, relwidth=0.98, height=150)
 		
 		# Create a Label Frame to hold the prediction options.
-		predictionsLF = LabelFrame(articleTestingLF, text='HAL 9000 predications')
+		predictionsLF = LabelFrame(articleTestingLF, text='Predications')
 		predictionsLF.place(relx=0.01, rely=0.5, relwidth=0.99, relheight=0.50)
 
 		# A button to confirm the neural networks predictions.
@@ -199,6 +202,13 @@ class Application(Frame):
 
 
 # ======================================== BUILD TAB ========================================
+	# Neural Network Variables:
+	# NGRAMS                   [2   ->    5]
+	# Gamma                    [0.9 -> 0.99]
+	# Batch Size               [20  ->  100]
+	# Initial Learning Rate    [3.0 ->  6.0]
+	# Embedding Dimension      [32  ->  256]?
+	# ----------------------------------------
 	# Class function to setup the building tab.
 	def generateBuildTab(self):
 		# Create a button to open a smaller window for label editing.
@@ -212,6 +222,27 @@ class Application(Frame):
 		# Setup a button for re-running the neural network.
 		rerunButton = Button(self.frame_build, text='Re-run')
 		rerunButton.place(relx=0.80, rely=0.90, width=150, height=25)
+
+		self.ngramsScale = Scale(self.frame_build, label='NGRAMS', from_=2, to=5, tickinterval=1, orient=HORIZONTAL, variable=self.neuralNetworkVar[0])
+		self.ngramsScale.place(x=50, y=150, width=900)
+		self.scales.append(self.ngramsScale)
+
+		self.gammaScale = Scale(self.frame_build, label='Gamma', from_=0.90, to=0.99, tickinterval=0.01, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[1])
+		self.gammaScale.place(x=50, y=225, width=900)
+		self.scales.append(self.gammaScale)
+
+		self.batchSizeScale = Scale(self.frame_build, label='Batch Size', from_=20, to=100, tickinterval=5, orient=HORIZONTAL, variable=self.neuralNetworkVar[2])
+		self.batchSizeScale.place(x=50, y=300, width=900)
+		self.scales.append(self.batchSizeScale)
+
+		self.initLrnRateScale = Scale(self.frame_build, label='Init Learning Rate', from_=3.0, to=6.0, tickinterval=0.2, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[3])
+		self.initLrnRateScale.place(x=50, y=375, width=900)
+		self.scales.append(self.initLrnRateScale)
+
+		self.embedDimScale = Scale(self.frame_build, label='Embedding Dimension', from_=32, to=160, tickinterval=8, orient=HORIZONTAL, variable=self.neuralNetworkVar[4])
+		self.embedDimScale.place(x=50, y=450, width=900)
+		self.scales.append(self.embedDimScale)
+
 # ============================================================================================
 
 
@@ -327,6 +358,7 @@ class Application(Frame):
 		self.getLabels()
 		self.updateListBox()
 
+
 	# Update the label list box for the EDIT LABELS WINDOW.
 	def updateListBox(self):
 
@@ -427,7 +459,8 @@ class Application(Frame):
 
 	# Function to convert rdf to csv and save it under a '.data' folder.
 	def convertFile(self):
-		parser(self.file_path)
+		if parser(self.file_path) == -1:
+			messagebox.showerror('You goddamn idiot:', 'Please add your label(s) in the build tab.')
 
 	# In order to let the GUI work in the back-end (pytorch/rdflib), there needs to be
 	# a handful of getters and setters?
