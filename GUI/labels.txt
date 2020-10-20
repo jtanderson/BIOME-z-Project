@@ -1,14 +1,3 @@
-Bananas
-Apples
-Onions
-Pineapple
-Cheese
-Bagel
-Tacos
-Burger
-Hot Dog
-Whiskey
-Fajitas
-Potatoes
-Curry
-Jalapeño Poppers
+Biological
+Psychological
+Social

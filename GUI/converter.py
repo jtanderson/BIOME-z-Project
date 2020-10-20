@@ -76,12 +76,12 @@ def makeDir(rdf_file):
 	if not os.path.isfile(newDir+name):
 		copy(rdf_file, newDir)
 
-	return newDir + name, newDir
+	return newDir + name, newDir, name
 
 # Converts the .rdf file to a .csv file
 def parser(rdf_file):
 	
-	file, newDir = makeDir(rdf_file)
+	file, newDir, name = makeDir(rdf_file)
 
 	if os.path.exists('./labels.txt'):
 		if os.path.getsize('./labels.txt'):
@@ -109,6 +109,7 @@ def parser(rdf_file):
 	for line in labels:
 		categories.append(line.replace('\n', ''))
 	categories.sort(reverse=False)
+	labels.close()
 
 	counter = -1
 	domain_count = []
@@ -171,4 +172,4 @@ def parser(rdf_file):
 	print()	
 
 	output.close()
-	return domain_count
+	return domain_count, name.replace('.rdf', '')

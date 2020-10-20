@@ -11,7 +11,7 @@ from torchtext.data.utils import ngrams_iterator
 
 ############################################# "Main" ##############################################
 
-def builder(folder):
+def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM):
 
     root = './.data/' + folder + '/'
 
@@ -30,19 +30,18 @@ def builder(folder):
     domain_count = [105, 18, 26]
     # printout = open('printout2.txt', 'w')
 
-    NGRAMS = 2 
-    BATCH_SIZE = 48
-    EMBED_DIM = 128
-    INIT_WEIGHT = .1
+    # Ngrams, Batchsize, Embeddim, init lrn rate, gamma are acquired from the gui.
 
+    INIT_WEIGHT = .1
+    # EMBED_DIM = 160
 
     # Big leaps vs small
-    EPOCHS = 5  
+    EPOCHS = 250
 
     # After STEP_SIZE epochs, LEARNING_RATE * GAMMA = new LEARNING_RATE
-    LEARNING_RATE = 1	# Run tests with LEARNING_RATE > 1, and LEARNING_RATE < 1
+    # Run tests with LEARNING_RATE > 1, and LEARNING_RATE < 1
     STEP_SIZE = 1		# Run Tests with much larger STEP_SIZES 
-    GAMMA = 0.99			# 0.8 - 0.9		GAMMA defaults to .1, consider adjusting running smaller GAMMA with other LR & SS
+    # 0.8 - 0.9		GAMMA defaults to .1, consider adjusting running smaller GAMMA with other LR & SS
 
     # Calculate start time.
     start_time = time.time()
@@ -117,5 +116,3 @@ def builder(folder):
 
     # Saves the model
     torch.save(model, root+"model")
-
-builder("BIOME-z2")

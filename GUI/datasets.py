@@ -1,6 +1,7 @@
 ################################## Training and Validation Setup ##################################
 import io
 import os
+import time
 import torch
 import logging
 from tqdm import tqdm
@@ -93,22 +94,24 @@ def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False, rebuild
 		# print(train_labels, "^", test_labels, "=", len(train_labels ^ test_labels))
 		if len(train_labels ^ test_labels) == 0:
 			break
+		else:
+			rebuild = True
 			# raise ValueError("Training and test labels don't match")
 	return (TextClassificationDataset(vocab, train_data, train_labels),
 		TextClassificationDataset(vocab, test_data, test_labels))
 
 def splitter(data, root, train_csv_path, test_csv_path):
-	train_file = open(train_csv_path, 'w')
-	test_file = open(test_csv_path, 'w')
+	train_file = open(train_csv_path, 'w', encoding='utf-8')
+	test_file = open(test_csv_path, 'w', encoding='utf-8')
 
-	line_count = len(open(data).readlines())
+	line_count = len(open(data, 'r', encoding='utf-8').readlines())
 	seed(time.time())
 	lines = set()
 
 	while len(lines) < line_count * .1:
 		lines.add(randint(0,line_count))
 
-	with open(data) as data_file:
+	with open(data, 'r', encoding='utf-8') as data_file:
 		for lineno, line in enumerate(data_file):
 			if lineno in lines:
 				test_file.write(line)
