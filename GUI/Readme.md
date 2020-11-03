@@ -1,18 +1,17 @@
 # Biome-z Graphical User Interface
 
-## October - 2020
+## October & November 2020
 
 ### Current status/notes:
 
 #### Dependencies:
-- Basic python dep: `os`, `sys`, `csv`
 - `tkinter`
 - `tkintertable`
 - `PIL` (Pillow)
 - `fuzzysearch`
 - `tkhtmlview`
 - `markdown2`
-- `converter` (Jack Stoetzel's rdf parsing file).
+- `torch` (Pytorch)
 
 #### Finished components:
 ##### Testing Tab
@@ -24,9 +23,15 @@
 - Two check-box buttons for searching in "Titles" or "Abstracts" or both.
 - Corresponding table to display search results.
 - A button to paste a selected row from the table to the article testing area.
+- Predictions can now be made; it will show the label and confidence interval.
 ##### Building Tab
 - Build Neural Network and Re-run buttons placed.
 - Edit labels button with complete interaction (add/remove) options.
+- Select Model button added, so the user can select a pre-existing model for re-running/testing.
+- Six parameters (ngrams, gamma, batch size, initial learning rate, embedding dimension, and epochs) and their respective slider components are added for building/rerunning purposes.
+- Set default parameters button allows the user to set the gui's loaded default parameters.
+- The build neural network buttons can now build the neural network using the set parameters.
+- A progress bar for showing building progress added.
 ##### Statistics Tab
 - Nothing
 ##### Manual Tab
@@ -41,8 +46,9 @@
 - If someone attempts to select multiple rows and uses `shift` or `ctrl`, some errors are thrown in the console. The program can still run, so this could be ignored.
 
 #### To be completed:
-- [ ] Attach/put-together Jack Stoetzel's new parser to the GUI along with the label management system.
+- [X] Attach/put-together Jack Stoetzel's new parser to the GUI along with the label management system.
 - [ ] Include the labels/tags column to the csv file. Increase the table row count?
-- [ ] Get started adding more components to the Build tab.
+- [X] Get started adding more components to the Build tab.
 - [ ] Once ready, put together the statistics tab (mainly graphs and or charts).
-- [ ] Include a `?` as the icon image for the separate label window?
+- [ ] Fix the neural network building function(s), so it will build with a label that does not exist in rdf file.
+  - For ex: "Social Studies" has 0 instances in the BIOME-z data, therefore will endlessly loop.
