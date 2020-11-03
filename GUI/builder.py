@@ -11,7 +11,7 @@ from torchtext.data.utils import ngrams_iterator
 
 ############################################# "Main" ##############################################
 
-def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM):
+def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS, Progress, Context):
 
     root = './.data/' + folder + '/'
 
@@ -24,24 +24,13 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM):
     for line in labels:
         categories.append(line.replace('\n', ''))
 
+    labels.close()
+
     categories.sort(reverse=False)
 
-    # domain_count = parser(data_file)
-    domain_count = [105, 18, 26]
-    # printout = open('printout2.txt', 'w')
-
-    # Ngrams, Batchsize, Embeddim, init lrn rate, gamma are acquired from the gui.
-
+    # Ngrams, Batchsize, Embeddim, init lrn rate, gamma, epochs are acquired from the gui.
     INIT_WEIGHT = .1
-    # EMBED_DIM = 160
-
-    # Big leaps vs small
-    EPOCHS = 250
-
-    # After STEP_SIZE epochs, LEARNING_RATE * GAMMA = new LEARNING_RATE
-    # Run tests with LEARNING_RATE > 1, and LEARNING_RATE < 1
-    STEP_SIZE = 1		# Run Tests with much larger STEP_SIZES 
-    # 0.8 - 0.9		GAMMA defaults to .1, consider adjusting running smaller GAMMA with other LR & SS
+    STEP_SIZE = 1
 
     # Calculate start time.
     start_time = time.time()
@@ -55,7 +44,7 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM):
     print(f"\nRunning on {device}. \n")
 
     # Set variables for testing and learning.
-    VOCAB_SIZE = len(train_dataset.get_vocab()) # 1,308,844
+    VOCAB_SIZE = len(train_dataset.get_vocab())
 
     # Output size for the first layer.
     NUM_CLASS = len(train_dataset.get_labels())
@@ -82,7 +71,6 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM):
     
     num_epoch = 0
     # For each epoch:
-
     for epoch in range(EPOCHS):
         # sub_train_, sub_valid_ = random_split(train_dataset, [train_len, len(train_dataset) - train_len])
         
@@ -101,6 +89,9 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM):
         print(f'Epoch: {epoch + 1} | time in {mins:.0f} minutes, {secs:.1f} seconds')
         print(f'\tLoss: {train_loss:.4f}(train)\t|\tAcc: {train_acc * 100:.1f}%(train)')
         print(f'\tLoss: {valid_loss:.4f}(valid)\t|\tAcc: {valid_acc * 100:.1f}%(valid)')
+        Progress.set(Progress.get() + 1.0/EPOCHS * 100)
+        Context.update()
+
         # if train_acc == 1 or valid_acc == 1:
         # 	sub_train_, sub_valid_ = traingingSplit(train_dataset, train_len)
     # Calculate time values.
@@ -111,8 +102,6 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM):
     print('Checking the results of test dataset after %d minutes, %d seconds and %d Epochs'%(mins, secs, EPOCHS))
 
     test_loss, test_acc = train.test(test_dataset, BATCH_SIZE, device, model, criterion, categories)
-    
     print(f'\tLoss: {test_loss:.4f}(test)\t|\tAcc: {test_acc * 100:.1f}%(test) \n\n\n')
-
     # Saves the model
     torch.save(model, root+"model")

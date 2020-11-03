@@ -29,7 +29,8 @@ def create_UI(self):
 
 # ======================================== TESTING TAB ========================================
 def generateTestTab(self):
-	self.rdf_csv_file_name.set("No File Chosen")
+	self.rdf_csv_file_name.set('No File Chosen')
+	self.wkdir.set('No Current Directory.')
 
 	# Separates the left half of the frame for the article testing section.
 	self.articleTestingLF = LabelFrame(self.frame_test, text="Article Testing", height=1000, width=500)
@@ -58,6 +59,10 @@ def generateTestTab(self):
 	self.convertButton = Button(self.loadArticleLF, state=DISABLED, text='Convert to csv', command=lambda: convertFile(self))
 	self.convertButton.place(x=5, y=50)
 
+
+	self.dirNameLabel = Label(self.loadArticleLF, textvariable=self.wkdir)
+	self.dirNameLabel.place(x=110, y=54)
+
 	# A label telling the user to input for a search.
 	self.searchLabel = Label(self.loadArticleLF, text='Search for an Article:')
 	self.searchLabel.place(x=5, y=103)
@@ -65,9 +70,10 @@ def generateTestTab(self):
 	# A text entry to act as the search bar.
 	self.searchEntry = Entry(self.loadArticleLF, text='Search')
 	self.searchEntry.place(relx=0.275, y=103, relwidth=0.50, height=23)
+	self.searchEntry.bind('<Return>', lambda event: searchCSV(self, 0))
 
 	# The search button to to execute the search.
-	self.searchButton = Button(self.loadArticleLF, text='Search', state=DISABLED, command=lambda: searchCSV(self))
+	self.searchButton = Button(self.loadArticleLF, text='Search', state=DISABLED, command=lambda: searchCSV(self, self))
 	self.searchButton.place(relx=0.840, y=103, relwidth=0.15, height=23)
 
 	# Create a label to prompt the user to search in either title and/or abstract.
@@ -151,14 +157,14 @@ def generateTestTab(self):
 	self.overrideButton.place(relx=0.800, rely=0.90, relwidth=0.15, height=23)
 
 	# ========== Creating an options menu for each of the labels ===========
-	labelOptions = []
+	self.labelOptions = []
 	for label in self.labelList:
-		labelOptions.append(label.strip())
+		self.labelOptions.append(label.strip())
 
 	var = StringVar(self.frame_test)
-	var.set(labelOptions[0])
+	var.set(self.labelOptions[0])
 
-	self.labelOptionsMenu = OptionMenu(self.predictionsLF, var, *labelOptions)
+	self.labelOptionsMenu = OptionMenu(self.predictionsLF, var, *self.labelOptions)
 	self.labelOptionsMenu.place(relx=0.02, rely=0.90, relwidth=0.2, height=23)
 	# ======================================================================
 # =============================================================================================
@@ -178,6 +184,15 @@ def generateBuildTab(self):
 	self.editLabelButton = Button(self.frame_build, text='Edit Labels', command=lambda: openLabelWindow(self))
 	self.editLabelButton.place(relx=0.80, rely=0.10, width=150, height=25)
 
+	self.deviceTypeLabel = Label(self.frame_build, textvariable=self.type)
+	self.deviceTypeLabel.place(relx=0.80, rely=0.05, width=150, height=25)
+
+	self.modelLabel = Label(self.frame_build, text='Select a model (e.g. ./.data/modelName)')
+	self.modelLabel.place(relx=0.05, rely=0.10, width=250, height=25)
+
+	self.selectFolderButton = Button(self.frame_build, text='Select Model', command=lambda: selectFolder(self))
+	self.selectFolderButton.place(relx=0.30, rely=0.10)
+
 	# Setup a button for building the network.
 	self.buildNNButton = Button(self.frame_build, text='Build Neural Network', command=lambda: runBuilder(self))
 	self.buildNNButton.place(relx=0.05, rely=0.90, width=150, height=25)
@@ -195,11 +210,20 @@ def generateBuildTab(self):
 	self.batchSizeScale = Scale(self.frame_build, label='Batch Size', from_=20, to=100, tickinterval=5, orient=HORIZONTAL, variable=self.neuralNetworkVar[2])
 	self.batchSizeScale.place(x=50, y=300, relwidth=0.90)
 
-	self.initLrnRateScale = Scale(self.frame_build, label='Init Learning Rate', from_=3.0, to=6.0, tickinterval=0.2, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[3])
+	self.initLrnRateScale = Scale(self.frame_build, label='Initial Learning Rate', from_=3.0, to=6.0, tickinterval=0.2, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[3])
 	self.initLrnRateScale.place(x=50, y=375, relwidth=0.90)
 
 	self.embedDimScale = Scale(self.frame_build, label='Embedding Dimension', from_=32, to=160, tickinterval=8, orient=HORIZONTAL, variable=self.neuralNetworkVar[4])
 	self.embedDimScale.place(x=50, y=450, relwidth=0.90)
+
+	self.epochScale = Scale(self.frame_build, label='Number of Epochs', from_=25, to=2525, tickinterval=100, orient=HORIZONTAL, variable=self.neuralNetworkVar[5])
+	self.epochScale.place(x=50, y=525, relwidth=0.90)
+
+	self.setDefaultButton = Button(self.frame_build, text='Set New Default Parameter', command=lambda: setDefaultParameters(self, './'))
+	self.setDefaultButton.place(relx=0.05, rely=0.85, width=150)
+
+	self.progressBar = ttk.Progressbar(self.frame_build, variable=self.buildProgress, style='green.Horizontal.TProgressbar')
+	self.progressBar.place(relx=0.25, rely=0.90, width=500, height=25)
 
 # ============================================================================================
 

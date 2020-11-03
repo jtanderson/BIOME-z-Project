@@ -1,4 +1,4 @@
-import os, sys, csv, platform, predictor, builder
+import os, sys, csv, platform, predictor, builder, torch, json
 from tkinter import * # Tkinter
 from tkinter import ttk, scrolledtext, filedialog, simpledialog, messagebox # Submodules
 from tkintertable import TableCanvas, TableModel # Tkinter table
@@ -14,6 +14,9 @@ def importManualInfo(self):
 	fd = open('./manual.md', 'r')
 	self.manual_text.set(fd.read())
 	fd.close()
+
+def getDeviceType(self):
+	self.type.set('Running on: ' + str(torch.device('cuda' if torch.cuda.is_available() else 'cpu')))
 
 # Class function to create the smaller window for editing labels.
 def openLabelWindow(self):
@@ -101,10 +104,8 @@ def delLabel(self):
 	getLabels(self)
 	updateListBox(self)
 
-
 # Update the label list box for the EDIT LABELS WINDOW.
 def updateListBox(self):
-
 	# Delete "ALL" in label list box.
 	self.labelListBox.delete(0, END)
 
@@ -112,42 +113,51 @@ def updateListBox(self):
 	for label in self.labelList:
 		self.labelListBox.insert(END, label.strip())
 
+	# for label in self.labelList:?????
+	# 	self.labelOptions.append(label.strip())
+
 # Opens the labels text file to update the label list.
 def getLabels(self):
 	fd = open('labels.txt', 'r')
 	self.labelList = fd.readlines()
 	fd.close() # Never forget to close your files, Thank you Dr. Park
 
-
 def runPredictor(self):
 	results = None
 	if self.CLASS_NAME == '':
 		messagebox.showinfo('No file selected', 'No file selected')
-	elif not self.abstractText.get("1.0", END): # Likely does not work. fix.
+	elif self.abstractText.get("1.0", END) == '\n':
 		messagebox.showinfo('No Abstract Set', 'Please enter an abstract.')
 	else:
-		results = predictor.predictor(self.CLASS_NAME, self.abstractText.get("1.0", END))
+		options, topOpt, smValues = predictor.predictor(self.CLASS_NAME, self.titleText.get("1.0", END) + self.abstractText.get("1.0", END))
+		results = ''
+		for num in range(len(smValues)):
+			results = results + '##### ' + options[num] + ' Confidence: ' + str(round(smValues[num], 5)) + ".\n"
 		self.predictResultLabel.set_html(self.mkdn2.convert(results))
 
 def runBuilder(self):
 	if self.CLASS_NAME == '':
-		messagebox.showinfo('File Needed!', 'File Needed...')
+		messagebox.showinfo('No Model Selected', 'Please select a model in the build tab\nor convert an rdf file.')
 	else:
+		self.buildProgress.set(0.0)
 		builder.builder(self.CLASS_NAME,
 			int(self.neuralNetworkVar[0].get()),
 			self.neuralNetworkVar[1].get(),
 			int(self.neuralNetworkVar[2].get()),
 			self.neuralNetworkVar[3].get(),
-			int(self.neuralNetworkVar[4].get()))
+			int(self.neuralNetworkVar[4].get()),
+			int(self.neuralNetworkVar[5].get()),
+			self.buildProgress,
+			self.master)
 
 # A class function used to select a file for the TESTING tab.
 def openFileDialog(self):
-
 	# Open up a file selection prompt for the user with two options: RDF / ALL types.
-	self.file_path = filedialog.askopenfilename(initialdir='./', title='Select Rdf File', filetypes=(('rdf files', '*.rdf'),('all files', '*.*'),('csv files', '*.csv')))
+	temp_file_path = filedialog.askopenfilename(initialdir='./', title='Select Rdf File', filetypes=(('rdf files', '*.rdf'),('all files', '*.*'),('csv files', '*.csv')))
 
 	# If returned a file-path:
-	if self.file_path:
+	if temp_file_path:
+		self.file_path = temp_file_path
 		# Parse the filename and extension from the path:
 		slashIndex = self.file_path.rindex('/') + 1
 		fileName = self.file_path[slashIndex:]
@@ -171,9 +181,22 @@ def openFileDialog(self):
 		# Set the variable for a label in the same label.
 		self.rdf_csv_file_name.set(fileName)
 
+def selectFolder(self):
+	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
+
+	if temp_folder:
+		end = temp_folder.rindex('/') + 1
+		modelName = temp_folder[end:]
+		start =  end - 6
+		if temp_folder[start:end - 1] == '.data':
+			self.CLASS_NAME = modelName
+			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
+			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
+		else:
+			messagebox.showinfo('Incorrect folder',  'Please select a proper model folder.\nExample: \'./.data/example\'')
 
 # A function tied to the search button that queries and displays results in the table.
-def searchCSV(self):
+def searchCSV(self, event):
 	# Clear the table.
 	for num in range(25):
 		self.searchTable.model.deleteCellRecord(num, 0)
@@ -210,6 +233,29 @@ def convertFile(self):
 		messagebox.showerror('No Labels', 'Please add your label(s) in the build tab.')
 	else:
 		_, self.CLASS_NAME = parserResults
+		setDefaultParameters(self, './.data/' + self.CLASS_NAME + '/')
+		self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
+
+def loadDefaultParameters(self, directory):
+	pos = 0
+	with open(directory + 'default-parameters.json') as json_file:
+		data = json.load(json_file)
+		for item in data:
+			self.neuralNetworkVar[pos].set(float(data.get(item)))
+			pos += 1
+
+def setDefaultParameters(self, directory):
+	JSON_FORMAT = {
+		'ngrams': self.neuralNetworkVar[0].get(),
+		'gamma': self.neuralNetworkVar[1].get(),
+		'batch-size': self.neuralNetworkVar[2].get(),
+		'initial-learn': self.neuralNetworkVar[3].get(),
+		'embedding-dim': self.neuralNetworkVar[4].get(),
+		'epochs': self.neuralNetworkVar[5].get()
+	}
+
+	with open(directory + 'default-parameters.json', 'w') as json_file:
+		json.dump(JSON_FORMAT, json_file)
 
 # This function grabs the contents of the table's row and implants the contents
 # in the title and abstract text fields.

@@ -2,6 +2,7 @@
 import datasets
 
 import os
+import math
 import time
 import torch
 import pprint
@@ -125,25 +126,33 @@ def my_range(start, end, step):
         yield start
         start += step
 
+# If a label has 0 entries, an inf loop is created here.
 def traingingSplit(train_dataset, train_len, BATCH_SIZE, catCount):
-	balanced = False
-	while not balanced:
-		valid_domain = []
-		for i in range(catCount):
-			valid_domain.append(0)
+    balanced = False
+    while not balanced:
+        valid_domain = []
+        for i in range(catCount):
+            valid_domain.append(0)
 
-		sub_train_, sub_valid_ = random_split(train_dataset, [train_len, len(train_dataset) - train_len])
-		data = DataLoader(sub_valid_, batch_size=BATCH_SIZE, collate_fn=generate_batch)	
+        sub_train_, sub_valid_ = random_split(train_dataset, [train_len, len(train_dataset) - train_len])
+        data = DataLoader(sub_valid_, batch_size=BATCH_SIZE, collate_fn=generate_batch) 
+        equal = 0
+        counter = 0
+        for text, offsets, cls in data:
+            
+            counter += 1 
+            if counter > 1:
+                print("Increase BATCH_SIZE")
+                exit()
 
-		for text, offsets, cls in data:
-			equal = len(cls) / catCount
-			for i in cls:
-				valid_domain[i] += 1
+            equal = len(cls) / catCount
 
-		balanced = True
-		for i in valid_domain:
-			if i != round(equal) and i != (round(equal)+1):
-				balanced = False
+            for i in cls:
+                valid_domain[i] += 1
 
-	return sub_train_, sub_valid_
+        balanced = True
+        for i in valid_domain:
+            if i != math.floor(equal) and i != (math.floor(equal)+1):
+                balanced = False
 
+    return sub_train_, sub_valid_

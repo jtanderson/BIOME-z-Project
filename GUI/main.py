@@ -4,15 +4,9 @@ from tkinter import *
 # Author: Declan Sheehan
 
 # TODO:
-# 1: Organize the spaghetti.
-# 2: Style the Gui up.
-# 3: Create manual contents.
-# 4: Make sure that the user can get the file-name (file-name.rdf) properly:
-#	- Converting rdf -> csv
-#	- Think of other instances.
-# 5: Make sure to close all file descriptors.
-# 6: Fix opendialog file selector.
-# 7: Add Confidence for Prediction.
+# 1: Style the Gui up.
+# 2: Create manual contents.
+# 3: Fix training split function in classification.py
 
 def main():
 	root = Tk()
@@ -29,9 +23,6 @@ def main():
 	# Set the topbar icon for the GUI.
 	topbarIcon = Image('photo', file='./sammy.ico')
 	root.call('wm', 'iconphoto', root._w, topbarIcon)
-	# Change the general style of the program.
-	rootStyle = ttk.Style()
-	rootStyle.theme_use('clam')
 	# Anything after this line below will execute after the GUI is exited.
 	root.mainloop()
 

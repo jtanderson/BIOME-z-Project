@@ -24,6 +24,7 @@ def _csv_iterator(data_path, ngrams, yield_cls=False):
                 yield int(row[0]) - 1, ngrams_iterator(tokens, ngrams)
             else:
                 yield ngrams_iterator(tokens, ngrams)
+        f.close()
 
 def _create_data_from_iterator(vocab, iterator, include_unk):
     data = []
@@ -91,7 +92,6 @@ def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False, rebuild
 		logging.info('Creating testing data')
 		test_data, test_labels = _create_data_from_iterator(
 			vocab, _csv_iterator(test_csv_path, ngrams, yield_cls=True), include_unk)
-		# print(train_labels, "^", test_labels, "=", len(train_labels ^ test_labels))
 		if len(train_labels ^ test_labels) == 0:
 			break
 		else:
@@ -109,7 +109,7 @@ def splitter(data, root, train_csv_path, test_csv_path):
 	lines = set()
 
 	while len(lines) < line_count * .1:
-		lines.add(randint(0,line_count))
+		lines.add(randint(0, line_count))
 
 	with open(data, 'r', encoding='utf-8') as data_file:
 		for lineno, line in enumerate(data_file):
@@ -117,6 +117,7 @@ def splitter(data, root, train_csv_path, test_csv_path):
 				test_file.write(line)
 			else:
 				train_file.write(line)
+		data_file.close()
 	train_file.close()
 	test_file.close()
 	return train_csv_path, test_csv_path

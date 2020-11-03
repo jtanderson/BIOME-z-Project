@@ -15,7 +15,8 @@ def predict(text, model, vocab, ngrams):
         text = torch.tensor([vocab[token]
                             for token in ngrams_iterator(tokenizer(text), ngrams)])
         output = model(text, torch.tensor([0]))
-        return output.argmax(1).item()
+        sm = torch.nn.Softmax(dim=1)
+        return output.argmax(1).item(), sm(output)
 
 def predictor(folder, input_str):
 	root = './.data/' + folder + '/'
@@ -26,6 +27,7 @@ def predictor(folder, input_str):
 	labels = open(root+'labels.txt', 'r')
 
 	categories = []
+	smResults = []
 
 	for line in labels:
 		categories.append(line.replace('\n', ''))
@@ -36,7 +38,11 @@ def predictor(folder, input_str):
 
 	model = model.to('cpu')
 
-	return categories[predict(input_str, model, vocab, 2)]
+	topPrediction, softmax = predict(input_str, model, vocab, 2)
 
-# answer = predictor('PsycNet')	# Consider a way to pass in vocab, then we can remove data_file and setup_datasets
-# print(f"This is a {answer} article.")
+	for num in range(len(softmax[0])):
+		smResults.append(softmax[0][num].item())
+
+	return categories, categories[topPrediction], smResults
+
+# answer = predictor('BIOME-z', 'apples oranges and bacon and cheese burger sometimes')	# Consider a way to pass in vocab, then we can remove data_file and setup_datasets
