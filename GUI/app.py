@@ -1,4 +1,5 @@
 from tkinter import * # Tkinter
+from builder import stats_data
 from interface import *
 from methods import *
 
@@ -13,6 +14,11 @@ class Application(Frame):
 		create_UI(self)
 	
 	def initializeVariables(self):
+
+		# Statistics variables:
+		self.model_stats = []
+		self.position = 0
+
 		self.rdf_csv_file_name, self.manual_text, self.wkdir, self.type = StringVar(), StringVar(), StringVar(), StringVar()
 		self.neuralNetworkVar = [DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar()]
 		self.buildProgress = DoubleVar()

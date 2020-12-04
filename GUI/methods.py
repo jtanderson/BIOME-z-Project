@@ -7,6 +7,9 @@ from fuzzysearch import find_near_matches # Searching csv file(s)
 from tkhtmlview import HTMLLabel # Displaying html.
 from markdown2 import Markdown # Converting mkdn to html.
 from converter import parser # Converting .rdf to .csv & other.
+from builder import stats_data
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
 # Open the file contents of manual.txt instead of writing instructions
 # inside of this Python file.
@@ -140,7 +143,7 @@ def runBuilder(self):
 		messagebox.showinfo('No Model Selected', 'Please select a model in the build tab\nor convert an rdf file.')
 	else:
 		self.buildProgress.set(0.0)
-		builder.builder(self.CLASS_NAME,
+		stats = builder.builder(self.CLASS_NAME,
 			int(self.neuralNetworkVar[0].get()),
 			self.neuralNetworkVar[1].get(),
 			int(self.neuralNetworkVar[2].get()),
@@ -149,6 +152,11 @@ def runBuilder(self):
 			int(self.neuralNetworkVar[5].get()),
 			self.buildProgress,
 			self.master)
+		if self.saveButton['state'] == DISABLED:
+			self.saveButton.config(state=NORMAL)
+
+		self.model_stats.append(stats)
+		showStats(self, len(self.model_stats) - 1)
 
 # A class function used to select a file for the TESTING tab.
 def openFileDialog(self):
@@ -268,4 +276,76 @@ def pushRowContents(self):
 	# Insert text for title and abstract.
 	self.titleText.insert(INSERT, self.searchTable.model.getValueAt(row, 0))
 	self.abstractText.insert(INSERT, self.searchTable.model.getValueAt(row, 1))
+
+def showStats(self, position):
+	self.position = position
+	stats = self.model_stats[position]
+	plot_acc = self.fig_acc.add_subplot(111)
+	plot_acc.cla()
+	plot_acc.plot(stats.epochs, stats.train_acc)
+	plot_acc.plot(stats.epochs, stats.valid_acc)
+	plot_acc.legend(['Training Accuracy', 'Validation Accuracy'], loc='best')
+	self.Canvas_acc.draw()
+
+	plot_loss = self.fig_loss.add_subplot(111)
+	plot_loss.cla()
+	plot_loss.plot(stats.epochs, stats.train_loss)
+	plot_loss.plot(stats.epochs, stats.valid_loss)
+	plot_loss.legend(['Training Loss', 'Validation Loss'], loc='best')
+	self.Canvas_loss.draw()
+	updateToolbar(self)
+
+def prevGraph(self):
+	if self.position > 0:
+		showStats(self, self.position - 1)
+
+def nextGraph(self):
+	if self.position < len(self.model_stats) - 1:
+		showStats(self, self.position + 1)
+
+def loadGraph(self):
+	file_name = filedialog.askopenfilename(initialdir='./', title='Select a Csv File', filetypes=[('csv files', '*.csv')])
+	if file_name and '.csv' in file_name:
+		try:
+			stats = stats_data()
+			with open(file_name, newline='') as csvfile:
+				reader = csv.reader(csvfile, delimiter=',', skipinitialspace=True)
+				next(reader)
+				for epoch, ta, va, tl, vl in reader:
+					stats.epochs.append(int(epoch))
+					stats.train_acc.append(float(ta))
+					stats.valid_acc.append(float(va))
+					stats.train_loss.append(float(tl))
+					stats.valid_loss.append(float(vl))
+				self.model_stats.append(stats)
+				showStats(self, len(self.model_stats) - 1)
+		except:
+			messagebox.showinfo('Graph loading error', 'An error occurred when loading the csv file.')
+
+
+def saveGraph(self):
+	file_name = filedialog.asksaveasfile(filetypes=[('Csv', '*.csv')], defaultextension=[('Csv', '*.csv')])
+	if file_name:
+		writer = csv.writer(open(file_name.name, 'w', newline=''))
+		writer.writerow(['Epochs', 'Training Accuracy', 'Validation Accuracy', 'Training Loss', 'Validation Loss'])
+		for num in range(len(self.model_stats[self.position].epochs)):
+			writer.writerow([self.model_stats[self.position].epochs[num],
+				round(self.model_stats[self.position].train_acc[num], 4),
+				round(self.model_stats[self.position].valid_acc[num], 4),
+				round(self.model_stats[self.position].train_loss[num], 4),
+				round(self.model_stats[self.position].valid_loss[num], 4)])
+
+
+def updateToolbar(self):
+	if self.position - 1 < 0:
+		self.prevButton.config(state=DISABLED)
+	else:
+		self.prevButton.config(state=NORMAL)
+
+	if self.position == len(self.model_stats) - 1:
+		self.nextButton.config(state=DISABLED)
+	else:
+		self.nextButton.config(state=NORMAL)
+
+
 # ===========================================================================================

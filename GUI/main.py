@@ -5,8 +5,11 @@ from tkinter import *
 
 # TODO:
 # 1: Style the Gui up.
-# 2: Create manual contents.
-# 3: Fix training split function in classification.py
+# 2: Fix training split function in classification.py
+# 3: Add stuff to statistics tab:
+# - Fix spacing when saving csv
+# - Add custom values for the parameters
+# - Increase range for params.
 
 def main():
 	root = Tk()

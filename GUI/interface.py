@@ -1,6 +1,9 @@
 from tkinter import *
 from tkinter import ttk
 from methods import *
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
+
 
 def create_UI(self):
 	# ========== Creating the base framework for the tabs ==========
@@ -25,6 +28,7 @@ def create_UI(self):
 
 	generateTestTab(self)
 	generateBuildTab(self)
+	generateStatsTab(self)
 	generateManualTab(self)
 
 # ======================================== TESTING TAB ========================================
@@ -193,39 +197,88 @@ def generateBuildTab(self):
 	self.selectFolderButton = Button(self.frame_build, text='Select Model', command=lambda: selectFolder(self))
 	self.selectFolderButton.place(relx=0.30, rely=0.10)
 
-	# Setup a button for building the network.
-	self.buildNNButton = Button(self.frame_build, text='Build Neural Network', command=lambda: runBuilder(self))
-	self.buildNNButton.place(relx=0.05, rely=0.90, width=150, height=25)
+	self.ngramsScale = Scale(self.frame_build, label='NGRAMS', from_=2, to=8, tickinterval=1, orient=HORIZONTAL, variable=self.neuralNetworkVar[0])
+	self.ngramsScale.place(relx=0.05, y=150, relwidth=0.90)
 
-	# Setup a button for re-running the neural network.
-	self.rerunButton = Button(self.frame_build, text='Re-run')
-	self.rerunButton.place(relx=0.80, rely=0.90, width=150, height=25)
+	# self.ngramText = Text(self.frame_build)
+	# self.ngramText.place(relx=0.15, y=150, relwidth=0.05, relheight=0.02)
 
-	self.ngramsScale = Scale(self.frame_build, label='NGRAMS', from_=2, to=5, tickinterval=1, orient=HORIZONTAL, variable=self.neuralNetworkVar[0])
-	self.ngramsScale.place(x=50, y=150, relwidth=0.90)
+	self.gammaScale = Scale(self.frame_build, label='Gamma', from_=0.85, to=0.99, tickinterval=0.01, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[1])
+	self.gammaScale.place(relx=0.05, y=225, relwidth=0.90)
 
-	self.gammaScale = Scale(self.frame_build, label='Gamma', from_=0.90, to=0.99, tickinterval=0.01, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[1])
-	self.gammaScale.place(x=50, y=225, relwidth=0.90)
+	self.batchSizeScale = Scale(self.frame_build, label='Batch Size', from_=16, to=256, tickinterval=16, orient=HORIZONTAL, variable=self.neuralNetworkVar[2])
+	self.batchSizeScale.place(relx=0.05, y=300, relwidth=0.90)
 
-	self.batchSizeScale = Scale(self.frame_build, label='Batch Size', from_=20, to=100, tickinterval=5, orient=HORIZONTAL, variable=self.neuralNetworkVar[2])
-	self.batchSizeScale.place(x=50, y=300, relwidth=0.90)
-
-	self.initLrnRateScale = Scale(self.frame_build, label='Initial Learning Rate', from_=3.0, to=6.0, tickinterval=0.2, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[3])
-	self.initLrnRateScale.place(x=50, y=375, relwidth=0.90)
+	self.initLrnRateScale = Scale(self.frame_build, label='Initial Learning Rate', from_=1.0, to=7.0, tickinterval=0.2, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[3])
+	self.initLrnRateScale.place(relx=0.05, y=375, relwidth=0.90)
 
 	self.embedDimScale = Scale(self.frame_build, label='Embedding Dimension', from_=32, to=160, tickinterval=8, orient=HORIZONTAL, variable=self.neuralNetworkVar[4])
-	self.embedDimScale.place(x=50, y=450, relwidth=0.90)
+	self.embedDimScale.place(relx=0.05, y=450, relwidth=0.90)
 
 	self.epochScale = Scale(self.frame_build, label='Number of Epochs', from_=25, to=2525, tickinterval=100, orient=HORIZONTAL, variable=self.neuralNetworkVar[5])
-	self.epochScale.place(x=50, y=525, relwidth=0.90)
+	self.epochScale.place(relx=0.05, y=525, relwidth=0.90)
 
 	self.setDefaultButton = Button(self.frame_build, text='Set New Default Parameter', command=lambda: setDefaultParameters(self, './'))
-	self.setDefaultButton.place(relx=0.05, rely=0.85, width=150)
+	self.setDefaultButton.place(relx=0.05, rely=0.90, relwidth=0.15)
+
+	# Setup a button for building the network.
+	self.buildNNButton = Button(self.frame_build, text='Build Neural Network', command=lambda: runBuilder(self))
+	self.buildNNButton.place(relx=0.425, rely=0.90, relwidth=0.15, height=25)
+
+	self.setModParamButton = Button(self.frame_build, text='Set Model Parameters', command=lambda: setDefaultParameters(self, './.data/' + self.CLASS_NAME + '/'))
+	self.setModParamButton.place(relx=0.80, rely=0.90, relwidth=0.15)
 
 	self.progressBar = ttk.Progressbar(self.frame_build, variable=self.buildProgress, style='green.Horizontal.TProgressbar')
-	self.progressBar.place(relx=0.25, rely=0.90, width=500, height=25)
+	self.progressBar.place(relx=0.05, rely=0.95, relwidth=0.90, height=25)
 
 # ============================================================================================
+
+
+# ======================================== STATS TAB ========================================
+def generateStatsTab(self):
+	self.generalDataFrame = LabelFrame(self.frame_stats, text='General Data')
+	self.generalDataFrame.place(relx=0.0, rely=0.0, relwidth=0.40, relheight=0.50)
+
+	self.compositionFrame = LabelFrame(self.frame_stats, text='Composition')
+	self.compositionFrame.place(relx=0.40, rely=0.0, relwidth=0.60, relheight=0.50)
+
+	self.toolbar = LabelFrame(self.frame_stats)
+	self.toolbar.place(relx=0.0, rely=0.50, relwidth=1.00, relheight=0.035)
+
+
+	self.loadButton = Button(self.toolbar, text='Load', command = lambda: loadGraph(self))
+	self.loadButton.place(relx=0.0, rely=0.0, relwidth=0.10, relheight=1.00)
+
+	self.saveButton = Button(self.toolbar, text='Save', command = lambda: saveGraph(self), state=DISABLED)
+	self.saveButton.place(relx=0.10, rely=0.0, relwidth=0.10, relheight=1.00)
+
+	self.prevButton = Button(self.toolbar, text='Prev', command = lambda: prevGraph(self), state=DISABLED)
+	self.prevButton.place(relx=0.20, rely=0.0, relwidth=0.10, relheight=1.00)
+
+	self.nextButton = Button(self.toolbar, text='Next', command = lambda: nextGraph(self), state=DISABLED)
+	self.nextButton.place(relx=0.30, rely=0.0, relwidth=0.10, relheight=1.00)
+
+	self.accuracyGraph = LabelFrame(self.frame_stats)
+	self.accuracyGraph.place(relx=0.00, rely=0.535, relwidth=0.50, relheight=0.465)
+
+	self.lossGraph = LabelFrame(self.frame_stats)
+	self.lossGraph.place(relx=0.50, rely=0.535, relwidth=0.50, relheight=0.465)
+
+	self.fig_acc = Figure(figsize=(7, 5), dpi=100)
+	self.fig_loss = Figure(figsize=(7, 5), dpi=100)
+
+	self.Canvas_acc = FigureCanvasTkAgg(self.fig_acc, self.accuracyGraph)
+	self.toolbar_acc = NavigationToolbar2Tk(self.Canvas_acc, self.accuracyGraph)
+	self.toolbar_acc.update()
+	self.Canvas_acc.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
+
+	self.Canvas_loss = FigureCanvasTkAgg(self.fig_loss, self.lossGraph)
+	self.toolbar_loss = NavigationToolbar2Tk(self.Canvas_loss, self.lossGraph)
+	self.toolbar_loss.update()
+	self.Canvas_loss.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
+
+# ============================================================================================
+
 
 
 # ======================================== MANUAL TAB ========================================
@@ -233,21 +286,15 @@ def generateManualTab(self):
 	importManualInfo(self)
 	# Create a title for the manual.
 	self.manualTitleLabel = Label(self.frame_manual, text="Biome-z GUI Version 1.0", font=('Times', '25'))
-	self.manualTitleLabel.place(x=350, y=5)
-
-	# Create a small image at the top left corner.
-	sammyImage = ImageTk.PhotoImage(PILImage.open('./sammy.ico'))
-	self.manualIcon = Label(self.frame_manual, image=sammyImage)
-	self.manualIcon.image = sammyImage
-	self.manualIcon.place(x=20, y=20)
+	self.manualTitleLabel.place(relx=0.375, y=5)
 
 	# Make a label frame to put the HTML Label inside.
 	self.manualLF = LabelFrame(self.frame_manual, relief=SUNKEN)
-	self.manualLF.place(x=50, y=150, relwidth=0.900, relheight=0.700)
+	self.manualLF.place(relx=0.025, y=150, relwidth=0.95, relheight=0.75)
 
 	# Make HTML label for the contents of the manual.md to be put in.
 	self.manualLabel = HTMLLabel(self.manualLF)
-	self.manualLabel.pack(fill=BOTH)
+	self.manualLabel.pack(fill=BOTH, expand=True)
 
 	# Set the contents of the manual.md to the text of the HTML Label.
 	self.manualLabel.set_html(self.mkdn2.convert(self.manual_text.get()))

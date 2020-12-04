@@ -108,13 +108,13 @@ def test(data_, BATCH_SIZE, device, model, criterion, categories):
             acc += (output.argmax(1) == cls).sum().item()
 
             accuracy = (output.argmax(1) == cls)
-          
+
             # print(cls)
             for i in range(len(cls)):
             	answers[(cls[i])] += 1
             	if accuracy[i] == True:
             		correct[(output.argmax(1)[i])] += 1
-            		
+
     for i in range(len(categories)):
     	print(f'{categories[i]}: \t {(correct[i]/answers[i]) * 100:.1f}%  \t ({correct[i]}/{answers[i]})')
     
