@@ -16,6 +16,8 @@ class Application(Frame):
 	def initializeVariables(self):
 
 		# Statistics variables:
+		self.generalStats = StringVar()
+		self.toolbarText = StringVar()
 		self.model_stats = []
 		self.position = 0
 

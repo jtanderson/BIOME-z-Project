@@ -285,6 +285,7 @@ def showStats(self, position):
 	plot_acc.plot(stats.epochs, stats.train_acc)
 	plot_acc.plot(stats.epochs, stats.valid_acc)
 	plot_acc.legend(['Training Accuracy', 'Validation Accuracy'], loc='best')
+	plot_acc.set_title('Training & Validation Accuracy')
 	self.Canvas_acc.draw()
 
 	plot_loss = self.fig_loss.add_subplot(111)
@@ -292,7 +293,23 @@ def showStats(self, position):
 	plot_loss.plot(stats.epochs, stats.train_loss)
 	plot_loss.plot(stats.epochs, stats.valid_loss)
 	plot_loss.legend(['Training Loss', 'Validation Loss'], loc='best')
+	plot_loss.set_title('Training & Validation Loss')
 	self.Canvas_loss.draw()
+
+	pie_comp1 = self.fig_comp1.add_subplot(111)
+	pie_comp1.cla()
+	pie_comp1.pie(stats.train_cat_val, labels=stats.train_cat_label, autopct='%1.3f%%', shadow=True, startangle=90)
+	pie_comp1.axis('equal')
+	pie_comp1.set_title('Training Composition')
+	self.Canvas_comp1.draw()
+
+	pie_comp2 = self.fig_comp2.add_subplot(111)
+	pie_comp2.cla()
+	pie_comp2.pie(stats.test_cat_val, labels=stats.test_cat_label, autopct='%1.3f%%', shadow=True, startangle=90)
+	pie_comp2.axis('equal')
+	pie_comp2.set_title('Testing Composition')
+	self.Canvas_comp2.draw()
+
 	updateToolbar(self)
 
 def prevGraph(self):
@@ -311,6 +328,8 @@ def loadGraph(self):
 			with open(file_name, newline='') as csvfile:
 				reader = csv.reader(csvfile, delimiter=',', skipinitialspace=True)
 				next(reader)
+				stats.ngram, stats.gamma, stats.batch, stats.initlrn, stats.embed, stats.epoch = next(reader)
+				next(reader)
 				for epoch, ta, va, tl, vl in reader:
 					stats.epochs.append(int(epoch))
 					stats.train_acc.append(float(ta))
@@ -324,9 +343,12 @@ def loadGraph(self):
 
 
 def saveGraph(self):
+	stats = self.model_stats[self.position]
 	file_name = filedialog.asksaveasfile(filetypes=[('Csv', '*.csv')], defaultextension=[('Csv', '*.csv')])
 	if file_name:
 		writer = csv.writer(open(file_name.name, 'w', newline=''))
+		writer.writerow(['Ngrams', 'Gamma', 'Batch', 'Initial Learning Rate', 'Embedding Dimension', 'Number of Epochs'])
+		writer.writerow([stats.ngram, stats.gamma, stats.batch, stats.initlrn, stats.embed, stats.epoch])
 		writer.writerow(['Epochs', 'Training Accuracy', 'Validation Accuracy', 'Training Loss', 'Validation Loss'])
 		for num in range(len(self.model_stats[self.position].epochs)):
 			writer.writerow([self.model_stats[self.position].epochs[num],
@@ -337,6 +359,7 @@ def saveGraph(self):
 
 
 def updateToolbar(self):
+	stats = self.model_stats[self.position]
 	if self.position - 1 < 0:
 		self.prevButton.config(state=DISABLED)
 	else:
@@ -347,5 +370,8 @@ def updateToolbar(self):
 	else:
 		self.nextButton.config(state=NORMAL)
 
+	self.toolbarText.set('Run: ' + str(self.position + 1) + ' | Ngrams: ' + str(stats.ngram) + ' | Gamma: ' + str(stats.gamma) + ' | Batch: ' + str(stats.batch) + ' | Initial lrn rate: '+  str(stats.initlrn) + ' | Embed dim: ' + str(stats.embed) + ' | Epochs (more): ' + str(stats.epoch))
+	self.generalStats.set('###### Time: ' + str(stats.time_min) + ' Minutes ' + str(stats.time_sec) + ' Second(s)\n###### Test Accuracy: ' + str(stats.test_acc) + '%\n###### Test Loss: ' + str(stats.test_loss) + '\n######Vocabulary Size: ' + str(stats.vocab_size) + '\n')
+	self.genStatsLabel.set_html('<h3 style=\"text-align:center;\">Run #' + str(self.position + 1) + '</h3><br>' + self.mkdn2.convert(self.generalStats.get()))
 
 # ===========================================================================================

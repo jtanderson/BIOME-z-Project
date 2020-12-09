@@ -2,10 +2,11 @@ import converter
 from datasets import _setup_datasets
 import classification as train
 
+import re
+import math
 import time
 import torch
 
-import re
 from torchtext.data.utils import get_tokenizer
 from torchtext.data.utils import ngrams_iterator
 
@@ -23,6 +24,24 @@ class stats_data:
         self.labels = []
         self.sizes = []
 
+        self.vocab_size = 0
+        self.test_loss = 0
+        self.test_acc = 0
+        self.time_min = 0
+        self.time_sec = 0
+
+        self.initlrn = 0.00
+        self.gamma = 0.00
+        self.epoch = 0
+        self.ngram = 0
+        self.batch = 0
+        self.embed = 0
+
+        self.train_cat_label = []
+        self.train_cat_val = []
+        self.test_cat_label = []
+        self.test_cat_val = []
+
     def __enter__(self):
         return self
 
@@ -32,8 +51,13 @@ class stats_data:
 
 
 def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS, Progress, Context):
-
     Statistics = stats_data()
+    Statistics.initlrn = LEARNING_RATE
+    Statistics.gamma = GAMMA
+    Statistics.epoch = EPOCHS
+    Statistics.ngram = NGRAMS
+    Statistics.batch = BATCH_SIZE
+    Statistics.embed = EMBED_DIM
 
     root = './.data/' + folder + '/'
     data_file = root + 'data.csv'
@@ -54,14 +78,10 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
 
     # Calculate start time.
     start_time = time.time()
-
-    print("NGRAMS \t BATCH_SIZE \t EMBED_DIM \t LEARNING_RATE \t STEP_SIZE \t GAMMA \n")
-    print(f"{NGRAMS} \t {BATCH_SIZE} \t\t {EMBED_DIM} \t\t {LEARNING_RATE} \t\t {STEP_SIZE} \t\t {GAMMA} \n")
      	
     train_dataset, test_dataset = _setup_datasets(data=data_file, root=root, ngrams=NGRAMS, vocab=None)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"\nRunning on {device}. \n")
 
     # Set variables for testing and learning.
     VOCAB_SIZE = len(train_dataset.get_vocab())
@@ -89,26 +109,19 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
     Statistics.train_size = train_len
     Statistics.test_size = len(train_dataset) - train_len
 
-    cat = [0, 0, 0]
-    for i in range(train_len):
-        if train_dataset[i][0] == 0:
-            cat[0]+=1
-        elif train_dataset[i][0] == 1:
-            cat[1]+=1
-        else:
-            cat[2]+=1
-
-    print(cat)
+    cat = [0 for i in range(len(categories))]
+    for x in range(train_len):
+        for y in range(len(categories)):
+            if train_dataset[x][0] == y:
+                cat[y] += 1
 
     # This will make valid training sets until the distribution of domains is equal
-
-    sub_train_, sub_valid_ = train.traingingSplit(train_dataset, train_len, BATCH_SIZE, len(categories))
+    sub_train_, sub_valid_ = train.trainingSplit(train_dataset, train_len, BATCH_SIZE, len(categories))
     
     num_epoch = 0
     # For each epoch:
     for epoch in range(EPOCHS):
         # sub_train_, sub_valid_ = random_split(train_dataset, [train_len, len(train_dataset) - train_len])
-        
         # Calculate start time.
         epoch_start_time = time.time()
         
@@ -121,16 +134,7 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
         Statistics.valid_acc.append(valid_acc)
         Statistics.train_loss.append(train_loss)
         Statistics.valid_loss.append(valid_loss.item())
-        
-        
-        # Calculate time values.
-        secs = int(time.time() - epoch_start_time)
-        mins = secs / 60
-        secs = secs % 60
 
-        print(f'Epoch: {epoch + 1} | time in {mins:.0f} minutes, {secs:.1f} seconds')
-        print(f'\tLoss: {train_loss:.4f}(train)\t|\tAcc: {train_acc * 100:.1f}%(train)')
-        print(f'\tLoss: {valid_loss:.4f}(valid)\t|\tAcc: {valid_acc * 100:.1f}%(valid)')
         Progress.set(Progress.get() + 1.0/EPOCHS * 100)
         Context.update()
 
@@ -139,10 +143,18 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
     mins = secs / 60
     secs = secs % 60
 
-    print('Checking the results of test dataset after %d minutes, %d seconds and %d Epochs'%(mins, secs, EPOCHS))
+    test_loss, test_acc, test_comp = train.test(test_dataset, BATCH_SIZE, device, model, criterion, categories)
 
-    test_loss, test_acc = train.test(test_dataset, BATCH_SIZE, device, model, criterion, categories)
-    print(f'\tLoss: {test_loss:.4f}(test)\t|\tAcc: {test_acc * 100:.1f}%(test) \n\n\n')
+    Statistics.vocab_size = VOCAB_SIZE
+    Statistics.test_loss = round(test_loss.item(), 4)
+    Statistics.test_acc = round(test_acc, 5) * 100
+    Statistics.time_min = int(math.floor(mins))
+    Statistics.time_sec = secs
+    Statistics.train_cat_label = categories
+    Statistics.train_cat_val = cat
+    Statistics.test_cat_label = categories
+    Statistics.test_cat_val = test_comp
+
     # Saves the model
     torch.save(model, root + "model")
     return Statistics

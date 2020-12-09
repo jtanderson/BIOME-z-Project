@@ -197,33 +197,39 @@ def generateBuildTab(self):
 	self.selectFolderButton = Button(self.frame_build, text='Select Model', command=lambda: selectFolder(self))
 	self.selectFolderButton.place(relx=0.30, rely=0.10)
 
-	self.ngramsScale = Scale(self.frame_build, label='NGRAMS', from_=2, to=8, tickinterval=1, orient=HORIZONTAL, variable=self.neuralNetworkVar[0])
-	self.ngramsScale.place(relx=0.05, y=150, relwidth=0.90)
+	self.parameterLF = LabelFrame(self.frame_build, text='Parameters')
+	self.parameterLF.place(relx=0.05, y=125, relwidth=0.90, height=325)
 
-	# self.ngramText = Text(self.frame_build)
-	# self.ngramText.place(relx=0.15, y=150, relwidth=0.05, relheight=0.02)
+	self.ngramsScale = Scale(self.parameterLF, label='NGRAMS', from_=2, to=8, tickinterval=1, orient=HORIZONTAL, variable=self.neuralNetworkVar[0])
+	self.ngramsScale.place(relx=0.0, y=0, relwidth=0.50)
 
-	self.gammaScale = Scale(self.frame_build, label='Gamma', from_=0.85, to=0.99, tickinterval=0.01, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[1])
-	self.gammaScale.place(relx=0.05, y=225, relwidth=0.90)
+	self.gammaScale = Scale(self.parameterLF, label='Gamma', from_=0.85, to=0.99, tickinterval=0.01, resolution=0.02, orient=HORIZONTAL, variable=self.neuralNetworkVar[1])
+	self.gammaScale.place(relx=0.50, y=0, relwidth=0.50)
 
-	self.batchSizeScale = Scale(self.frame_build, label='Batch Size', from_=16, to=256, tickinterval=16, orient=HORIZONTAL, variable=self.neuralNetworkVar[2])
-	self.batchSizeScale.place(relx=0.05, y=300, relwidth=0.90)
+	self.batchSizeScale = Scale(self.parameterLF, label='Batch Size', from_=16, to=256, tickinterval=32, orient=HORIZONTAL, variable=self.neuralNetworkVar[2])
+	self.batchSizeScale.place(relx=0.0, y=75, relwidth=0.50)
 
-	self.initLrnRateScale = Scale(self.frame_build, label='Initial Learning Rate', from_=1.0, to=7.0, tickinterval=0.2, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[3])
-	self.initLrnRateScale.place(relx=0.05, y=375, relwidth=0.90)
+	self.initLrnRateScale = Scale(self.parameterLF, label='Initial Learning Rate', from_=1.0, to=7.0, tickinterval=1.00, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[3])
+	self.initLrnRateScale.place(relx=0.50, y=75, relwidth=0.50)
 
-	self.embedDimScale = Scale(self.frame_build, label='Embedding Dimension', from_=32, to=160, tickinterval=8, orient=HORIZONTAL, variable=self.neuralNetworkVar[4])
-	self.embedDimScale.place(relx=0.05, y=450, relwidth=0.90)
+	self.embedDimScale = Scale(self.parameterLF, label='Embedding Dimension', from_=32, to=160, tickinterval=8, orient=HORIZONTAL, variable=self.neuralNetworkVar[4])
+	self.embedDimScale.place(relx=0.0, y=150, relwidth=1.00)
 
-	self.epochScale = Scale(self.frame_build, label='Number of Epochs', from_=25, to=2525, tickinterval=100, orient=HORIZONTAL, variable=self.neuralNetworkVar[5])
-	self.epochScale.place(relx=0.05, y=525, relwidth=0.90)
+	self.epochLabel = Label(self.parameterLF, text='Epochs:', font=('Times, 15'))
+	self.epochLabel.place(relx=0.0, y=250)
+
+	self.epochSpin = Spinbox(self.parameterLF, from_=1, to=25000000, textvariable=self.neuralNetworkVar[5], font=('Times, 15'))
+	self.epochSpin.place(relx=0.1, y=252, relwidth=0.15)
 
 	self.setDefaultButton = Button(self.frame_build, text='Set New Default Parameter', command=lambda: setDefaultParameters(self, './'))
 	self.setDefaultButton.place(relx=0.05, rely=0.90, relwidth=0.15)
 
 	# Setup a button for building the network.
 	self.buildNNButton = Button(self.frame_build, text='Build Neural Network', command=lambda: runBuilder(self))
-	self.buildNNButton.place(relx=0.425, rely=0.90, relwidth=0.15, height=25)
+	self.buildNNButton.place(relx=0.30, rely=0.90, relwidth=0.15, height=25)
+
+	self.trainButton = Button(self.frame_build, text='Train')
+	self.trainButton.place(relx=0.55, rely=0.90, relwidth=0.15, height=25)
 
 	self.setModParamButton = Button(self.frame_build, text='Set Model Parameters', command=lambda: setDefaultParameters(self, './.data/' + self.CLASS_NAME + '/'))
 	self.setModParamButton.place(relx=0.80, rely=0.90, relwidth=0.15)
@@ -237,26 +243,56 @@ def generateBuildTab(self):
 # ======================================== STATS TAB ========================================
 def generateStatsTab(self):
 	self.generalDataFrame = LabelFrame(self.frame_stats, text='General Data')
-	self.generalDataFrame.place(relx=0.0, rely=0.0, relwidth=0.40, relheight=0.50)
+	self.generalDataFrame.place(relx=0.0, rely=0.0, relwidth=0.35, relheight=0.50)
 
 	self.compositionFrame = LabelFrame(self.frame_stats, text='Composition')
-	self.compositionFrame.place(relx=0.40, rely=0.0, relwidth=0.60, relheight=0.50)
+	self.compositionFrame.place(relx=0.35, rely=0.0, relwidth=0.65, relheight=0.50)
 
+	self.trainLF = LabelFrame(self.compositionFrame)
+	self.trainLF.place(relx=0.0, rely=0.0, relwidth=0.5, relheight=1.0)
+
+	self.testLF = LabelFrame(self.compositionFrame)
+	self.testLF.place(relx=0.5, rely=0.0, relwidth=0.5, relheight=1.0)
+
+	self.genStatsLabel = HTMLLabel(self.generalDataFrame)
+	self.genStatsLabel.place(x=5, y=5, relwidth=0.9725, relheight=0.9725)
+
+	self.genStatsLabel.set_html('<h3 style=\"text-align:center;\">Run #' + str(self.position + 1) + '</h3><br>')
+
+
+	#################### TOOLBAR ####################
 	self.toolbar = LabelFrame(self.frame_stats)
 	self.toolbar.place(relx=0.0, rely=0.50, relwidth=1.00, relheight=0.035)
 
-
 	self.loadButton = Button(self.toolbar, text='Load', command = lambda: loadGraph(self))
-	self.loadButton.place(relx=0.0, rely=0.0, relwidth=0.10, relheight=1.00)
+	self.loadButton.place(relx=0.0, rely=0.0, relwidth=0.0875, relheight=1.00)
 
 	self.saveButton = Button(self.toolbar, text='Save', command = lambda: saveGraph(self), state=DISABLED)
-	self.saveButton.place(relx=0.10, rely=0.0, relwidth=0.10, relheight=1.00)
+	self.saveButton.place(relx=0.0875, rely=0.0, relwidth=0.0875, relheight=1.00)
 
 	self.prevButton = Button(self.toolbar, text='Prev', command = lambda: prevGraph(self), state=DISABLED)
-	self.prevButton.place(relx=0.20, rely=0.0, relwidth=0.10, relheight=1.00)
+	self.prevButton.place(relx=0.175, rely=0.0, relwidth=0.0875, relheight=1.00)
 
 	self.nextButton = Button(self.toolbar, text='Next', command = lambda: nextGraph(self), state=DISABLED)
-	self.nextButton.place(relx=0.30, rely=0.0, relwidth=0.10, relheight=1.00)
+	self.nextButton.place(relx=0.2625, rely=0.0, relwidth=0.0875, relheight=1.00)
+
+	self.toolbarText.set('Run: 0 | Ngrams: 0 | Gamma: 0 | Batch: 0 | Initial lrn rate: 0 | Embed dim: 0 | Epochs (more): 0')
+	self.toolbarParams = Label(self.toolbar, textvariable=self.toolbarText, anchor='w', font=('', '9', 'bold'))
+	self.toolbarParams.place(relx=0.3525, rely=0.0, relwidth=0.5975, relheight=1.00)
+
+	#################################################
+
+	self.fig_comp1 = Figure(figsize=(1, 1))
+	self.Canvas_comp1 = FigureCanvasTkAgg(self.fig_comp1, self.trainLF)
+	self.toolbar_comp1 = NavigationToolbar2Tk(self.Canvas_comp1, self.trainLF)
+	self.toolbar_comp1.update()
+	self.Canvas_comp1.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
+
+	self.fig_comp2 = Figure(figsize=(4, 4))
+	self.Canvas_comp2 = FigureCanvasTkAgg(self.fig_comp2, self.testLF)
+	self.toolbar_comp2 = NavigationToolbar2Tk(self.Canvas_comp2, self.testLF)
+	self.toolbar_comp2.update()
+	self.Canvas_comp2.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
 
 	self.accuracyGraph = LabelFrame(self.frame_stats)
 	self.accuracyGraph.place(relx=0.00, rely=0.535, relwidth=0.50, relheight=0.465)
@@ -265,20 +301,19 @@ def generateStatsTab(self):
 	self.lossGraph.place(relx=0.50, rely=0.535, relwidth=0.50, relheight=0.465)
 
 	self.fig_acc = Figure(figsize=(7, 5), dpi=100)
-	self.fig_loss = Figure(figsize=(7, 5), dpi=100)
 
 	self.Canvas_acc = FigureCanvasTkAgg(self.fig_acc, self.accuracyGraph)
 	self.toolbar_acc = NavigationToolbar2Tk(self.Canvas_acc, self.accuracyGraph)
 	self.toolbar_acc.update()
 	self.Canvas_acc.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
 
+	self.fig_loss = Figure(figsize=(7, 5), dpi=100)
 	self.Canvas_loss = FigureCanvasTkAgg(self.fig_loss, self.lossGraph)
 	self.toolbar_loss = NavigationToolbar2Tk(self.Canvas_loss, self.lossGraph)
 	self.toolbar_loss.update()
 	self.Canvas_loss.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
 
 # ============================================================================================
-
 
 
 # ======================================== MANUAL TAB ========================================

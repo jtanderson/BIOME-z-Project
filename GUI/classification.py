@@ -104,7 +104,7 @@ def test(data_, BATCH_SIZE, device, model, criterion, categories):
         with torch.no_grad():
             output = model(text, offsets)
             loss = criterion(output, cls)
-            loss += loss.item()    
+            loss += loss.item()
             acc += (output.argmax(1) == cls).sum().item()
 
             accuracy = (output.argmax(1) == cls)
@@ -115,11 +115,7 @@ def test(data_, BATCH_SIZE, device, model, criterion, categories):
             	if accuracy[i] == True:
             		correct[(output.argmax(1)[i])] += 1
 
-    for i in range(len(categories)):
-    	print(f'{categories[i]}: \t {(correct[i]/answers[i]) * 100:.1f}%  \t ({correct[i]}/{answers[i]})')
-    
-    print()
-    return loss / len(data_), acc / len(data_)
+    return loss / len(data_), acc / len(data_), answers
 
 def my_range(start, end, step):
     while start <= end:
@@ -127,7 +123,7 @@ def my_range(start, end, step):
         start += step
 
 # If a label has 0 entries, an inf loop is created here.
-def traingingSplit(train_dataset, train_len, BATCH_SIZE, catCount):
+def trainingSplit(train_dataset, train_len, BATCH_SIZE, catCount):
     balanced = False
     while not balanced:
         valid_domain = []

@@ -23,6 +23,25 @@ Once a prediction is made, there are options to either accept the predictions (C
 - Embedding dimension: This is how complex the neural network will be. By increasing the number, you are adding nodes to the structure.
 - Epochs: This is how many times the neural network trains the model through the structure itself. Typically, you want a higher epoch.
 
+### Statistics Tab:
+- Start by building a neural network...
+- Useful information is displayed under the 'General Data' frame. This includes runtime, testing accuracy, testing loss, and more.
+- The Composition frame will display two pie charts. The left one will display the composition of training data. The right will display the composition of the testing set. It is important to note that you want as even percentage for all labels to train well and avoid overfitting. For testing, a 'real-world' dataset is preferable.
+- To the right of the 'Next' button is a list of all parameters for that given run.
+- The toolbar in the middle contains four buttons:
+	- The load button allows you to load a previously saved graph to the parameters on the side, and the accuracy/loss graph below.
+	- The save button allows you to save the current graph and parameters to a csv file.
+	- The prev button will show you the previous available graph.
+	- The next button will show you the next available graph.
+- The toolbar below every graph allows you to manipulate the plot:
+	- The home button will show the original plot.
+	- The left arrow will show the previous plot state.
+	- The right arrow will show the next plot state.
+	- The four-arrow button will allow you to physically move the plot to a desired spot.
+	- The magnifying glass will zoom in on a location.
+	- The settings button gives you a popup to change the graph's size and position values.
+	- Lastly, the save button will allow you to save the graph as an image.
+
 ### Development:
 - Declan Sheehan: Tkinter GUI components & some subsidiary neural network Python files.
 - Jack Stoetzel: Worked on much of the neural network Python files.
