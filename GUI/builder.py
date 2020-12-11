@@ -10,6 +10,9 @@ import torch
 from torchtext.data.utils import get_tokenizer
 from torchtext.data.utils import ngrams_iterator
 
+
+# This small class is meant to hold run data.
+# It will then be passed into the Tk gui to be graphed.
 class stats_data:
     def __init__(self):
         super().__init__()
@@ -47,7 +50,6 @@ class stats_data:
 
     def __exit__(self, type, value, traceback):
         pass
-
 
 
 def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS, Progress, Context):
@@ -147,7 +149,7 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
 
     Statistics.vocab_size = VOCAB_SIZE
     Statistics.test_loss = round(test_loss.item(), 4)
-    Statistics.test_acc = round(test_acc, 5) * 100
+    Statistics.test_acc = round(test_acc * 100, 3)
     Statistics.time_min = int(math.floor(mins))
     Statistics.time_sec = secs
     Statistics.train_cat_label = categories

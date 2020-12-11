@@ -1,6 +1,6 @@
-from tkinter import * # Tkinter
 from builder import stats_data
 from interface import *
+from tkinter import *
 from methods import *
 
 class Application(Frame):

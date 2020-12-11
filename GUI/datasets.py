@@ -18,12 +18,12 @@ def _csv_iterator(data_path, ngrams, yield_cls=False):
     with io.open(data_path, encoding="utf8") as f:
         reader = unicode_csv_reader(f)
         for row in reader:
-            tokens = ' '.join(row[1:])
-            tokens = tokenizer(tokens)
-            if yield_cls:
-                yield int(row[0]) - 1, ngrams_iterator(tokens, ngrams)
-            else:
-                yield ngrams_iterator(tokens, ngrams)
+        	tokens = ' '.join(row[1:])
+        	tokens = tokenizer(tokens)
+        	if yield_cls:
+        		yield int(row[0]) - 1, ngrams_iterator(tokens, ngrams)
+        	else:
+        		yield ngrams_iterator(tokens, ngrams)
         f.close()
 
 def _create_data_from_iterator(vocab, iterator, include_unk):

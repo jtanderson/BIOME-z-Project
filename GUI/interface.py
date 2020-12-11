@@ -4,9 +4,8 @@ from methods import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
-
+# Creates the user interface.
 def create_UI(self):
-	# ========== Creating the base framework for the tabs ==========
 	self.notebook = ttk.Notebook(self.master)
 	self.notebook.pack(fill=BOTH, expand=YES)
 
@@ -24,7 +23,6 @@ def create_UI(self):
 	self.notebook.add(self.frame_build, text="Building")
 	self.notebook.add(self.frame_stats, text="Statistics")
 	self.notebook.add(self.frame_manual, text="Manual")
-	# ==============================================================
 
 	generateTestTab(self)
 	generateBuildTab(self)
@@ -63,7 +61,7 @@ def generateTestTab(self):
 	self.convertButton = Button(self.loadArticleLF, state=DISABLED, text='Convert to csv', command=lambda: convertFile(self))
 	self.convertButton.place(x=5, y=50)
 
-
+	# Creates a label for displaying the 'working directory'.
 	self.dirNameLabel = Label(self.loadArticleLF, textvariable=self.wkdir)
 	self.dirNameLabel.place(x=110, y=54)
 
@@ -120,7 +118,7 @@ def generateTestTab(self):
 	# A button below the table to transfer the contents of the row to text fields.
 	self.transferRowButton = Button(self.loadArticleLF, text='<-- Send', command=lambda: pushRowContents(self))
 	self.transferRowButton.place(relx=0.03, rely=0.75, relwidth=0.12, height=23)
-	# |---------------------------------------------------------------------|
+
 	# Create a label to prompt the user to enter a title.
 	self.articleTitleLabel = Label(self.articleTestingLF, text="Enter a title below:")
 	self.articleTitleLabel.place(x=5, y=20)
@@ -165,38 +163,36 @@ def generateTestTab(self):
 	for label in self.labelList:
 		self.labelOptions.append(label.strip())
 
-	var = StringVar(self.frame_test)
-	var.set(self.labelOptions[0])
+	self.labelOptionVar = StringVar(self.frame_test)
+	self.labelOptionVar.set(self.labelOptions[0])
 
-	self.labelOptionsMenu = OptionMenu(self.predictionsLF, var, *self.labelOptions)
+	self.labelOptionsMenu = OptionMenu(self.predictionsLF, self.labelOptionVar, *self.labelOptions)
 	self.labelOptionsMenu.place(relx=0.02, rely=0.90, relwidth=0.2, height=23)
 	# ======================================================================
 # =============================================================================================
 
 
 # ======================================== BUILD TAB ========================================
-# Neural Network Variables:
-# NGRAMS                   [2   ->    5]
-# Gamma                    [0.9 -> 0.99]
-# Batch Size               [20  ->  100]
-# Initial Learning Rate    [3.0 ->  6.0]
-# Embedding Dimension      [32  ->  160]
-# ----------------------------------------
 
 def generateBuildTab(self):
 	# Create a button to open a smaller window for label editing.
 	self.editLabelButton = Button(self.frame_build, text='Edit Labels', command=lambda: openLabelWindow(self))
 	self.editLabelButton.place(relx=0.80, rely=0.10, width=150, height=25)
 
+	# Creates a label for showing the processor type used for the NN.
 	self.deviceTypeLabel = Label(self.frame_build, textvariable=self.type)
 	self.deviceTypeLabel.place(relx=0.80, rely=0.05, width=150, height=25)
 
+	# Creates a label to assist user in selecting a model.
 	self.modelLabel = Label(self.frame_build, text='Select a model (e.g. ./.data/modelName)')
 	self.modelLabel.place(relx=0.05, rely=0.10, width=250, height=25)
 
+	# Creates a button for selecting the model.
 	self.selectFolderButton = Button(self.frame_build, text='Select Model', command=lambda: selectFolder(self))
 	self.selectFolderButton.place(relx=0.30, rely=0.10)
 
+
+	########## Parameter interface ##########
 	self.parameterLF = LabelFrame(self.frame_build, text='Parameters')
 	self.parameterLF.place(relx=0.05, y=125, relwidth=0.90, height=325)
 
@@ -220,20 +216,28 @@ def generateBuildTab(self):
 
 	self.epochSpin = Spinbox(self.parameterLF, from_=1, to=25000000, textvariable=self.neuralNetworkVar[5], font=('Times, 15'))
 	self.epochSpin.place(relx=0.1, y=252, relwidth=0.15)
+	#########################################
 
+
+	# Creates a button to save parameters to the default file in the main directory.
 	self.setDefaultButton = Button(self.frame_build, text='Set New Default Parameter', command=lambda: setDefaultParameters(self, './'))
 	self.setDefaultButton.place(relx=0.05, rely=0.90, relwidth=0.15)
 
-	# Setup a button for building the network.
+	# Setup a button for building the network from scratch.
 	self.buildNNButton = Button(self.frame_build, text='Build Neural Network', command=lambda: runBuilder(self))
 	self.buildNNButton.place(relx=0.30, rely=0.90, relwidth=0.15, height=25)
 
+	# Setup a button to training the neural network for a given amount of epochs.
+	# NOT YET IMPLEMENTED.
 	self.trainButton = Button(self.frame_build, text='Train')
 	self.trainButton.place(relx=0.55, rely=0.90, relwidth=0.15, height=25)
 
+	# Setup a button to save parameters to the module's folder.
+	# Once the module is selected and loaded, the parameters will load too.
 	self.setModParamButton = Button(self.frame_build, text='Set Model Parameters', command=lambda: setDefaultParameters(self, './.data/' + self.CLASS_NAME + '/'))
 	self.setModParamButton.place(relx=0.80, rely=0.90, relwidth=0.15)
 
+	# A Progress bar to show build/training progress.
 	self.progressBar = ttk.Progressbar(self.frame_build, variable=self.buildProgress, style='green.Horizontal.TProgressbar')
 	self.progressBar.place(relx=0.05, rely=0.95, relwidth=0.90, height=25)
 
@@ -242,25 +246,68 @@ def generateBuildTab(self):
 
 # ======================================== STATS TAB ========================================
 def generateStatsTab(self):
+
+	###################### GENERAL ######################
+	# Create a labelframe for the general statistics information.
 	self.generalDataFrame = LabelFrame(self.frame_stats, text='General Data')
 	self.generalDataFrame.place(relx=0.0, rely=0.0, relwidth=0.35, relheight=0.50)
 
+	# Add an html label to display the general statistics information.
+	self.genStatsLabel = HTMLLabel(self.generalDataFrame)
+	self.genStatsLabel.place(x=5, y=5, relwidth=0.9725, relheight=0.9725)
+	self.genStatsLabel.set_html('<h3 style=\"text-align:center;\">Run #' + str(self.position + 1) + '</h3><br>')
+	#####################################################
+
+
+	#################### LINE GRAPH #####################
+	# Two labelframes for holding the two line graph plots.
+	self.accuracyGraph = LabelFrame(self.frame_stats)
+	self.accuracyGraph.place(relx=0.00, rely=0.535, relwidth=0.50, relheight=0.465)
+	self.lossGraph = LabelFrame(self.frame_stats)
+	self.lossGraph.place(relx=0.50, rely=0.535, relwidth=0.50, relheight=0.465)
+
+	# Create the special Tkcanvas for showing matplotlib graphs for accuracy and loss.
+	self.fig_acc = Figure(figsize=(7, 5), dpi=100)
+	self.Canvas_acc = FigureCanvasTkAgg(self.fig_acc, self.accuracyGraph)
+	self.toolbar_acc = NavigationToolbar2Tk(self.Canvas_acc, self.accuracyGraph)
+	self.toolbar_acc.update()
+	self.Canvas_acc.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
+
+	self.fig_loss = Figure(figsize=(7, 5), dpi=100)
+	self.Canvas_loss = FigureCanvasTkAgg(self.fig_loss, self.lossGraph)
+	self.toolbar_loss = NavigationToolbar2Tk(self.Canvas_loss, self.lossGraph)
+	self.toolbar_loss.update()
+	self.Canvas_loss.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
+	#####################################################
+
+
+	#################### COMPOSITION ####################
+	# Create a labelframe for the pie charts (data composition).
 	self.compositionFrame = LabelFrame(self.frame_stats, text='Composition')
 	self.compositionFrame.place(relx=0.35, rely=0.0, relwidth=0.65, relheight=0.50)
 
+	# Two labelframes for each pie chart.
 	self.trainLF = LabelFrame(self.compositionFrame)
 	self.trainLF.place(relx=0.0, rely=0.0, relwidth=0.5, relheight=1.0)
-
 	self.testLF = LabelFrame(self.compositionFrame)
 	self.testLF.place(relx=0.5, rely=0.0, relwidth=0.5, relheight=1.0)
 
-	self.genStatsLabel = HTMLLabel(self.generalDataFrame)
-	self.genStatsLabel.place(x=5, y=5, relwidth=0.9725, relheight=0.9725)
+	self.fig_comp1 = Figure(figsize=(1, 1))
+	self.Canvas_comp1 = FigureCanvasTkAgg(self.fig_comp1, self.trainLF)
+	self.toolbar_comp1 = NavigationToolbar2Tk(self.Canvas_comp1, self.trainLF)
+	self.toolbar_comp1.update()
+	self.Canvas_comp1.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
 
-	self.genStatsLabel.set_html('<h3 style=\"text-align:center;\">Run #' + str(self.position + 1) + '</h3><br>')
+	self.fig_comp2 = Figure(figsize=(4, 4))
+	self.Canvas_comp2 = FigureCanvasTkAgg(self.fig_comp2, self.testLF)
+	self.toolbar_comp2 = NavigationToolbar2Tk(self.Canvas_comp2, self.testLF)
+	self.toolbar_comp2.update()
+	self.Canvas_comp2.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
+	#####################################################
 
 
-	#################### TOOLBAR ####################
+	###################### TOOLBAR ######################
+	# Create a labelframe to hold the toolbar buttons and label.
 	self.toolbar = LabelFrame(self.frame_stats)
 	self.toolbar.place(relx=0.0, rely=0.50, relwidth=1.00, relheight=0.035)
 
@@ -279,39 +326,7 @@ def generateStatsTab(self):
 	self.toolbarText.set('Run: 0 | Ngrams: 0 | Gamma: 0 | Batch: 0 | Initial lrn rate: 0 | Embed dim: 0 | Epochs (more): 0')
 	self.toolbarParams = Label(self.toolbar, textvariable=self.toolbarText, anchor='w', font=('', '9', 'bold'))
 	self.toolbarParams.place(relx=0.3525, rely=0.0, relwidth=0.5975, relheight=1.00)
-
-	#################################################
-
-	self.fig_comp1 = Figure(figsize=(1, 1))
-	self.Canvas_comp1 = FigureCanvasTkAgg(self.fig_comp1, self.trainLF)
-	self.toolbar_comp1 = NavigationToolbar2Tk(self.Canvas_comp1, self.trainLF)
-	self.toolbar_comp1.update()
-	self.Canvas_comp1.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
-
-	self.fig_comp2 = Figure(figsize=(4, 4))
-	self.Canvas_comp2 = FigureCanvasTkAgg(self.fig_comp2, self.testLF)
-	self.toolbar_comp2 = NavigationToolbar2Tk(self.Canvas_comp2, self.testLF)
-	self.toolbar_comp2.update()
-	self.Canvas_comp2.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
-
-	self.accuracyGraph = LabelFrame(self.frame_stats)
-	self.accuracyGraph.place(relx=0.00, rely=0.535, relwidth=0.50, relheight=0.465)
-
-	self.lossGraph = LabelFrame(self.frame_stats)
-	self.lossGraph.place(relx=0.50, rely=0.535, relwidth=0.50, relheight=0.465)
-
-	self.fig_acc = Figure(figsize=(7, 5), dpi=100)
-
-	self.Canvas_acc = FigureCanvasTkAgg(self.fig_acc, self.accuracyGraph)
-	self.toolbar_acc = NavigationToolbar2Tk(self.Canvas_acc, self.accuracyGraph)
-	self.toolbar_acc.update()
-	self.Canvas_acc.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
-
-	self.fig_loss = Figure(figsize=(7, 5), dpi=100)
-	self.Canvas_loss = FigureCanvasTkAgg(self.fig_loss, self.lossGraph)
-	self.toolbar_loss = NavigationToolbar2Tk(self.Canvas_loss, self.lossGraph)
-	self.toolbar_loss.update()
-	self.Canvas_loss.get_tk_widget().place(relx=0.0, rely=0.0, relwidth=1.0, relheight=1.0)
+	#####################################################
 
 # ============================================================================================
 
