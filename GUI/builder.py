@@ -159,4 +159,5 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
 
     # Saves the model
     torch.save(model, root + "model")
+    torch.save(train_dataset.get_vocab(), root+"vocab")
     return Statistics

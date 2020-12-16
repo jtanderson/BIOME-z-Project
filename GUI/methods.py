@@ -11,6 +11,7 @@ from tkhtmlview import HTMLLabel # For html in tk.
 # Import the statistics object dedicated to
 # passing build/train data for displaying.
 from builder import stats_data
+from rdfPredictor import rdfPredict
 
 from markdown2 import Markdown # For md in tk.
 from converter import parser # For rdf to csv.
@@ -100,10 +101,26 @@ def convertFile(self):
 	parserResults = parser(self.file_path)
 	if parserResults == -1:
 		messagebox.showerror('No Labels', 'Please add your label(s) in the build tab.')
+		self.classifyButton['state'] = DISABLED
 	else:
 		_, self.CLASS_NAME = parserResults
 		setDefaultParameters(self, './.data/' + self.CLASS_NAME + '/')
-		self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
+		self.wkdir.set('Current Directory: ' + self.CLASS_NAME)		
+		self.classifyButton['state'] = NORMAL
+
+def selectPredictFile(self):
+	file_path = filedialog.askopenfilename(initialdir='./', title='Select Rdf File', filetypes=[('rdf files', '*.rdf')])
+
+	if not file_path:
+		pass
+	else:
+		# Parse the filename and extension from the path:
+		slashIndex = file_path.rindex('/') + 1
+		fileName = file_path[slashIndex:]
+		if self.CLASS_NAME != '':
+			rdfPredict(self.CLASS_NAME, fileName)
+		else:
+			messagebox.showerror('No Model Selected', 'Please select a model in order to run')
 
 # This function grabs the contents of the table's row and implants the contents
 # in the title and abstract text fields.
@@ -285,8 +302,13 @@ def selectFolder(self):
 			self.CLASS_NAME = modelName
 			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
 			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
+			self.classifyButton['state'] = NORMAL
 		else:
 			messagebox.showinfo('Incorrect folder',  'Please select a proper model folder.\nExample: \'./.data/example\'')
+			if self.CLASS_NAME == '':
+				self.classifyButton['state'] = DISABLED
+			else:
+				self.classifyButton['state'] = NORMAL
 
 # Loads default parameters for a specific directory.
 def loadDefaultParameters(self, directory):

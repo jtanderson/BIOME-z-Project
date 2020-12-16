@@ -40,7 +40,7 @@ def main():
 
 	# Want a function/action to be executed continuously?
 	# Use act = root.after(time, function)
-	# after_cancel(act) to stop it.
+	# Use root.after_cancel(act) to stop it.
 
 # Run the main:
 if __name__ == '__main__':

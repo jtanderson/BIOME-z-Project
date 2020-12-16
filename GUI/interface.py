@@ -48,11 +48,16 @@ def generateTestTab(self):
 
 	# A button that opens a prompt for the user to select an rdf file to load.
 	self.chooseRdfButton = Button(self.loadArticleLF, text="Choose File", command=lambda: openFileDialog(self))
-	self.chooseRdfButton.place(x=200, y=15)
+	self.chooseRdfButton.place(x=150, y=15)
 
 	# A label for the loaded/selected file name.
 	self.fileNameLabel = Label(self.loadArticleLF, textvariable=self.rdf_csv_file_name)
-	self.fileNameLabel.place(x=310, y=20)
+	self.fileNameLabel.place(x=225, y=20)
+
+
+	self.classifyButton = Button(self.loadArticleLF, state=DISABLED, text='Classify', command=lambda: selectPredictFile(self))
+	self.classifyButton.place(x=325, y=15)
+
 
 	# Create an error label for invalid file types.
 	self.fileError = Label(self.loadArticleLF, fg="red", text='Error: Invalid file format.')
