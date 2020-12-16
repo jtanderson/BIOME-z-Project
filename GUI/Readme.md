@@ -67,3 +67,5 @@
 - [ ] Add a function for the Train button on the building tab.
 - [ ] Finish adding useful information in the statistics tab.
 - [ ] Create an executable for the GUI.
+- [ ] Add time and date to run meta-data
+- [ ] Move run parameters (Ngrams, etc.) to the "Run #X" content panel
