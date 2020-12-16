@@ -200,7 +200,6 @@ def addLabel(self):
 	if newLabel is None:
 		return
 	else:
-		fd = None
 		newLabel = '\n' + newLabel
 		if self.CLASS_NAME == '':
 			fd = open('labels.txt', 'a+')

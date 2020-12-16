@@ -63,9 +63,11 @@
   - Consider loading premade glove vectors.
   - Parse the rdf file a little better (some html still gets passed into the NN)
   - Look into one-shot learning.
-- [ ] Add functions for the Override and Confirm button on the testing tab.
-- [ ] Add a function for the Train button on the building tab.
+- [ ] Add functions for the Override and Confirm button on the testing tab. (Override button should 'write over' the neural network's data to correct the predicted label). (Confirm should 're-assure' the neural network is correct on its guess).
+- [ ] Add a function for the Train button on the building tab. (The train button should **load** the model's data, then run through X number of epochs. Do not rebuild the NN).
 - [ ] Finish adding useful information in the statistics tab.
+- [ ] In the saveGraph data function, save the **Pie graph data**, and **General Run data** to the csv folder.
+- [ ] Then in the loadGraph data function, load the new csv file data into the stats_data class. This will allow the Run data & Pie Charts to populate when using the `load` button on the toolbar.
 - [ ] Create an executable for the GUI.
 - [ ] Add time and date to run meta-data
 - [ ] Move run parameters (Ngrams, etc.) to the "Run #X" content panel
