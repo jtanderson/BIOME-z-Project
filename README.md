@@ -1,6 +1,7 @@
 # BIOME-z-Project
 
 TODO: Write project summary/notes/howto here.
+Project team: Bevan Smith, 
 
 ## Meetings 
 
