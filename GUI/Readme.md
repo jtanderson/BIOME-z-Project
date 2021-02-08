@@ -13,6 +13,7 @@
 - `markdown2`
 - `torch` (Pytorch)
 - `matplotlib`
+- `rdflib`
 
 #### Finished components:
 ##### Testing Tab
