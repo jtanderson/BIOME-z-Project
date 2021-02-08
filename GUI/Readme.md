@@ -13,6 +13,8 @@
 - `markdown2`
 - `torch` (Pytorch)
 - `matplotlib`
+- `tqdm`
+- `torchtext`
 
 #### Finished components:
 ##### Testing Tab
