@@ -1,7 +1,9 @@
 # BIOME-z-Project
 
 TODO: Write project summary/notes/howto here.
-Project team: Bevan Smith, Ethan Gray 
+Project team: 
+ - Bevan Smith
+ - Ethan Gray 
 
 ## Meetings 
 
