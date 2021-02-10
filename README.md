@@ -4,6 +4,7 @@ TODO: Write project summary/notes/howto here.
 Project team: 
  - Bevan Smith
  - Ethan Gray 
+ - Mikayla Housley
  - Steve Jobs
 
 ## Meetings 
