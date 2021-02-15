@@ -15,6 +15,7 @@
 - `matplotlib`
 - `tqdm`
 - `torchtext`
+- `rdflib`
 
 #### Finished components:
 ##### Testing Tab
