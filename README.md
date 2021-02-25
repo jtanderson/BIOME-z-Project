@@ -1,11 +1,6 @@
 # BIOME-z-Project
 
 TODO: Write project summary/notes/howto here.
-Project team: 
- - Bevan Smith
- - Ethan Gray 
- - Jake Thornton
- - Steve Jobs
 
 ## Meetings 
 
