@@ -84,7 +84,6 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
      	
     train_dataset, test_dataset = _setup_datasets(data=data_file, root=root, ngrams=NGRAMS, vocab=None)
 
-    print(len(train_dataset))
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
