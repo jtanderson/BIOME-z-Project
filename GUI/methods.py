@@ -325,6 +325,21 @@ def loadDefaultParameters(self, directory):
 
 # Saves default parameters for a specific directory.
 def setDefaultParameters(self, directory):
+	#JSON_FORMAT = {
+	#	'ngrams': self.neuralNetworkVar[0].get(),
+	#	'gamma': self.neuralNetworkVar[1].get(),
+	#	'batch-size': self.neuralNetworkVar[2].get(),
+	#	'initial-learn': self.neuralNetworkVar[3].get(),
+	#	'embedding-dim': self.neuralNetworkVar[4].get(),
+	#	'epochs': self.neuralNetworkVar[5].get()
+	#}
+	#with open(directory + 'default-parameters.json', 'w') as json_file:
+		#json.dump(JSON_FORMAT, json_file)
+	#-----------------------# MIKAYLA #-----------------------#
+	loc = './.data/' + self.CLASS_NAME + '/'
+	a_file = open(loc + 'default-parameters.json', "r")
+	json_object = json.load(a_file)
+	a_file.close()
 	JSON_FORMAT = {
 		'ngrams': self.neuralNetworkVar[0].get(),
 		'gamma': self.neuralNetworkVar[1].get(),
@@ -333,9 +348,9 @@ def setDefaultParameters(self, directory):
 		'embedding-dim': self.neuralNetworkVar[4].get(),
 		'epochs': self.neuralNetworkVar[5].get()
 	}
-
-	with open(directory + 'default-parameters.json', 'w') as json_file:
-		json.dump(JSON_FORMAT, json_file)
+	a_file = open(loc + 'default-parameters.json', "w")
+	json.dump(JSON_FORMAT, a_file)
+	a_file.close()
 
 #######################################################################################################
 
