@@ -165,8 +165,11 @@ def generateTestTab(self):
 
 	# ========== Creating an options menu for each of the labels ===========
 	self.labelOptions = []
-	for label in self.labelList:
-		self.labelOptions.append(label.strip())
+	if self.CLASS_NAME == '':
+		self.labelOptions.append('')      
+	else:
+		for label in self.labelList:
+			self.labelOptions.append(label.strip())
 
 	self.labelOptionVar = StringVar(self.frame_test)
 	self.labelOptionVar.set(self.labelOptions[0])
@@ -182,6 +185,7 @@ def generateTestTab(self):
 def generateBuildTab(self):
 	# Create a button to open a smaller window for label editing.
 	self.editLabelButton = Button(self.frame_build, text='Edit Labels', command=lambda: openLabelWindow(self))
+	self.editLabelButton.config(state=DISABLED)
 	self.editLabelButton.place(relx=0.80, rely=0.10, width=150, height=25)
 
 	# Creates a label for showing the processor type used for the NN.

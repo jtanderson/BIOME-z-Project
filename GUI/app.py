@@ -27,7 +27,7 @@ class Application(Frame):
 		self.checkButtons = [IntVar(), IntVar()]
 		self.csv_path, self.CLASS_NAME = '', ''
 		self.mkdn2 = Markdown()
-		self.labelList, self.labelOptions = [], []
+		self.labelList, self.tagsList,self.labelOptions = [], [],[]
 
 	def configureStyles(self):
 		self.Program_Style = ttk.Style()
