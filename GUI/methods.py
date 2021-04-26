@@ -14,8 +14,14 @@ from builder import stats_data
 from rdfPredictor import rdfPredict
 
 from markdown2 import Markdown # For md in tk.
-from converter import parser # For rdf to csv.
+from converter import parser, insert, replacer # For rdf to csv.
 from tkinter import * # For more tk.
+
+import copy
+import re
+
+import rdflib
+from rdflib import Literal, URIRef, XSD
 
 ######################################## Testing Tab Functions ########################################
 
@@ -29,10 +35,133 @@ def runPredictor(self):
 		messagebox.showinfo('No Abstract Set', 'Please enter an abstract.')
 	else:
 		options, topOpt, smValues = predictor.predictor(self.CLASS_NAME, self.titleText.get("1.0", END) + self.abstractText.get("1.0", END))
+		print(f"Length before: {len(self.predictionResults)}")
+		self.predictionResults = options, topOpt, smValues
 		results = ''
 		for num in range(len(smValues)):
 			results = results + '##### ' + options[num] + ' Confidence: ' + str(round(smValues[num], 5)) + ".\n"
 		self.predictResultLabel.set_html(self.mkdn2.convert(results))
+		print(f"After: {len(self.predictionResults)}")
+		
+
+# This function takes the top option from the 'Predict' button and saves it to the file
+def savePrediction(self):
+	# Check if a prediction happened
+	if len(self.predictionResults) == 0:
+		messagebox.showinfo('No prediction to confirm', 'Please hit prediction')
+	else:
+		fd = open('prediction.txt', 'w')
+		# Second element is the top option from the prediction
+		fd.write(self.predictionResults[1])
+		fd.close()
+
+		root = './.data/' + self.CLASS_NAME + '/'
+
+		rdfLocation = root + self.CLASS_NAME + '.rdf'
+
+		#labels = open(rdfLocation, 'r')
+		#categories = []
+		#for line in labels:
+			#categories.append(line.replace('\n', ''))
+			#re.search(
+			#print(line)
+			#print("--\n")
+			#if re.search("(?<=<dc:title>).*(?=</dc:title>)", line):
+				#print(line)
+				#print("--\n")
+		labels = open(root+'labels.txt', 'r')
+		categories = []
+
+		for line in labels:
+			categories.append(line.replace('\n', ''))
+
+		graph = rdflib.Graph()
+
+		#print("HI\n")
+		#print(graph[0])
+		graph.parse(rdfLocation)
+		
+		PART = "http://purl.org/dc/terms/hasPart"	# p - This is for finding the sub-collections
+		TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"	# p - For finding if the type is a collection
+		COLLECTION = "http://www.zotero.org/namespaces/export#Collection"	# o - Finding if a type is a collection
+
+		TITLE = "http://purl.org/dc/elements/1.1/title"	# p - Title of collection or paper
+		ABSTRACT = "http://purl.org/dc/terms/abstract"	# p - Abstarct for a paper
+		SUBJECT = "http://purl.org/dc/elements/1.1/subject"	# p - Tags on papers
+
+		collection = []
+		
+		unclass = "Unclassified"
+
+		for t in graph.objects():
+                        if t.strip() == self.titleText.get(1.0, END).strip():
+                                print(t)
+                                print("------------------------------------------------\n")
+
+		#for ABSTRACT in graph.predicates(
+		
+		for s, p, o in graph:
+			obj = str(o)
+			obj = obj.lower()
+			obj = replacer(str(obj))
+			#print(s)
+			#print("s^--\n")
+			#print(p)
+			#print("p^|||\n")
+			#print(o)
+			#print("o^)))\n")
+			#if COLLECTION in o:
+                               # print(s)
+                                #print("^s\\\\n")
+                                #print(p)
+                                #print("^p||||\n")
+			if ABSTRACT in p:
+				collection = insert(collection, s, o, 'a', o)
+				#print(s)
+				#print("\\\n")
+			if TITLE in p:
+				collection = insert(collection, s, o, 't', o)
+				#print(obj)
+				##if obj.strip() == self.titleText.get(1.0, END).lower().strip():
+					##print(obj.strip())
+			
+				#print(o)
+				#print('----\n')
+				#print(self.abstractText.get(1.0, END))
+
+				#if o[:10] == self.abstractText.get(1.0, END)[:10]:
+					#print(o)
+				
+				#print(s)
+				#print("\n----")
+				#print(p)
+				#print("\n||||")
+				#print(o)
+				#print("\n////")
+		
+				
+		#for obj in collection:
+			#if obj.abstract != "":
+				#print(obj.title)
+				#print("---\n")
+				#print(self.titleText.get(1.0, END))
+				#if self.titleText.get(1.0, END).strip() == obj.title.strip():
+					#print(obj.title)
+					#print("\nDoes it equal\n" + obj.title)
+					#print("\n", self.titleText.get(1.0, END).strip() == obj.title.strip())
+
+
+		labels.close()
+
+		
+def saveOverridePrediction(self):
+	#print(self.labelOptionVar.get())
+	if len(self.predictionResults) == 0:
+		messagebox.showinfo('No prediction to override', 'Please hit prediction')
+	else:
+		fd = open('prediction.txt', 'w')
+		fd.write(self.labelOptionVar.get())
+		fd.close()
 
 # A class function used to select a file for the testing tab.
 def openFileDialog(self):
@@ -53,12 +182,14 @@ def openFileDialog(self):
 			self.convertButton['state'] = DISABLED
 			self.searchButton['state'] = DISABLED
 		elif ext == '.rdf':
-			self.convertButton['state'] = ACTIVE
+			#self.convertButton['state'] = ACTIVE
+			self.convertButton['state'] = NORMAL
 			self.fileError.place_forget()
 			self.searchButton['state'] = DISABLED
 		elif ext == '.csv':
 			self.csv_path = self.file_path
-			self.searchButton['state'] = ACTIVE
+			#self.searchButton['state'] = ACTIVE
+			self.searchButton['state'] = NORMAL
 			self.convertButton['state'] = DISABLED
 			self.fileError.place_forget()
 
@@ -68,29 +199,53 @@ def openFileDialog(self):
 # A function tied to the search button that queries and displays results in the table.
 def searchCSV(self, event):
 	# Clear the table.
-	for num in range(25):
+	#for num in range(25):
+	#if self.currentSearch.get() == '':
+	print(len(self.copyModel))
+	if self.searchEntry.get() == '':
+		print("hye")
+		if self.hasSearched == True:
+			print("redraw?")
+			self.data = copy.deepcopy(self.copyModel)
+			self.searchTable.model.importDict(self.data)
+			self.searchTable.redrawTable()
+			self.hasSearched = False
+			return
+		else:
+			return
+	for num in range(len(self.data)):#30):
 		self.searchTable.model.deleteCellRecord(num, 0)
 		self.searchTable.model.deleteCellRecord(num, 1)
 	# Get the search entry.
-	find = self.searchEntry.get()
+	self.hasSearched = True
+	find = self.searchEntry.get() # here
 	count = 0
 	# Get each row of the csv file:
-	csv_file = csv.reader(open(self.csv_path, 'r', encoding='utf-8'), delimiter=',')
+	filePath = './.data/' + self.CLASS_NAME + '/data.csv'
+	#csv_file = csv.reader(open(self.csv_path, 'r', encoding='utf-8'), delimiter=',')
+	csv_file = csv.reader(open(filePath, 'r', encoding='utf-8'), delimiter=',')
 	
 	# Loop through to see if the input gets any matches, then display them in to table.
 	for row in csv_file:
-		if count > 24:
+		#print(count)
+		#if count > 24:
+		if count > 30:
 			break
 		if self.checkButtons[0].get() == 1 and self.checkButtons[1].get() == 0 or self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 0:
+			#result = find_near_matches(find, row[1], max_deletions=1, max_insertions=1, max_substitutions=0)
+			result = find_near_matches(find, row[0], max_deletions=1, max_insertions=1, max_substitutions=0)
+		elif self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 1:                               
+			#result = find_near_matches(find, row[2], max_deletions=1, max_insertions=1, max_substitutions=0)
 			result = find_near_matches(find, row[1], max_deletions=1, max_insertions=1, max_substitutions=0)
-		elif self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 1:				
-			result = find_near_matches(find, row[2], max_deletions=1, max_insertions=1, max_substitutions=0)
 		else:
-			both = row[1] + ' ' + row[2]
+			#both = row[1] + ' ' + row[2]
+			both = row[0] + ' ' + row[1]
 			result = find_near_matches(find, both, max_deletions=1, max_insertions=1, max_substitutions=0)
 		if not not result:
-			self.searchTable.model.setValueAt(row[1], count, 0)
-			self.searchTable.model.setValueAt(row[2], count, 1)
+			#self.searchTable.model.setValueAt(row[1], count, 0)
+			#self.searchTable.model.setValueAt(row[2], count, 1)
+			self.searchTable.model.setValueAt(row[0], count, 0)
+			self.searchTable.model.setValueAt(row[1], count, 1)
 			count += 1
 
 	# Update the table.
@@ -105,8 +260,86 @@ def convertFile(self):
 	else:
 		_, self.CLASS_NAME = parserResults
 		setDefaultParameters(self, './.data/' + self.CLASS_NAME + '/')
-		self.wkdir.set('Current Directory: ' + self.CLASS_NAME)		
+		self.wkdir.set('Current Directory: ' + self.CLASS_NAME)         
 		self.classifyButton['state'] = NORMAL
+		self.searchButton['state'] = NORMAL
+
+	filePath = './.data/' + self.CLASS_NAME + '/data.csv'
+	csv_file = csv.reader(open(filePath, 'r', encoding='utf-8'), delimiter=',')
+	count = 0
+
+	for row in csv_file:
+		if count > 24:
+		#if count > 29:
+			#break
+			self.data[count] = {'Title': row[0], 'Abstract': row[1]}
+			#self.searchTable.addRow()
+			#self.data[count] = {'Title': 'test', 'Abstract': 'ing'}
+			#self.searchTable.addRow(self.data[count])
+			
+			count += 1
+			#if count == 30:
+				#break
+			
+			continue
+		#key = list(self.data)[count]
+		#value = list(self.data.values())[count]
+		#print(key)
+		#print(value)
+		#self.titleText.insert(INSERT, row[1])
+		#self.abstractText.insert(INSERT, row[2])
+		#self.data[row[1]] = self.data.pop(key)
+		#self.data[row[1]] = row[2]
+
+		#for k, v in self.data.items():
+			#print(k)
+			#print(v)
+		#keepGoing = 1
+		#self.data[count]['Title'] = row[1]
+		#self.data[count]['Abstract'] = row[2]
+		self.data[count]['Title'] = row[0]
+		self.data[count]['Abstract'] = row[1]
+		#for k, v in self.data.items():
+			#for kk, vv in v.items():
+				#print(v[kk])
+				#if(not (len(v[vv])) and not (len([kk])) and keepGoing == 1):
+				
+				#v[vv] = row[1]
+				#v[kk] = row[2]
+				#keepGoing = 0
+				#print(kk)
+				#print(vv)
+				#print(row[1])
+				#print(row[2])
+				
+		count += 1
+		#self.data[count] = row[1]
+		#self.data[key] = row[2]
+		#self.searchTable.redrawTable()
+		#print(row)
+
+	#self.searchTable.createfromDict(self.data)
+	self.searchTable.model.importDict(self.data)
+	self.copyModel = copy.deepcopy(self.data)
+	self.searchTable.redrawTable()
+	#print(count)
+	#for k, v in self.data.items():
+		#for kk, vv in v.items():
+			#print(v[kk])
+				#if(not (len(v[vv])) and not (len([kk])) and keepGoing == 1):
+				
+				#v[vv] = row[1]
+				#v[kk] = row[2]
+				#keepGoing = 0
+				#print(kk)
+				#print(vv)
+	#for num in range(25):
+		#self.searchTable.model.deleteCellRecord(num, 0)
+		#self.searchTable.model.deleteCellRecord(num, 1)
+
+	#count = 0
+	#csv_file = 
+	
 
 def selectPredictFile(self):
 	file_path = filedialog.askopenfilename(initialdir='./', title='Select Rdf File', filetypes=[('rdf files', '*.rdf')])
@@ -133,6 +366,10 @@ def pushRowContents(self):
 	# Insert text for title and abstract.
 	self.titleText.insert(INSERT, self.searchTable.model.getValueAt(row, 0))
 	self.abstractText.insert(INSERT, self.searchTable.model.getValueAt(row, 1))
+
+	# Resetting prediction results so new predictions do not get old values
+	self.predictionResults = []
+
 
 #######################################################################################################
 
