@@ -75,11 +75,11 @@ def generateTestTab(self):
 	self.searchLabel = Label(self.loadArticleLF, text='Search for an Article:')
 	self.searchLabel.place(x=5, y=103)
 
-	#self.currentSearch = StringVar()
-	#self.
+        # Used to check if the user has already searched something
+        # and to redraw the table if they search for nothing
 	self.hasSearched = False
 	# A text entry to act as the search bar.
-	self.searchEntry = Entry(self.loadArticleLF, text='Search')#, textvariable=self.currentSearch)
+	self.searchEntry = Entry(self.loadArticleLF, text='Search')
 	self.searchEntry.place(relx=0.275, y=103, relwidth=0.50, height=23)
 	self.searchEntry.bind('<Return>', lambda event: searchCSV(self, 0))
 
@@ -118,13 +118,14 @@ def generateTestTab(self):
 		model=self.tableModel,
 		rowheaderwidth=0,
 		showkeynamesinheader=False,
-		read_only=True
+		read_only=True #editable was not a real parameter
 	)
 
 	# Finally, show the table on startup.
 	self.searchTable.show()
 	self.searchTable.adjustColumnWidths() #Temp fix?
 
+        # Used to copy the current model (self.data)
 	self.copyModel = ""
 
 	# A button below the table to transfer the contents of the row to text fields.
@@ -167,13 +168,15 @@ def generateTestTab(self):
 	self.predictionResults = []
 	
 	# A button to confirm the neural networks predictions.
+	# Confirm button did not work now with temp solution of savePrediction()
 	self.confirmButton = Button(self.predictionsLF, text='Confirm', command=lambda: savePrediction(self))
 	self.confirmButton.place(relx=0.800, rely=0.80, relwidth=0.15, height=23)
 
 	# An override button the user clicks in case an incorrect prediction is displayed.
+	# Override button did not work now with temp solution of saveOverridePrediction()
 	self.overrideButton = Button(self.predictionsLF, text='Override', command=lambda: saveOverridePrediction(self))
 	self.overrideButton.place(relx=0.800, rely=0.90, relwidth=0.15, height=23)
-	
+
 	# ========== Creating an options menu for each of the labels ===========
 	self.labelOptions = []
 	for label in self.labelList:
