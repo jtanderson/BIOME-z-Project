@@ -5,7 +5,7 @@ Project team:
  - Bevan Smith
  - Ethan Gray 
  - Jake Thornton
- - Steve Jobs
+ - Mikayla Housley
 
 ## Meetings 
 

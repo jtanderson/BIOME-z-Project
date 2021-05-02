@@ -51,7 +51,6 @@ def generate_batch(batch):
 def train_func(sub_train_, BATCH_SIZE, optimizer, device, model, criterion, scheduler):
     train_loss = 0
     train_acc = 0
-    
     # Load the data in: (dataset, batchsize, shuffle, collate_fn)
     data = DataLoader(sub_train_, batch_size=BATCH_SIZE, shuffle=True, collate_fn=generate_batch)
     

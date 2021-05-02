@@ -32,7 +32,7 @@ def create_UI(self):
 # ======================================== TESTING TAB ========================================
 def generateTestTab(self):
 	self.rdf_csv_file_name.set('No File Chosen')
-	self.wkdir.set('No Current Directory.') 
+	self.wkdir.set('No Current Directory.')
 
 	# Separates the left half of the frame for the article testing section.
 	self.articleTestingLF = LabelFrame(self.frame_test, text="Article Testing", height=1000, width=500)
@@ -48,28 +48,27 @@ def generateTestTab(self):
 
 	# A button that opens a prompt for the user to select an rdf file to load.
 	self.chooseRdfButton = Button(self.loadArticleLF, text="Choose File", command=lambda: openFileDialog(self))
-	self.chooseRdfButton.place(x=5, y=50) #150 15
+	self.chooseRdfButton.place(x=150, y=15)
 
 	# A label for the loaded/selected file name.
-	#if (len(self.rdf_csv_file_name.get()
-	#SUNKEN adds 3D effect and anchor set to "w" for west so text starts at the left
-	self.fileNameLabel = Label(self.loadArticleLF, textvariable=self.rdf_csv_file_name, relief=SUNKEN, width=20, anchor="w")
-	self.fileNameLabel.place(x=143, y=20) #225 20
+	self.fileNameLabel = Label(self.loadArticleLF, textvariable=self.rdf_csv_file_name)
+	self.fileNameLabel.place(x=225, y=20)
+
 
 	self.classifyButton = Button(self.loadArticleLF, state=DISABLED, text='Classify', command=lambda: selectPredictFile(self))
-	self.classifyButton.place(x=85, y=50) #375 15
+	self.classifyButton.place(x=325, y=15)
 
 
 	# Create an error label for invalid file types.
 	self.fileError = Label(self.loadArticleLF, fg="red", text='Error: Invalid file format.')
 
 	# A Button to convert an rdf file to a csv file.
-	self.convertButton = Button(self.loadArticleLF, state=DISABLED, text='Convert to csv', command=lambda: convertFile(self)) 
-	self.convertButton.place(x=290, y=50) #5 50
+	self.convertButton = Button(self.loadArticleLF, state=DISABLED, text='Convert to csv', command=lambda: convertFile(self))
+	self.convertButton.place(x=5, y=50)
 
 	# Creates a label for displaying the 'working directory'.
-	self.dirNameLabel = Label(self.loadArticleLF, textvariable=self.wkdir) 
-	self.dirNameLabel.place(x=290, y=20) #110 4
+	self.dirNameLabel = Label(self.loadArticleLF, textvariable=self.wkdir)
+	self.dirNameLabel.place(x=110, y=54)
 
 	# A label telling the user to input for a search.
 	self.searchLabel = Label(self.loadArticleLF, text='Search for an Article:')
