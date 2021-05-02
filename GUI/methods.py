@@ -55,7 +55,7 @@ def savePrediction(self):
 	
 def saveOverridePrediction(self):
 	#print(self.labelOptionVar.get())
-        # Check if predicition happened
+	# Check if predicition happened
 	if len(self.predictionResults) == 0:
 		messagebox.showinfo('No prediction to override', 'Please hit prediction')
 	else:
@@ -102,8 +102,8 @@ def searchCSV(self, event):
 	#for num in range(25): # Was used before was not dynamic
 	# Check if they search for nothing
 	if self.searchEntry.get() == '':
-                # And they have searched before redraw the dable using the copied data
-                # in self.copyModel and copying it into self.data
+		# And they have searched before redraw the dable using the copied data
+		# in self.copyModel and copying it into self.data
 		if self.hasSearched == True:
 			self.data = copy.deepcopy(self.copyModel)
 			self.searchTable.model.importDict(self.data)
@@ -130,12 +130,12 @@ def searchCSV(self, event):
 	for row in csv_file:
 		#if count > 24:
 		#if count > 30:
-                # The length of the table has changed
-                if count > len(self.data):
+		# The length of the table has changed
+		if count > len(self.data):
 			break
 		# Previous row indexes need to be decreased by 1 since I changed the CSV
 		if self.checkButtons[0].get() == 1 and self.checkButtons[1].get() == 0 or self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 0:
-                        result = find_near_matches(find, row[0], max_deletions=1, max_insertions=1, max_substitutions=0)
+			result = find_near_matches(find, row[0], max_deletions=1, max_insertions=1, max_substitutions=0)
 		elif self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 1:                               
 			result = find_near_matches(find, row[1], max_deletions=1, max_insertions=1, max_substitutions=0)
 		else:
@@ -167,13 +167,13 @@ def convertFile(self):
 	count = 0
 
 	for row in csv_file:
-                # Check to add space
+		# Check to add space
 		if count > 24:
-                        # Update the data and count
+			# Update the data and count
 			self.data[count] = {'Title': row[0], 'Abstract': row[1]}
 			count += 1
 
-                        # Continue the loop
+			# Continue the loop
 			continue
 		# Row indexes are decreased by 1
 		self.data[count]['Title'] = row[0]
