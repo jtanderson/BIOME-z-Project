@@ -228,7 +228,7 @@ def getDeviceType(self):
 	self.type.set('Running on: ' + str(torch.device('cuda' if torch.cuda.is_available() else 'cpu')))
 
 # Class function to create the smaller window for editing labels.
-def openLabelWindow(self):  
+def openLabelWindow(self):
 	# Deactivate the 'Edit Labels' button.
 	self.editLabelButton.config(state=DISABLED)
 
@@ -290,7 +290,7 @@ def addLabel(self):
 			fd.write(newLabel)
 			fd.close()
 		else:
-			fd = open('labels.txt', 'a+')
+			fd.open('./.data/' + self.CLASS_NAME + '/labels.txt', 'a+')
 			fd.write(newLabel)
 			fd.close()
 		getLabels(self)
@@ -301,9 +301,6 @@ def delLabel(self):
 
 	# Get a tuple of the indexes selected (the ones to be deleted).
 	delete_index = self.labelListBox.curselection()
-	
-	if len(delete_index) == 0:
-		return
 
 	# For each index in the tuple, remove it from the labels list box.
 	for index in delete_index:
@@ -320,12 +317,12 @@ def delLabel(self):
 		if self.CLASS_NAME == '':
 			fd = open('labels.txt', 'w')
 		else:
-			fd = open('labels.txt', 'w')
+			fd = open('./.data/' + self.CLASS_NAME + '/labels.txt', 'a+')
 		for label in kept_index:
 			if label == kept_index[len(kept_index) - 1]:
 				pass
 			else:
-				label = label + "\n"
+				label = label + '\n'
 			fd.write(label)
 		fd.close()
 
@@ -387,8 +384,6 @@ def selectFolder(self):
 		if temp_folder[start:end - 1] == '.data':
 			self.CLASS_NAME = modelName
 			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
-			os.chdir(temp_folder)
-			getLabels(self)
 			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
 			self.classifyButton['state'] = NORMAL
 		else:
@@ -409,21 +404,6 @@ def loadDefaultParameters(self, directory):
 
 # Saves default parameters for a specific directory.
 def setDefaultParameters(self, directory):
-	#JSON_FORMAT = {
-	#	'ngrams': self.neuralNetworkVar[0].get(),
-	#	'gamma': self.neuralNetworkVar[1].get(),
-	#	'batch-size': self.neuralNetworkVar[2].get(),
-	#	'initial-learn': self.neuralNetworkVar[3].get(),
-	#	'embedding-dim': self.neuralNetworkVar[4].get(),
-	#	'epochs': self.neuralNetworkVar[5].get()
-	#}
-	#with open(directory + 'default-parameters.json', 'w') as json_file:
-		#json.dump(JSON_FORMAT, json_file)
-	#-----------------------# MIKAYLA #-----------------------#
-	loc = './.data/' + self.CLASS_NAME + '/'
-	a_file = open(loc + 'default-parameters.json', "r")
-	json_object = json.load(a_file)
-	a_file.close()
 	JSON_FORMAT = {
 		'ngrams': self.neuralNetworkVar[0].get(),
 		'gamma': self.neuralNetworkVar[1].get(),
@@ -432,9 +412,9 @@ def setDefaultParameters(self, directory):
 		'embedding-dim': self.neuralNetworkVar[4].get(),
 		'epochs': self.neuralNetworkVar[5].get()
 	}
-	a_file = open(loc + 'default-parameters.json', "w")
-	json.dump(JSON_FORMAT, a_file)
-	a_file.close()
+
+	with open(directory + 'default-parameters.json', 'w') as json_file:
+		json.dump(JSON_FORMAT, json_file)
 
 #######################################################################################################
 
