@@ -32,7 +32,7 @@ def create_UI(self):
 # ======================================== TESTING TAB ========================================
 def generateTestTab(self):
 	self.rdf_csv_file_name.set('No File Chosen')
-	self.wkdir.set('No Current Directory.')
+	self.wkdir.set('No Current Directory.') 
 
 	# Separates the left half of the frame for the article testing section.
 	self.articleTestingLF = LabelFrame(self.frame_test, text="Article Testing", height=1000, width=500)
@@ -48,32 +48,36 @@ def generateTestTab(self):
 
 	# A button that opens a prompt for the user to select an rdf file to load.
 	self.chooseRdfButton = Button(self.loadArticleLF, text="Choose File", command=lambda: openFileDialog(self))
-	self.chooseRdfButton.place(x=150, y=15)
+	self.chooseRdfButton.place(x=5, y=50) #150 15
 
 	# A label for the loaded/selected file name.
-	self.fileNameLabel = Label(self.loadArticleLF, textvariable=self.rdf_csv_file_name)
-	self.fileNameLabel.place(x=225, y=20)
-
+	#if (len(self.rdf_csv_file_name.get()
+	#SUNKEN adds 3D effect and anchor set to "w" for west so text starts at the left
+	self.fileNameLabel = Label(self.loadArticleLF, textvariable=self.rdf_csv_file_name, relief=SUNKEN, width=20, anchor="w")
+	self.fileNameLabel.place(x=143, y=20) #225 20
 
 	self.classifyButton = Button(self.loadArticleLF, state=DISABLED, text='Classify', command=lambda: selectPredictFile(self))
-	self.classifyButton.place(x=325, y=15)
+	self.classifyButton.place(x=85, y=50) #375 15
 
 
 	# Create an error label for invalid file types.
 	self.fileError = Label(self.loadArticleLF, fg="red", text='Error: Invalid file format.')
 
 	# A Button to convert an rdf file to a csv file.
-	self.convertButton = Button(self.loadArticleLF, state=DISABLED, text='Convert to csv', command=lambda: convertFile(self))
-	self.convertButton.place(x=5, y=50)
+	self.convertButton = Button(self.loadArticleLF, state=DISABLED, text='Convert to csv', command=lambda: convertFile(self)) 
+	self.convertButton.place(x=290, y=50) #5 50
 
 	# Creates a label for displaying the 'working directory'.
-	self.dirNameLabel = Label(self.loadArticleLF, textvariable=self.wkdir)
-	self.dirNameLabel.place(x=110, y=54)
+	self.dirNameLabel = Label(self.loadArticleLF, textvariable=self.wkdir) 
+	self.dirNameLabel.place(x=290, y=20) #110 4
 
 	# A label telling the user to input for a search.
 	self.searchLabel = Label(self.loadArticleLF, text='Search for an Article:')
 	self.searchLabel.place(x=5, y=103)
 
+        # Used to check if the user has already searched something
+        # and to redraw the table if they search for nothing
+	self.hasSearched = False
 	# A text entry to act as the search bar.
 	self.searchEntry = Entry(self.loadArticleLF, text='Search')
 	self.searchEntry.place(relx=0.275, y=103, relwidth=0.50, height=23)
@@ -114,11 +118,15 @@ def generateTestTab(self):
 		model=self.tableModel,
 		rowheaderwidth=0,
 		showkeynamesinheader=False,
-		editable=False
+		read_only=True #editable was not a real parameter
 	)
 
 	# Finally, show the table on startup.
 	self.searchTable.show()
+	self.searchTable.adjustColumnWidths() #Temp fix?
+
+        # Used to copy the current model (self.data)
+	self.copyModel = ""
 
 	# A button below the table to transfer the contents of the row to text fields.
 	self.transferRowButton = Button(self.loadArticleLF, text='<-- Send', command=lambda: pushRowContents(self))
@@ -155,12 +163,18 @@ def generateTestTab(self):
 	self.predictResultLabel.place(relx=0.0, rely=0.00, relwidth=1.00, relheight=1.00)
 	self.predictResultLabel.set_html(self.mkdn2.convert(''))
 
+	# A list of the prediction results if they exist
+	# This list is cleared after confirming or override the label results
+	self.predictionResults = []
+	
 	# A button to confirm the neural networks predictions.
-	self.confirmButton = Button(self.predictionsLF, text='Confirm')
+	# Confirm button did not work now with temp solution of savePrediction()
+	self.confirmButton = Button(self.predictionsLF, text='Confirm', command=lambda: savePrediction(self))
 	self.confirmButton.place(relx=0.800, rely=0.80, relwidth=0.15, height=23)
 
 	# An override button the user clicks in case an incorrect prediction is displayed.
-	self.overrideButton = Button(self.predictionsLF, text='Override')
+	# Override button did not work now with temp solution of saveOverridePrediction()
+	self.overrideButton = Button(self.predictionsLF, text='Override', command=lambda: saveOverridePrediction(self))
 	self.overrideButton.place(relx=0.800, rely=0.90, relwidth=0.15, height=23)
 
 	# ========== Creating an options menu for each of the labels ===========

@@ -1,4 +1,4 @@
-import converter, os
+import converter
 from datasets import _setup_datasets
 import classification as train
 
@@ -62,9 +62,8 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
     Statistics.embed = EMBED_DIM
 
     root = './.data/' + folder + '/'
-    #root = os.getcwd()
-    data_file = 'data.csv'
-    labels = open('labels.txt', 'r')
+    data_file = root + 'data.csv'
+    labels = open(root+'labels.txt', 'r')
 
     categories = []
 
@@ -83,7 +82,6 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
     start_time = time.time()
      	
     train_dataset, test_dataset = _setup_datasets(data=data_file, root=root, ngrams=NGRAMS, vocab=None)
-
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -121,6 +119,7 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
 
     # This will make valid training sets until the distribution of domains is equal
     sub_train_, sub_valid_ = train.trainingSplit(train_dataset, train_len, BATCH_SIZE, len(categories))
+    
     num_epoch = 0
     # For each epoch:
     for epoch in range(EPOCHS):
@@ -159,6 +158,6 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
     Statistics.test_cat_val = test_comp
 
     # Saves the model
-    torch.save(model, "model")
-    torch.save(train_dataset.get_vocab(), "vocab")
+    torch.save(model, root + "model")
+    torch.save(train_dataset.get_vocab(), root+"vocab")
     return Statistics
