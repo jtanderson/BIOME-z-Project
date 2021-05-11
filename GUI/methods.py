@@ -144,6 +144,84 @@ def pushRowContents(self):
 def getDeviceType(self):
 	self.type.set('Running on: ' + str(torch.device('cuda' if torch.cuda.is_available() else 'cpu')))
 
+# Class function to create the smaller window for advanced settigs. -- MH
+def openAdvSetWindow(self):  
+	### Deactivate the 'Advanced Settings' button.
+	self.AdvSetButton.config(state=DISABLED)
+
+	### Create the window itself.
+	self.settingsWindow = Toplevel(self)
+	self.settingsWindow.title('Advanced Settings')
+	self.settingsWindow.geometry('800x425')
+
+	generateDefaultTab(self)
+	#generateRangeTab(self)
+	
+
+	# On window exit, reactivate the button.
+	def quit_settings_window():
+		self.AdvSetButton.config(state=NORMAL)
+		self.settingsWindow.destroy()
+
+	self.settingsWindow.protocol('WM_DELETE_WINDOW', quit_settings_window)
+
+# ================Default Parameters Tab
+def generateDefaultTab(self):
+	# Create a label frame to hold the setting categories.
+	self.defaultLF = LabelFrame(self.settingsWindow, text='Set New Default Parameters')
+	self.defaultLF.place(x=10, y=5, relwidth=0.98, height=400)
+
+	#tmp_folder = os.getcwd()
+	#print ("tmp_folder = ", tmp_folder)
+	#if tmp_folder:
+	#	end = tmp_folder.rindex('/') + 1
+	#	print ("end tmp_folder = ", end)
+	#	modelName = tmp_folder[end:]
+	#	start =  end - 6
+	#	print ("start temp_folder = ", start)
+	#	print ("temp_folder[start:end - 1] = ", tmp_folder)
+	#	if tmp_folder[start:end - 1] == '.data':
+	#		print("tmp_folder[start:end - 1] == '.data'")
+	#		#print(os.path.dirname(os.getcwd()))
+	#               #gui = os.getcwd() ##C:\Users\luv2d\Documents\BIOME-z-Project\GUI
+	#               #print ("curr cwd = ", os.getcwd())
+	#               #os.chdir(gui)
+	#               #print ("after chdir cwd = ", os.getcwd())
+	#	else:
+	#               print("")
+
+	
+	########## Parameters #########
+	self.paramLF = LabelFrame(self.settingsWindow, text='Parameters')
+	self.paramLF.place(relx=0.027, y=30, relwidth=0.95, height=315)
+
+	self.ngramsScale = Scale(self.paramLF, label='NGRAMS', from_=2, to=8, tickinterval=1, orient=HORIZONTAL, variable=self.neuralNetworkVar[0])
+	self.ngramsScale.place(relx=0.0, y=0, relwidth=0.50)
+
+	self.gammaScale = Scale(self.paramLF, label='Gamma', from_=0.85, to=0.99, tickinterval=0.01, resolution=0.02, orient=HORIZONTAL, variable=self.neuralNetworkVar[1])
+	self.gammaScale.place(relx=0.50, y=0, relwidth=0.50)
+
+	self.batchSizeScale = Scale(self.paramLF, label='Batch Size', from_=16, to=256, tickinterval=32, orient=HORIZONTAL, variable=self.neuralNetworkVar[2])
+	self.batchSizeScale.place(relx=0.0, y=75, relwidth=0.50)
+
+	self.initLrnRateScale = Scale(self.paramLF, label='Initial Learning Rate', from_=1.0, to=7.0, tickinterval=1.00, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[3])
+	self.initLrnRateScale.place(relx=0.50, y=75, relwidth=0.50)
+
+	self.embedDimScale = Scale(self.paramLF, label='Embedding Dimension', from_=32, to=160, tickinterval=8, orient=HORIZONTAL, variable=self.neuralNetworkVar[4])
+	self.embedDimScale.place(relx=0.0, y=150, relwidth=1.00)
+
+	self.epochLabel = Label(self.paramLF, text='Epochs:', font=('Times, 15')) 
+	self.epochLabel.place(relx=0.0, y=250)
+
+	self.epochSpin = Spinbox(self.paramLF, from_=1, to=25000000, textvariable=self.neuralNetworkVar[5], font=('Times, 15'))
+	self.epochSpin.place(relx=0.1, y=252, relwidth=0.15)
+	#################################
+
+	# Creates a button to save new default parameters in the main directory.
+	self.saveDefaultButton = Button(self.settingsWindow, text='Save as Default', command=lambda: setDefaultParameters(self, './'))
+	self.saveDefaultButton.place(relx=0.82, y=360, width=120, height=30)#(relx=0.80, rely=0.90, relwidth=0.15)
+
+
 # Class function to create the smaller window for editing labels.
 def openLabelWindow(self):  
 	# Variables used
@@ -346,6 +424,10 @@ def runBuilder(self):
 # A function to allow the user to select a model from the folder.
 # May need more error checking.
 def selectFolder(self):
+	#--MH--disable use of advanced setting button after folder is selected
+	# temporary fix for advanced settings 'set default parameter' button taking current directory not /GUI
+	self.AdvSetButton.config(state=DISABLED)
+	
 	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
 
 	if temp_folder:
@@ -354,6 +436,8 @@ def selectFolder(self):
 		start =  end - 6
 		if temp_folder[start:end - 1] == '.data':
 			self.CLASS_NAME = modelName
+			#--MH-- global varible to display current model for user convenience
+			self.model_file_name.set(self.CLASS_NAME)
 			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
 			os.chdir(temp_folder)
 			getLabels(self)
@@ -463,18 +547,11 @@ def loadDefaultParameters(self, directory):
 
 # Saves default parameters for a specific directory.
 def setDefaultParameters(self, directory):
-	#JSON_FORMAT = {
-	#	'ngrams': self.neuralNetworkVar[0].get(),
-	#	'gamma': self.neuralNetworkVar[1].get(),
-	#	'batch-size': self.neuralNetworkVar[2].get(),
-	#	'initial-learn': self.neuralNetworkVar[3].get(),
-	#	'embedding-dim': self.neuralNetworkVar[4].get(),
-	#	'epochs': self.neuralNetworkVar[5].get()
-	#}
+	#JSON_FORMAT = {...}
 	#with open(directory + 'default-parameters.json', 'w') as json_file:
 		#json.dump(JSON_FORMAT, json_file)
 	#-----------------------# MIKAYLA #-----------------------#
-	loc = './.data/' + self.CLASS_NAME + '/'
+	loc = directory #'./.data/' + self.CLASS_NAME + '/'
 	a_file = open(loc + 'default-parameters.json', "r")
 	json_object = json.load(a_file)
 	a_file.close()

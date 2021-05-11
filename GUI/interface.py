@@ -183,6 +183,8 @@ def generateTestTab(self):
 # ======================================== BUILD TAB ========================================
 
 def generateBuildTab(self):
+	self.model_file_name.set('No Model Chosen')#MH
+	
 	# Create a button to open a smaller window for label editing.
 	self.editLabelButton = Button(self.frame_build, text='Edit Labels', command=lambda: openLabelWindow(self))
 	self.editLabelButton.config(state=DISABLED)
@@ -194,12 +196,17 @@ def generateBuildTab(self):
 
 	# Creates a label to assist user in selecting a model.
 	self.modelLabel = Label(self.frame_build, text='Select a model (e.g. ./.data/modelName)')
-	self.modelLabel.place(relx=0.05, rely=0.10, width=250, height=25)
+	self.modelLabel.place(relx=0.04, rely=0.05, width=250, height=25)#MH --change location: relx=0.05, rely=0.10
 
+	# Creates a label to assist user in knowing current model.  MIKAYLA -- MH
+	self.modelLabel = Label(self.frame_build, text='Current model:')
+	self.modelLabel.place(relx=0.05, rely=0.10, width=79, height=25)#w=250->100->80->70?->75->78?
+	self.modelLabel = Label(self.frame_build, textvariable=self.model_file_name, relief=SUNKEN, width=16, anchor="w")
+	self.modelLabel.place(relx=.14, rely=0.10, width=150, height=25)#(x=40, y=10)
+	
 	# Creates a button for selecting the model.
 	self.selectFolderButton = Button(self.frame_build, text='Select Model', command=lambda: selectFolder(self))
 	self.selectFolderButton.place(relx=0.30, rely=0.10)
-
 
 	########## Parameter interface ##########
 	self.parameterLF = LabelFrame(self.frame_build, text='Parameters')
@@ -227,12 +234,17 @@ def generateBuildTab(self):
 	self.epochSpin.place(relx=0.1, y=252, relwidth=0.15)
 	#########################################
 
+	# Creates a popup for advanced settings. Set default parameters & change parameter ranges. -- MH
+	self.AdvSetButton = Button(self.frame_build, text='Advanced Settings', command=lambda: openAdvSetWindow(self))
+	self.AdvSetButton.place(relx=0.05, rely=0.90, relwidth=0.15)#, height=25)# width 150
 
 	# Creates a button to save parameters to the default file in the main directory.
-	self.setDefaultButton = Button(self.frame_build, text='Set New Default Parameter', command=lambda: setDefaultParameters(self, './'))
-	self.setDefaultButton.place(relx=0.05, rely=0.90, relwidth=0.15)
+	#self.setDefaultButton = Button(self.frame_build, text='Set New Default Parameter', command=lambda: setDefaultParameters(self, './'))
+	#self.setDefaultButton.place(relx=0.05, rely=0.90, relwidth=0.15)
 
 	# Setup a button for building the network from scratch.
+	#--MH--When model is built automatically saves parameters used to run model as new.
+	#MH--implement after build is fixed: command=lambda:[setDefaultParameters(self, './'), runBuilder(self)])
 	self.buildNNButton = Button(self.frame_build, text='Build Neural Network', command=lambda: runBuilder(self))
 	self.buildNNButton.place(relx=0.30, rely=0.90, relwidth=0.15, height=25)
 
@@ -243,7 +255,7 @@ def generateBuildTab(self):
 
 	# Setup a button to save parameters to the module's folder.
 	# Once the module is selected and loaded, the parameters will load too.
-	self.setModParamButton = Button(self.frame_build, text='Set Model Parameters', command=lambda: setDefaultParameters(self, './.data/' + self.CLASS_NAME + '/'))
+	self.setModParamButton = Button(self.frame_build, text='Set Model Parameters', command=lambda: setDefaultParameters(self, './'))#MH -- .data/' + self.CLASS_NAME + '/'))
 	self.setModParamButton.place(relx=0.80, rely=0.90, relwidth=0.15)
 
 	# A Progress bar to show build/training progress.
