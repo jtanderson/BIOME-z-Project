@@ -436,6 +436,8 @@ def selectFolder(self):
 		start =  end - 6
 		if temp_folder[start:end - 1] == '.data':
 			self.CLASS_NAME = modelName
+			#--MH-- global varible to display current model for user convenience
+			self.model_file_name.set(self.CLASS_NAME)
 			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
 			os.chdir(temp_folder)
 			getLabels(self)
