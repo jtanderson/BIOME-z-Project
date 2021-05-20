@@ -14,64 +14,68 @@ from torchtext.vocab import build_vocab_from_iterator
 from torchtext.utils import download_from_url, extract_archive, unicode_csv_reader
 
 def _csv_iterator(data_path, ngrams, yield_cls=False):
-    tokenizer = get_tokenizer("basic_english")
-    with io.open(data_path, encoding="utf8") as f:
-        reader = unicode_csv_reader(f)
-        for row in reader:
-        	tokens = ' '.join(row[1:])
-        	tokens = tokenizer(tokens)
-        	if yield_cls:
-        		yield int(row[0]) - 1, ngrams_iterator(tokens, ngrams)
-        	else:
-        		yield ngrams_iterator(tokens, ngrams)
-        f.close()
+	tokenizer = get_tokenizer("basic_english")
+	with io.open(data_path, encoding="utf8") as f:
+		reader = unicode_csv_reader(f)
+		for row in reader:
+			tokens = ' '.join(row[1:])
+			tokens = tokenizer(tokens)
+			if yield_cls:
+				yield int(row[0]) - 1, ngrams_iterator(tokens, ngrams)
+			else:
+				yield ngrams_iterator(tokens, ngrams)
+		f.close()
 
 def _create_data_from_iterator(vocab, iterator, include_unk):
-    data = []
-    labels = []
-    with tqdm(unit_scale=0, unit='lines') as t:
-        for cls, tokens in iterator:
-            if include_unk:
-                tokens = torch.tensor([vocab[token] for token in tokens])
-            else:
-                token_ids = list(filter(lambda x: x is not Vocab.UNK, [vocab[token]
-                                        for token in tokens]))
-                tokens = torch.tensor(token_ids)
-            if len(tokens) == 0:
-                logging.info('Row contains no tokens.')
-            data.append((cls, tokens))
-            labels.append(cls)
-            t.update(1)
-    return data, set(labels)
+	data = []
+	labels = []
+	with tqdm(unit_scale=0, unit='lines') as t:
+		for cls, tokens in iterator:
+			if include_unk:
+				tokens = torch.tensor([vocab[token] for token in tokens])
+			else:
+				token_ids = list(filter(lambda x: x is not Vocab.UNK, [vocab[token]
+										for token in tokens]))
+				tokens = torch.tensor(token_ids)
+			if len(tokens) == 0:
+				logging.info('Row contains no tokens.')
+			data.append((cls, tokens))
+			labels.append(cls)
+			t.update(1)
+	return data, set(labels)
 
 class TextClassificationDataset(torch.utils.data.Dataset):
 
-    def __init__(self, vocab, data, labels):
-        super(TextClassificationDataset, self).__init__()
-        self._data = data
-        self._labels = labels
-        self._vocab = vocab
+	def __init__(self, vocab, data, labels):
+		super(TextClassificationDataset, self).__init__()
+		self._data = data
+		self._labels = labels
+		self._vocab = vocab
 
 
-    def __getitem__(self, i):
-        return self._data[i]
+	def __getitem__(self, i):
+		return self._data[i]
 
-    def __len__(self):
-        return len(self._data)
+	def __len__(self):
+		return len(self._data)
 
-    def __iter__(self):
-        for x in self._data:
-            yield x
+	def __iter__(self):
+		for x in self._data:
+			yield x
 
-    def get_labels(self):
-        return self._labels
+	def get_labels(self):
+		return self._labels
 
-    def get_vocab(self):
-        return self._vocab
+	def get_vocab(self):
+		return self._vocab
 
 def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False, rebuild=False):
+        # Should be root +
+        # gave error otherwise could not predict or build neural 
 	train_csv_path = root + 'train.csv'
-	test_csv_path = root + 'test.csv'
+	test_csv_path = root + 'test.csv' 
+	#train_csv_path = 'train.csv'
+	#test_csv_path = 'test.csv'
 	while True:
 		if rebuild or (not os.path.isfile(train_csv_path) or not os.path.isfile(test_csv_path)):
 			train_csv_path, test_csv_path = splitter(data, root, train_csv_path, test_csv_path)
@@ -101,6 +105,7 @@ def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False, rebuild
 		TextClassificationDataset(vocab, test_data, test_labels))
 
 def splitter(data, root, train_csv_path, test_csv_path):
+	print(train_csv_path)
 	train_file = open(train_csv_path, 'w', encoding='utf-8')
 	test_file = open(test_csv_path, 'w', encoding='utf-8')
 

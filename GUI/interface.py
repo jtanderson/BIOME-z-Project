@@ -4,6 +4,8 @@ from methods import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
+import os
+
 # Creates the user interface.
 def create_UI(self):
 	self.notebook = ttk.Notebook(self.master)
@@ -28,11 +30,15 @@ def create_UI(self):
 	generateBuildTab(self)
 	generateStatsTab(self)
 	generateManualTab(self)
+	
+	self.root = os.getcwd()
+	self.modelRoot = None
+	
 
 # ======================================== TESTING TAB ========================================
 def generateTestTab(self):
 	self.rdf_csv_file_name.set('No File Chosen')
-	self.wkdir.set('No Current Directory.') 
+	self.wkdir.set('No Current Directory.')
 
 	# Separates the left half of the frame for the article testing section.
 	self.articleTestingLF = LabelFrame(self.frame_test, text="Article Testing", height=1000, width=500)
@@ -64,7 +70,7 @@ def generateTestTab(self):
 	self.fileError = Label(self.loadArticleLF, fg="red", text='Error: Invalid file format.')
 
 	# A Button to convert an rdf file to a csv file.
-	self.convertButton = Button(self.loadArticleLF, state=DISABLED, text='Convert to csv', command=lambda: convertFile(self)) 
+	self.convertButton = Button(self.loadArticleLF, state=DISABLED, text='Convert to csv', command=lambda: convertFile(self))
 	self.convertButton.place(x=290, y=50) #5 50
 
 	# Creates a label for displaying the 'working directory'.
@@ -75,8 +81,8 @@ def generateTestTab(self):
 	self.searchLabel = Label(self.loadArticleLF, text='Search for an Article:')
 	self.searchLabel.place(x=5, y=103)
 
-        # Used to check if the user has already searched something
-        # and to redraw the table if they search for nothing
+	# Used to check if the user has already searched something
+	# and to redraw the table if they search for nothing
 	self.hasSearched = False
 	# A text entry to act as the search bar.
 	self.searchEntry = Entry(self.loadArticleLF, text='Search')
@@ -125,7 +131,7 @@ def generateTestTab(self):
 	self.searchTable.show()
 	self.searchTable.adjustColumnWidths() #Temp fix?
 
-        # Used to copy the current model (self.data)
+	# Used to copy the current model (self.data)
 	self.copyModel = ""
 
 	# A button below the table to transfer the contents of the row to text fields.

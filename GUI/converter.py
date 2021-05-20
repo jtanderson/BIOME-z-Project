@@ -158,7 +158,7 @@ def parser(rdf_file):
 			if obj.abstract != "":
 				if obj.category != 0:
 					domain_count[obj.category-1] += 1
-					#output.write(f"\"{str(obj.category)}\",\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n") Saving this just in case
+					#output.write(f"\"{str(obj.category)}\",\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n") #Saving this just in case
 					output.write(f"\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n")	# Category is not needed
 
 	

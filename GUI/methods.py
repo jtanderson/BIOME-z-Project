@@ -36,6 +36,8 @@ def runPredictor(self):
 	elif self.abstractText.get("1.0", END) == '\n':
 		messagebox.showinfo('No Abstract Set', 'Please enter an abstract.')
 	else:
+		print("HERE, ", end="")
+		print(self.CLASS_NAME)
 		options, topOpt, smValues = predictor.predictor(self.CLASS_NAME, self.titleText.get("1.0", END) + self.abstractText.get("1.0", END))
 		self.predictionResults = options, topOpt, smValues # Saving the prediction for later use and to test if prediction has been made
 		results = ''
@@ -306,6 +308,7 @@ def addLabel(self):
 	else:
 		newLabel = self.tagListBox.get(newLabel_Index[0])
 		fd = open('./labels.txt', 'a+')
+		#fd.open('./.data/' + self.CLASS_NAME + '/labels.txt', 'a+')
 		if os.stat("./labels.txt").st_size == 0:
 			fd.write(newLabel)
 		else:
@@ -342,6 +345,9 @@ def delLabel(self):
 
 	# Get a tuple of the indexes selected (the ones to be deleted).
 	delete_index = self.labelListBox.curselection()
+	
+	if len(delete_index) == 0:
+		return
 
 	# For each index in the tuple, remove it from the labels list box.
 	for index in delete_index:
@@ -359,7 +365,8 @@ def delLabel(self):
 		if self.CLASS_NAME == '':
 			fd = open('labels.txt', 'w')
 		else:
-			fd = open('./.data/' + self.CLASS_NAME + '/labels.txt', 'a+')
+			fd = open('labels.txt', 'w')
+			#fd = open('./.data/' + self.CLASS_NAME + '/labels.txt', 'a+')
 		for label in kept_index:
 			if label == kept_index[len(kept_index) - 1]:
 				pass
@@ -426,7 +433,7 @@ def runBuilder(self):
 # A function to allow the user to select a model from the folder.
 # May need more error checking.
 def selectFolder(self):
-	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
+	"""temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
 
 	if temp_folder:
 		end = temp_folder.rindex('/') + 1
@@ -435,6 +442,8 @@ def selectFolder(self):
 		if temp_folder[start:end - 1] == '.data':
 			self.CLASS_NAME = modelName
 			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
+			os.chdir(temp_folder)
+			getLabels(self)
 			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
 			self.editLabelButton['state'] = NORMAL
 			self.classifyButton['state'] = NORMAL
@@ -444,8 +453,32 @@ def selectFolder(self):
 				self.classifyButton['state'] = DISABLED
 			else:
 				self.classifyButton['state'] = NORMAL
-	getTags(self)
+	getTags(self)"""
+	a = os.getcwd()
+	#print(a)
+	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
+	print(temp_folder)
 
+	if temp_folder:
+		end = temp_folder.rindex('/') + 1
+		modelName = temp_folder[end:]
+		start =  end - 6
+		if temp_folder[start:end - 1] == '.data':
+			self.CLASS_NAME = modelName
+			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
+			os.chdir(temp_folder) # Added
+			getLabels(self) # Added
+			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
+			self.classifyButton['state'] = NORMAL
+			self.editLabelButton['state'] = NORMAL # Added
+		else:
+			messagebox.showinfo('Incorrect folder',  'Please select a proper model folder.\nExample: \'./.data/example\'')
+			if self.CLASS_NAME == '':
+				self.classifyButton['state'] = DISABLED
+			else:
+				self.classifyButton['state'] = NORMAL
+	getTags(self) # Added
+	os.chdir(a)
 
 # Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
 # the edit labels button to select from various exisiting tags/labels.
@@ -541,6 +574,22 @@ def loadDefaultParameters(self, directory):
 
 # Saves default parameters for a specific directory.
 def setDefaultParameters(self, directory):
+	#JSON_FORMAT = {
+	#	'ngrams': self.neuralNetworkVar[0].get(),
+	#	'gamma': self.neuralNetworkVar[1].get(),
+	#	'batch-size': self.neuralNetworkVar[2].get(),
+	#	'initial-learn': self.neuralNetworkVar[3].get(),
+	#	'embedding-dim': self.neuralNetworkVar[4].get(),
+	#	'epochs': self.neuralNetworkVar[5].get()
+	#}
+	#with open(directory + 'default-parameters.json', 'w') as json_file:
+		#json.dump(JSON_FORMAT, json_file)
+	#-----------------------# MIKAYLA #-----------------------#
+	#loc = './.data/' + self.CLASS_NAME + '/'
+	loc = directory #'./.data/' + self.CLASS_NAME + '/'
+	a_file = open(loc + 'default-parameters.json', "r")
+	json_object = json.load(a_file)
+	a_file.close()
 	JSON_FORMAT = {
 		'ngrams': self.neuralNetworkVar[0].get(),
 		'gamma': self.neuralNetworkVar[1].get(),
@@ -550,8 +599,11 @@ def setDefaultParameters(self, directory):
 		'epochs': self.neuralNetworkVar[5].get()
 	}
 
-	with open(directory + 'default-parameters.json', 'w') as json_file:
-		json.dump(JSON_FORMAT, json_file)
+	a_file = open(loc + 'default-parameters.json', "w")
+	json.dump(JSON_FORMAT, a_file)
+	a_file.close()
+	#with open(directory + 'default-parameters.json', 'w') as json_file:
+		#json.dump(JSON_FORMAT, json_file)
 
 #######################################################################################################
 
