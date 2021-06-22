@@ -5,9 +5,8 @@
 ### Current status/notes:
 
 #### Dependencies:
-- `tkinter`
-- `tkintertable`
-- `PIL` (Pillow)
+- `tk`
+- `tkinter
 - `fuzzysearch`
 - `tkhtmlview`
 - `markdown2`
