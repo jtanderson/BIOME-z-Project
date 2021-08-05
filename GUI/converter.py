@@ -130,9 +130,12 @@ def parser(rdf_file):
 	collection = []
 
 
+
 	# This will find the URIRef ID for every paper that has an abstract attached to it
 	start = time.time()
+	#TODO -- the order of this loop is very strange, change to be paper-first
 	for i in range(len(categories)):
+		print(f"doing category {categories[i]}")
 		for s, p, o in graph:
 			obj = str(o)
 			obj = obj.lower()
@@ -142,7 +145,9 @@ def parser(rdf_file):
 			if TITLE in p:
 				collection = insert(collection, s, o, 't', 0)
 			if SUBJECT in p:
-				if categories[i].lower() in obj:
+				print(f"'{categories[i].lower().strip()}' tested in '{obj}'")
+				if categories[i].lower().strip() in obj:
+					print(f"obj = {obj}")
 					true_domain_count[i] += 1
 					collection = insert(collection, s, o, 'c', i+1)
 
@@ -158,8 +163,8 @@ def parser(rdf_file):
 			if obj.abstract != "":
 				if obj.category != 0:
 					domain_count[obj.category-1] += 1
-					#output.write(f"\"{str(obj.category)}\",\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n") #Saving this just in case
-					output.write(f"\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n")	# Category is not needed
+					output.write(f"\"{str(obj.category)}\",\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n") #Saving this just in case
+					#output.write(f"\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n")	# Category is not needed
 
 	
 	end = time.time()
