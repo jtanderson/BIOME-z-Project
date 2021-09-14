@@ -11,7 +11,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torch.utils.data.dataset import random_split
-from torchtext.datasets import text_classification
+#from torchtext.datasets import text_classification
 
 
 class TextSentiment(nn.Module):
