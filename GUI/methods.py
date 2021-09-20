@@ -1,4 +1,4 @@
-import os, os.path, time, sys, csv, platform, predictor, builder, torch, json
+import os, time, sys, csv, platform, predictor, builder, torch, json
 
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk) # For showing plots in Tk
 from tkinter import ttk, scrolledtext, filedialog, simpledialog, messagebox # For Tk submodules
@@ -218,12 +218,12 @@ def addLabel(self):
 	newLabel_Index = self.tagListBox.curselection()
 
 	# If the user did not enter anything: do nothing, otherwise; append to file.
-	if not newLabel_Index:       
+	if not newLabel_Index:
 		return
 	else:
 		newLabel = self.tagListBox.get(newLabel_Index[0])
-		fd = open('./labels.txt', 'a+')
-		if os.stat("./labels.txt").st_size == 0:
+		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'a+')
+		if os.stat(self.TMP_DIRECTORY + '/labels.txt').st_size == 0:
 			fd.write(newLabel)
 		else:
 			fd.write("\n"+newLabel)
@@ -235,7 +235,7 @@ def addLabel(self):
 
 #  Puts all components of label.txt into a set to sort and remove redundancy 
 def labelSet(self):
-	fd = open('./labels.txt', 'r')
+	fd = open(self.TMP_DIRECTORY + '/labels.txt', 'r')
 	lines = fd.readlines()
 	if lines == "":
 		pass
@@ -243,7 +243,7 @@ def labelSet(self):
 		labels = set(lines)
 		fd.close()
 		labels = sorted(labels)
-		fd = open('./labels.txt', 'w')
+		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
 		fd.truncate(0)
 		for x in labels:
 			# Ignore empty cases            
@@ -272,14 +272,14 @@ def delLabel(self):
 
 	# Write over the file the remaining labels (assuming there are any).
 	if not kept_index:
-		fd = open('labels.txt', 'w')
+		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
 		fd.write("")
 	else:
 		fd = None
 		if self.CLASS_NAME == '':
-			fd = open('labels.txt', 'w')
+			fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
 		else:
-			fd = open('labels.txt', 'w')
+			fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
 		for label in kept_index:
 			if label == kept_index[len(kept_index) - 1]:
 				pass
@@ -287,7 +287,7 @@ def delLabel(self):
 				label = label + "\n"
 			fd.write(label)
 		fd.close()
-		
+
 	# Get the labels from the file, and update the label list box.
 	getLabels(self)
 	updateListBox(self)
@@ -311,13 +311,13 @@ def getLabels(self):
 	# Reads in tags
 	if self.CLASS_NAME != '':
 		getTags(self)        
-		fdT = open('tagsList.txt', 'r')
+		fdT = open(self.TMP_DIRECTORY + '/tagsList.txt', 'r')
 		self.tagsList = fdT.readlines()
 		fdT.close()
 	# Case where labels.txt doesn't exist
-	if os.path.exists('./labels.txt') is True:
+	if os.path.exists(self.TMP_DIRECTORY + '/labels.txt') is True:
 		#open('labels.txt', 'w')
-		fdL = open('labels.txt', 'r')
+		fdL = open(self.TMP_DIRECTORY + '/labels.txt', 'r')
 		self.labelList = fdL.readlines()
 		fdL.close() # Never forget to close your files, Thank you Dr. Park
 
@@ -355,7 +355,8 @@ def selectFolder(self):
 		if temp_folder[start:end - 1] == '.data':
 			self.CLASS_NAME = modelName
 			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
-			os.chdir(temp_folder)
+			#os.chdir(temp_folder)
+			self.TMP_DIRECTORY = temp_folder
 			getLabels(self)
 			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
 			self.editLabelButton['state'] = NORMAL
@@ -373,20 +374,20 @@ def selectFolder(self):
 # the edit labels button to select from various exisiting tags/labels.
 def getTags(self):
 	# Check if tagsList.txt exisits, if not, create it within the current directory    
-	if os.path.exists('./tagsList.txt') is False:
-		open('tagsList.txt', 'w')    
+	if os.path.exists(self.TMP_DIRECTORY + '/tagsList.txt') is False:
+		open(self.TMP_DIRECTORY + '/tagsList.txt', 'w')    
 	
 	
 	if self.CLASS_NAME == '':
 		return
 	
 	# Gets rdf file path and gets modification dates of the rdf and tagsList files
-	rdfRoot = './' + self.CLASS_NAME + '.rdf'
-	rdfDate = time.ctime(os.path.getmtime(self.CLASS_NAME + '.rdf'))
-	tagsDate = time.ctime(os.path.getmtime('tagsList.txt'))
+	rdfRoot = self.TMP_DIRECTORY + '/' + self.CLASS_NAME + '.rdf'
+	rdfDate = time.ctime(os.path.getmtime(self.TMP_DIRECTORY + '/' + self.CLASS_NAME + '.rdf'))
+	tagsDate = time.ctime(os.path.getmtime(self.TMP_DIRECTORY + '/tagsList.txt'))
 	
 	# Checks to make sure tags file is empty before filling or if the rdf has been recently updated
-	if os.stat('./tagsList.txt').st_size != 0 and ((rdfDate == tagsDate) or (rdfDate < tagsDate)):       
+	if os.stat(self.TMP_DIRECTORY + '/tagsList.txt').st_size != 0 and ((rdfDate == tagsDate) or (rdfDate < tagsDate)):       
 		return 
     
 	# Empty the labels file in case of any deletion of tags within the labels.txt file
@@ -432,7 +433,7 @@ def getTags(self):
 	tagSet = sorted(tagSet)    # Sorts the set
 	
 	# Add Tags to label.txt
-	tagFile = open('./tagsList.txt','w')
+	tagFile = open(self.TMP_DIRECTORY + '/tagsList.txt','w')
 	tagFile.truncate(0)    # Empties file before writing
 	for x in tagSet:
 		if len(x) != 0:
