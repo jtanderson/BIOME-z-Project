@@ -5,14 +5,16 @@
 ### Current status/notes:
 
 #### Dependencies:
-- `tkinter`
-- `tkintertable`
-- `PIL` (Pillow)
+- `tk`
+- `tkinter
 - `fuzzysearch`
 - `tkhtmlview`
 - `markdown2`
 - `torch` (Pytorch)
 - `matplotlib`
+- `tqdm`
+- `torchtext`
+- `rdflib`
 
 #### Finished components:
 ##### Testing Tab

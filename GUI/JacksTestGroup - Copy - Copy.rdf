@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:bib="http://purl.org/net/biblio#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:link="http://purl.org/rss/1.0/modules/link/"
+   xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:z="http://www.zotero.org/namespaces/export#"
+>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_107">
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_112"/>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_110"/>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_113"/>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_111"/>
+    <dc:title>Social</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nc007bc034eb34d99b24dbf1e7b820b99">
+    <foaf:surname>Shah</foaf:surname>
+    <foaf:givenName>Manish A.</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://proxy-su.researchport.umd.edu/login?url=https://search.ebscohost.com/login.aspx?direct=true&amp;db=psyh&amp;AN=2018-46110-061&amp;site=ehost-live">
+    <z:archive>APA PsycInfo</z:archive>
+    <dcterms:isReferencedBy rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3254"/>
+    <bib:pages>615-624</bib:pages>
+    <dc:description>Publisher: Elsevier Science</dc:description>
+    <dc:coverage>2018-46110-061</dc:coverage>
+    <dc:title>Microbiota affects the expression of genes involved in HPA axis regulation and local metabolism of glucocorticoids in chronic psychosocial stress</dc:title>
+    <dcterms:isPartOf rdf:resource="urn:issn:0889-1591"/>
+    <z:libraryCatalog>EBSCOhost</z:libraryCatalog>
+    <dc:date>October 2018</dc:date>
+    <dc:subject>Biological</dc:subject>
+    <z:itemType>journalArticle</z:itemType>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Article"/>
+    <bib:authors rdf:nodeID="Nc402d111194543b389f93f4e5346703c"/>
+    <dcterms:abstract>The commensal microbiota affects brain functioning, emotional behavior and ACTH and corticosterone responses to acute stress. However, little is known about the role of the microbiota in shaping the chronic stress response in the peripheral components of the hypothalamus-pituitary-adrenocortical (HPA) axis and in the colon. Here, we studied the effects of the chronic stress-microbiota interaction on HPA axis activity and on the expression of colonic corticotropin-releasing hormone (CRH) system, cytokines and 11β-hydroxysteroid dehydrogenase type 1 (11HSD1), an enzyme that determines locally produced glucocorticoids. Using specific pathogen-free (SPF) and germ-free (GF) BALB/c mice, we showed that the microbiota modulates emotional behavior in social conflicts and the response of the HPA axis, colon and mesenteric lymph nodes (MLN) to chronic psychosocial stress. In the pituitary gland, microbiota attenuated the expression of Fkbp5, a gene regulating glucocorticoid receptor sensitivity, while in the adrenal gland, it attenuated the expression of genes encoding steroidogenesis (MC2R, StaR, Cyp11a1) and catecholamine synthesis (TH, PNMT). The pituitary expression of CRH receptor type 1 (CRHR1) and of proopiomelanocortin was not influenced by microbiota. In the colon, the microbiota attenuated the expression of 11HSD1, CRH, urocortin UCN2 and its receptor, CRHR2, but potentiated the expression of cytokines TNFα, IFNγ, IL-4, IL-5, IL-6, IL-10, IL-13 and IL-17, with the exception of IL-1β. Compared to GF mice, chronic stress upregulated in SPF animals the expression of pituitary Fkbp5 and colonic CRH and UCN2 and downregulated the expression of colonic cytokines. Differences in the stress responses of both GF and SPF animals were also observed when immunophenotype of MLN cells and their secretion of cytokines were analyzed. The data suggest that the presence of microbiota/intestinal commensals plays an important role in shaping the response of peripheral tissues to stress and indicates possible pathways by which the environment can interact with glucocorticoid signaling. (PsycINFO Database Record (c) 2018 APA, all rights reserved)</dcterms:abstract>
+    <dcterms:isReferencedBy rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3253"/>
+    <dc:identifier rdf:nodeID="Ne24c3db8feb140078a99cb09e07a7977"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.nature.com/articles/nature15744">
+    <link:link rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3264"/>
+    <dc:subject>Biological</dc:subject>
+    <dc:date>2015-12</dc:date>
+    <z:libraryCatalog>www.nature.com</z:libraryCatalog>
+    <dc:rights>2015 Nature Publishing Group</dc:rights>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Article"/>
+    <dcterms:abstract>Soil biodiversity is increasingly recognized as providing benefits to human health because it can suppress disease-causing soil organisms and provide clean air, water and food. Poor land-management practices and environmental change are, however, affecting belowground communities globally, and the resulting declines in soil biodiversity reduce and impair these benefits. Importantly, current research indicates that soil biodiversity can be maintained and partially restored if managed sustainably. Promoting the ecological complexity and robustness of soil biodiversity through improved management practices represents an underutilized resource with the ability to improve human health.</dcterms:abstract>
+    <dc:description>Number: 7580</dc:description>
+    <bib:pages>69-76</bib:pages>
+    <dcterms:isPartOf rdf:resource="urn:issn:1476-4687"/>
+    <dcterms:dateSubmitted>2019-02-24 19:15:52</dcterms:dateSubmitted>
+    <z:language>en</z:language>
+    <link:link rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3265"/>
+    <dc:identifier rdf:nodeID="N9fa687cd6c834c34a82deddff35a551e"/>
+    <z:itemType>journalArticle</z:itemType>
+    <bib:authors rdf:nodeID="Ncbb186cc9c7240c8a732393be3272096"/>
+    <dc:title>Soil biodiversity and human health</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:issn:1664-302X">
+    <dc:identifier>ISSN 1664-302X</dc:identifier>
+    <dcterms:alternative>Front. Microbiol.</dcterms:alternative>
+    <prism:volume>9</prism:volume>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Journal"/>
+    <dc:title>Frontiers in Microbiology</dc:title>
+    <dc:identifier>DOI 10.3389/fmicb.2018.03246</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:issn:0018-506X">
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Journal"/>
+    <dc:title>Hormones and Behavior</dc:title>
+    <dc:identifier>ISSN 0018-506X</dc:identifier>
+    <dcterms:alternative>Hormones and Behavior</dcterms:alternative>
+    <dc:identifier>DOI 10.1016/j.yhbeh.2018.02.001</dc:identifier>
+    <prism:volume>99</prism:volume>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_121">
+    <dc:title>1 Micro Level</dc:title>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3254">
+    <rdf:value>&lt;p&gt;KM&lt;/p&gt;</rdf:value>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Memo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:issn:1365-2672">
+    <dc:identifier>DOI 10.1111/jam.14124</dc:identifier>
+    <prism:number>1</prism:number>
+    <dc:identifier>ISSN 1365-2672</dc:identifier>
+    <dc:title>Journal of Applied Microbiology</dc:title>
+    <prism:volume>126</prism:volume>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Journal"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nf1ef6086ffb244cdb590024c94c1b3a5">
+    <foaf:givenName>Howard</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Weiss</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N5ac5dd1f602249da893617b018261886">
+    <rdf:_3 rdf:nodeID="Nafd801a7fc0b4780a1ec9b41ecfe6a86"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_5 rdf:nodeID="N9d86d00b4abb423fb06a55f413b85d8c"/>
+    <rdf:_8 rdf:nodeID="N45461e6c64a8447181e988e5dfc3b116"/>
+    <rdf:_1 rdf:nodeID="N5db8814f55a442c5b0a50d7d4c95b05f"/>
+    <rdf:_6 rdf:nodeID="N9d669a7c780045d0b3b480b765fb0d35"/>
+    <rdf:_4 rdf:nodeID="Nb191adb2bb0f40f2a85733d1d9ad2f4a"/>
+    <rdf:_7 rdf:nodeID="N21f8ca84e3cd454588419f5bff315af6"/>
+    <rdf:_2 rdf:nodeID="Nd0cf54ee3fa340e98d47389f7d109d00"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ndda1180759ab4588b20f5146c4bcf166">
+    <foaf:surname>Wang</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>E. T.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3251">
+    <dcterms:dateSubmitted>2019-03-06 02:20:57</dcterms:dateSubmitted>
+    <link:type>application/pdf</link:type>
+    <dc:title>Full Text PDF</dc:title>
+    <z:itemType>attachment</z:itemType>
+    <dc:identifier rdf:nodeID="N363b6e63dc474948b325af075ff9fbae"/>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+    <z:linkMode>3</z:linkMode>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3260">
+    <bib:pages>87-95</bib:pages>
+    <z:libraryCatalog>PubMed</z:libraryCatalog>
+    <dcterms:isPartOf rdf:resource="urn:issn:1432-184X"/>
+    <z:itemType>journalArticle</z:itemType>
+    <dcterms:abstract>Serving over three billion passengers annually, air travel serves as a conduit for infectious disease spread, including emerging infections and pandemics. Over two dozen cases of in-flight transmissions have been documented. To understand these risks, a characterization of the airplane cabin microbiome is necessary. Our study team collected 229 environmental samples on ten transcontinental US flights with subsequent 16S rRNA sequencing. We found that bacterial communities were largely derived from human skin and oral commensals, as well as environmental generalist bacteria. We identified clear signatures for air versus touch surface microbiome, but not for individual types of touch surfaces. We also found large flight-to-flight beta diversity variations with no distinguishing signatures of individual flights, rather a high between-flight diversity for all touch surfaces and particularly for air samples. There was no systematic pattern of microbial community change from pre- to post-flight. Our findings are similar to those of other recent studies of the microbiome of built environments. In summary, the airplane cabin microbiome has immense airplane to airplane variability. The vast majority of airplane-associated microbes are human commensals or non-pathogenic, and the results provide a baseline for non-crisis-level airplane microbiome conditions.</dcterms:abstract>
+    <dc:description>Number: 1
+PMID: 29876609
+PMCID: PMC6318343</dc:description>
+    <link:link rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3261"/>
+    <dc:title>The Airplane Cabin Microbiome</dc:title>
+    <z:language>eng</z:language>
+    <dc:date>Jan 2019</dc:date>
+    <link:link rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3262"/>
+    <dc:subject>Biological</dc:subject>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Article"/>
+    <bib:authors rdf:nodeID="N17ac4fe70e8743f08ea8deb66ea041ce"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nc402d111194543b389f93f4e5346703c">
+    <rdf:_1 rdf:nodeID="Nfc8d3470eb7845c782bfaba0fa33a7aa"/>
+    <rdf:_3 rdf:nodeID="N58672e69c65d495a9c4aad03555d24eb"/>
+    <rdf:_7 rdf:nodeID="Nbbdccc83e60f4929965d37e2bcece61e"/>
+    <rdf:_8 rdf:nodeID="Nb5743b5a557246588b7baaefe7b91bf2"/>
+    <rdf:_12 rdf:nodeID="N2019a18d34664f4e959aebc6889b70eb"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_11 rdf:nodeID="Nb08e540a1deb450188e505c7bab357b2"/>
+    <rdf:_10 rdf:nodeID="Na4d588e6b467415f9bf4d5aba5020e12"/>
+    <rdf:_4 rdf:nodeID="N345b2c0aa3e64d55a37b4e3af8a783d8"/>
+    <rdf:_6 rdf:nodeID="N5d21a78eb1a94060969f6084599b90f7"/>
+    <rdf:_5 rdf:nodeID="N6e356cdcd03443c09f8f9db2e8f5a8bf"/>
+    <rdf:_9 rdf:nodeID="N2592976735e24be8968eab53a848e11d"/>
+    <rdf:_2 rdf:nodeID="Nbc6efefe457c4717ae32287172f94d12"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_108">
+    <dc:title>Psychological</dc:title>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_117"/>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_116"/>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_114"/>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_115"/>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N0b062849d6b84e2bae393ccc0bd77c92">
+    <foaf:givenName>Doron</foaf:givenName>
+    <foaf:surname>Betel</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ndb24aee15c4e45fe9b7217d050cf630e">
+    <foaf:surname>Ackerson</foaf:surname>
+    <foaf:givenName>Kelly</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N5f165833e5c94b23bf9141811a9059ec">
+    <foaf:givenName>R. P.</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Singh</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3247">
+    <z:itemType>attachment</z:itemType>
+    <dcterms:dateSubmitted>2019-04-07 22:23:49</dcterms:dateSubmitted>
+    <z:linkMode>3</z:linkMode>
+    <dc:identifier rdf:nodeID="N9e7fb6eb3fe941968aa24b73e8a77407"/>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+    <dc:title>PubMed Central Link</dc:title>
+    <link:type>text/html</link:type>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N2019a18d34664f4e959aebc6889b70eb">
+    <foaf:surname>Pácha</foaf:surname>
+    <foaf:givenName>J.</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nafd801a7fc0b4780a1ec9b41ecfe6a86">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Lehto</foaf:surname>
+    <foaf:givenName>Soili M.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N4ee04f7253ae43e5ad7b1179fd8bf896">
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+    <rdf:value>https://www.frontiersin.org/articles/10.3389/fmicb.2018.03246/full</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://proxy-su.researchport.umd.edu/login?url=https://search.ebscohost.com/login.aspx?direct=true&amp;db=psyh&amp;AN=2018-14627-007&amp;site=ehost-live">
+    <bib:pages>41-49</bib:pages>
+    <dc:coverage>2018-14627-007</dc:coverage>
+    <dcterms:isPartOf rdf:resource="urn:issn:0018-506X"/>
+    <dc:subject>Biological</dc:subject>
+    <dc:title>A gut feeling: Microbiome-brain-immune interactions modulate social and affective behaviors</dc:title>
+    <dcterms:isReferencedBy rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3256"/>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Article"/>
+    <dcterms:abstract>The expression of a wide range of social and affective behaviors, including aggression and investigation, as well as anxiety- and depressive-like behaviors, involves interactions among many different physiological systems, including the neuroendocrine and immune systems. Recent work suggests that the gut microbiome may also play a critical role in modulating behavior and likely functions as an important integrator across physiological systems. Microbes within the gut may communicate with the brain via both neural and humoral pathways, providing numerous avenues of research in the area of the gut-brain axis. We are now just beginning to understand the intricate relationships among the brain, microbiome, and immune system and how they work in concert to influence behavior. The effects of different forms of experience (e.g., changes in diet, immune challenge, and psychological stress) on the brain, gut microbiome, and the immune system have often been studied independently. Though because these systems do not work in isolation, it is essential to shift our focus to the connections among them as we move forward in our investigations of the gut-brain axis, the shaping of behavioral phenotypes, and the possible clinical implications of these interactions. This review summarizes the recent progress the field has made in understanding the important role the gut microbiome plays in the modulation of social and affective behaviors, as well as some of the intricate mechanisms by which the microbiome may be communicating with the brain and immune system. (PsycINFO Database Record (c) 2018 APA, all rights reserved)</dcterms:abstract>
+    <dc:date>March 2018</dc:date>
+    <dc:identifier rdf:nodeID="Nefd0a39f4593433ba440da00c719b735"/>
+    <z:archive>APA PsycInfo</z:archive>
+    <z:itemType>journalArticle</z:itemType>
+    <z:libraryCatalog>EBSCOhost</z:libraryCatalog>
+    <dc:description>Publisher: Elsevier Science</dc:description>
+    <dcterms:isReferencedBy rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3257"/>
+    <bib:authors rdf:nodeID="N14512ccb76c5419aafdf7c4b5fcd1688"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N21f8ca84e3cd454588419f5bff315af6">
+    <foaf:givenName>John F.</foaf:givenName>
+    <foaf:surname>Cryan</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N8a1e38d18f9c4c5eb34f11ebbc66c70f">
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+    <rdf:value>https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4399594/</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N7f35e854732d473a96a4c44c3386f215">
+    <foaf:givenName>J.</foaf:givenName>
+    <foaf:surname>Chen</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_109">
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_118"/>
+    <dcterms:hasPart rdf:resource="https://www.frontiersin.org/articles/10.3389/fmicb.2018.03246/full"/>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_119"/>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_120"/>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3260"/>
+    <dcterms:hasPart rdf:resource="http://proxy-su.researchport.umd.edu/login?url=https://search.ebscohost.com/login.aspx?direct=true&amp;db=psyh&amp;AN=2018-46110-061&amp;site=ehost-live"/>
+    <dcterms:hasPart rdf:resource="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4399594/"/>
+    <dcterms:hasPart rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_121"/>
+    <dcterms:hasPart rdf:resource="http://proxy-su.researchport.umd.edu/login?url=https://search.ebscohost.com/login.aspx?direct=true&amp;db=psyh&amp;AN=2018-14627-007&amp;site=ehost-live"/>
+    <dcterms:hasPart rdf:resource="http://www.sciencedirect.com/science/article/pii/S1364661318300974"/>
+    <dcterms:hasPart rdf:resource="https://onlinelibrary.wiley.com/doi/abs/10.1111/jam.14124"/>
+    <dcterms:hasPart rdf:resource="https://www.nature.com/articles/nature15744"/>
+    <dc:title>Biological</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3250">
+    <rdf:value>&lt;p&gt;sure!- Ellie&amp;nbsp;&lt;/p&gt;</rdf:value>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Memo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://onlinelibrary.wiley.com/doi/abs/10.1111/jam.14124">
+    <bib:authors rdf:nodeID="Na8a1132a4b2c4e5195070096bcddb218"/>
+    <bib:pages>204-214</bib:pages>
+    <dc:description>Number: 1</dc:description>
+    <dcterms:dateSubmitted>2019-04-14 20:47:05</dcterms:dateSubmitted>
+    <dc:title>Grape berry surface bacterial microbiome: impact from the varieties and clones in the same vineyard from central China</dc:title>
+    <dcterms:abstract>Aims Bacterial microbiome on grape berry surface may play an important role in grape quality and health. This study aims to investigate the impact of grape varieties and clones on grape berry surface bacterial microbiome from the same vineyard. Methods and Results High-throughput sequencing strategy was used to investigate the bacterial diversity and abundance on the grape surfaces of 12 clones belonging to six varieties grown in the same vineyard of Zhengzhou Fruit Research Institute in Henan Province. In total, 45 bacterial phyla and 933 genera were detected from all samples. Cyanobacteria, Proteobacteria and Firmicutes were the most abundant and prevalent phyla, while Bacteroidetes, Chloroflexi, Acidobacteria and Planctomycetes were grape clone specific phyla. The nonrank genus from phylum Cyanobacteria occupied 30–81% of grape clones from Italian Riesling (GRX), Cabernet Franc (PLZ), Pinot Blanc (BBN) and Riesling (LSL). Interestingly, Bacillus, Pseudomonas and Lactococcus were the only three prevalent genera found on all the clones. Furthermore, the predicted functional activities of grape surface bacterial communities varied according to the clones. Conclusions The present study revealed that in addition to the grape varieties, the variations in grape clone background may also affect the bacterial microbiome on grape surfaces which may ultimately determine their functional activities. Significance and Impact of the Study This research provides an important information for grape planting and wine fermentation that not only the grape varieties need to be paid attention but also grape clones from the specific variety need to be concerned.</dcterms:abstract>
+    <dcterms:isPartOf rdf:resource="urn:issn:1365-2672"/>
+    <z:libraryCatalog>Wiley Online Library</z:libraryCatalog>
+    <z:language>en</z:language>
+    <z:shortTitle>Grape berry surface bacterial microbiome</z:shortTitle>
+    <z:itemType>journalArticle</z:itemType>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Article"/>
+    <dc:rights>© 2018 The Society for Applied Microbiology</dc:rights>
+    <dc:identifier rdf:nodeID="Nc5747eb3dc4f45218d11d4074c80011d"/>
+    <dc:date>2019</dc:date>
+    <dc:subject>Biological</dc:subject>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N2adca80302eb4474aed5140ff72676ac">
+    <foaf:givenName>Ruth</foaf:givenName>
+    <foaf:surname>Zielinski</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N56a756fa32034fc6b23d6145eaed7e28">
+    <rdf:_3 rdf:nodeID="Ncd2ae581657548b1831bf563bfac9339"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1 rdf:nodeID="N2adca80302eb4474aed5140ff72676ac"/>
+    <rdf:_2 rdf:nodeID="Ndb24aee15c4e45fe9b7217d050cf630e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_113">
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+    <dc:title>1 Micro Level</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N6c164985675b45e79d167f364af7e73f">
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+    <rdf:value>http://www.sciencedirect.com/science/article/pii/S1364661318300974</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ncbb186cc9c7240c8a732393be3272096">
+    <rdf:_2 rdf:nodeID="N0c0c9640cee641f39acffc22dbf04497"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_3 rdf:nodeID="Nd5552edc05ff4543805da95dc7059d21"/>
+    <rdf:_1 rdf:nodeID="N0ffe3efd79c24393b6d83efe9a6e12b1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4399594/">
+    <z:libraryCatalog>PubMed Central</z:libraryCatalog>
+    <dcterms:abstract>While the number of women in developed countries who plan a home birth is low, the number has increased over the past decade in the US, and there is evidence that more women would choose this option if it were readily available. Rates of planned home birth range from 0.1% in Sweden to 20% in the Netherlands, where home birth has always been an integrated part of the maternity system. Benefits of planned home birth include lower rates of maternal morbidity, such as postpartum hemorrhage, and perineal lacerations, and lower rates of interventions such as episiotomy, instrumental vaginal birth, and cesarean birth. Women who have a planned home birth have high rates of satisfaction related to home being a more comfortable environment and feeling more in control of the experience. While maternal outcomes related to planned birth at home have been consistently positive within the literature, reported neonatal outcomes during planned home birth are more variable. While the majority of investigations of planned home birth compared with hospital birth have found no difference in intrapartum fetal deaths, neonatal deaths, low Apgar scores, or admission to the neonatal intensive care unit, there have been reports in the US, as well as a meta-analysis, that indicated more adverse neonatal outcomes associated with home birth. There are multiple challenges associated with research designs focused on planned home birth, in part because conducting randomized controlled trials is not feasible. This report will review current research studies published between 2004 and 2014 related to maternal and neonatal outcomes of planned home birth, and discuss strengths, limitations, and opportunities regarding planned home birth.</dcterms:abstract>
+    <dc:date>2015-4-08</dc:date>
+    <dc:identifier rdf:nodeID="N8a1e38d18f9c4c5eb34f11ebbc66c70f"/>
+    <dcterms:dateSubmitted>2019-04-07 22:23:49</dcterms:dateSubmitted>
+    <dc:subject>Biological</dc:subject>
+    <dcterms:isPartOf rdf:resource="urn:issn:1179-1411"/>
+    <z:itemType>journalArticle</z:itemType>
+    <bib:authors rdf:nodeID="N56a756fa32034fc6b23d6145eaed7e28"/>
+    <bib:pages>361-377</bib:pages>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Article"/>
+    <dc:title>Planned home birth: benefits, risks, and opportunities</dc:title>
+    <dc:description>PMID: 25914559
+PMCID: PMC4399594</dc:description>
+    <z:shortTitle>Planned home birth</z:shortTitle>
+    <link:link rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3247"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:issn:0889-1591">
+    <dc:identifier>DOI 10.1016/j.bbi.2018.07.007</dc:identifier>
+    <dcterms:alternative>Brain, Behavior, and Immunity</dcterms:alternative>
+    <dc:identifier>ISSN 0889-1591</dc:identifier>
+    <prism:volume>73</prism:volume>
+    <dc:title>Brain, Behavior, and Immunity</dc:title>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Journal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:issn:1432-184X">
+    <prism:volume>77</prism:volume>
+    <dcterms:alternative>Microb. Ecol.</dcterms:alternative>
+    <dc:identifier>ISSN 1432-184X</dc:identifier>
+    <dc:title>Microbial Ecology</dc:title>
+    <prism:number>1</prism:number>
+    <dc:identifier>DOI 10.1007/s00248-018-1191-3</dc:identifier>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Journal"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Na4d588e6b467415f9bf4d5aba5020e12">
+    <foaf:givenName>T.</foaf:givenName>
+    <foaf:surname>Hudcovic</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N60f7a75610e2492b82ca3aaa85debd44">
+    <foaf:surname>Shang</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>Y.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:issn:1364-6613">
+    <prism:volume>22</prism:volume>
+    <prism:number>7</prism:number>
+    <dc:title>Trends in Cognitive Sciences</dc:title>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Journal"/>
+    <dc:identifier>DOI 10.1016/j.tics.2018.04.006</dc:identifier>
+    <dcterms:alternative>Trends in Cognitive Sciences</dcterms:alternative>
+    <dc:identifier>ISSN 1364-6613</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N26d4bf51db2c43f4a1ad7650a9ef8917">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>C.</foaf:givenName>
+    <foaf:surname>Guo</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N9fa687cd6c834c34a82deddff35a551e">
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+    <rdf:value>https://www.nature.com/articles/nature15744</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Na9e573b79a1a45609333e1adfbc308c5">
+    <rdf:_5 rdf:nodeID="Neeed3cc48c50403fb8eee2ed5913e708"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_3 rdf:nodeID="N5e2d4e0a01694a93ba62f0907208ed1a"/>
+    <rdf:_2 rdf:nodeID="N44624a8033f2465d8dee5cde2ad64f10"/>
+    <rdf:_6 rdf:nodeID="N0b062849d6b84e2bae393ccc0bd77c92"/>
+    <rdf:_4 rdf:nodeID="N771cf2c247bc4fbbb8b93cdfbc729189"/>
+    <rdf:_7 rdf:nodeID="Nc007bc034eb34d99b24dbf1e7b820b99"/>
+    <rdf:_1 rdf:nodeID="N3a0d9a9ae0bd4efc94f98a497215e3e9"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Na8a1132a4b2c4e5195070096bcddb218">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_6 rdf:nodeID="N7f35e854732d473a96a4c44c3386f215"/>
+    <rdf:_1 rdf:nodeID="N7f84bb4294bc410694e6bba17d817ad4"/>
+    <rdf:_2 rdf:nodeID="Ndda1180759ab4588b20f5146c4bcf166"/>
+    <rdf:_4 rdf:nodeID="N26d4bf51db2c43f4a1ad7650a9ef8917"/>
+    <rdf:_7 rdf:nodeID="N2a8d92d8e45847ec83ee6f8c4283aee6"/>
+    <rdf:_5 rdf:nodeID="N60f7a75610e2492b82ca3aaa85debd44"/>
+    <rdf:_3 rdf:nodeID="N5f165833e5c94b23bf9141811a9059ec"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N17ac4fe70e8743f08ea8deb66ea041ce">
+    <rdf:_8 rdf:nodeID="N6bb847946058484485e3806da8cb2fc8"/>
+    <rdf:_2 rdf:nodeID="N944704a3f76e45dc891354b351d856b1"/>
+    <rdf:_3 rdf:nodeID="N547df5d6eaed4190be94f5a21a98ea6b"/>
+    <rdf:_5 rdf:nodeID="Nbcaaa8dee78049809d98ddf470605781"/>
+    <rdf:_7 rdf:nodeID="Nb5675fe56924472782f09046829f4c52"/>
+    <rdf:_6 rdf:nodeID="Nf7495f4aa1a34278a82a2a727a95634b"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_4 rdf:nodeID="Neee238a6768544c48ba1c9f985060dd9"/>
+    <rdf:_1 rdf:nodeID="Nf1ef6086ffb244cdb590024c94c1b3a5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_118">
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+    <dc:title>4 Distal Level</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N547df5d6eaed4190be94f5a21a98ea6b">
+    <foaf:givenName>Chris</foaf:givenName>
+    <foaf:surname>Dupont</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N5e2d4e0a01694a93ba62f0907208ed1a">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>Sarah Ellen</foaf:givenName>
+    <foaf:surname>Powell</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3261">
+    <link:type>application/pdf</link:type>
+    <z:itemType>attachment</z:itemType>
+    <dc:title>Full Text</dc:title>
+    <z:linkMode>3</z:linkMode>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+    <dc:identifier rdf:nodeID="Ne0fcc6fe85c64670b49fe7e86ba60450"/>
+    <dcterms:dateSubmitted>2019-04-01 03:58:22</dcterms:dateSubmitted>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N44624a8033f2465d8dee5cde2ad64f10">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Thakkar</foaf:surname>
+    <foaf:givenName>Prashant V.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nefd0a39f4593433ba440da00c719b735">
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+    <rdf:value>http://proxy-su.researchport.umd.edu/login?url=https://search.ebscohost.com/login.aspx?direct=true&amp;db=psyh&amp;AN=2018-14627-007&amp;site=ehost-live</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3256">
+    <rdf:value>&lt;p&gt;Accession Number: 2018-14627-007. PMID: 29427583 Partial author list: First Author &amp; Affiliation: Sylvia, Kristyn E.; Department of Biology, Indiana University, Bloomington, IN, US. Release Date: 20180514. Publication Type: Journal (0100), Peer Reviewed Journal (0110). Format Covered: Electronic. Document Type: Journal Article. Language: English. Major Descriptor: Cytokines; Immune System; Social Behavior; Lipopolysaccharide. Classification: Physiological Processes (2540). Population: Human (10); Animal (20). Page Count: 9. Issue Publication Date: Mar, 2018. Publication History: First Posted Date: Feb 20, 2018; Accepted Date: Feb 4, 2018; Revised Date: Feb 2, 2018; First Submitted Date: Sep 26, 2017. Copyright Statement: All rights reserved. Elsevier Inc. 2018.&lt;/p&gt;</rdf:value>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Memo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://www.frontiersin.org/articles/10.3389/fmicb.2018.03246/full">
+    <link:link rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3251"/>
+    <z:language>English</z:language>
+    <z:libraryCatalog>Frontiers</z:libraryCatalog>
+    <z:itemType>journalArticle</z:itemType>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Article"/>
+    <bib:authors rdf:nodeID="Na9e573b79a1a45609333e1adfbc308c5"/>
+    <dc:date>2019</dc:date>
+    <dcterms:isReferencedBy rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3250"/>
+    <dc:subject>Biological</dc:subject>
+    <dc:title>A Comparison of Homogenization vs. Enzymatic Lysis for Microbiome Profiling in Clinical Endoscopic Biopsy Tissue Samples</dc:title>
+    <dc:identifier rdf:nodeID="N4ee04f7253ae43e5ad7b1179fd8bf896"/>
+    <dcterms:dateSubmitted>2019-03-06 02:20:46</dcterms:dateSubmitted>
+    <dcterms:abstract>Identification of the human microbiome has proven to be of utmost importance with the emerging role of bacteria in various physiological and pathological processes. High throughput sequencing strategies have evolved to assess the composition of the microbiome. To identify possible bias that may exist in the processing of tissue for whole genome sequencing (WGS), it is important to evaluate the extraction method on the overall microbial content and composition. Here we compare two different methods of extraction, homogenization versus enzymatic lysis, on gastric, esophageal and colorectal biopsies and survey the microbial content and composition using WGS and quantitative PCR (qPCR). We examined total bacterial content using universal 16S rDNA qPCR as well as the abundance of three phyla (Actinobacter, Firmicutes, Bacteriodetes) and one genus (Fusobacterium). We found minimal differences between the two extraction methods in the overall community structure or in the abundance of specific clade. Furthermore, based on our qPCR analysis, neither method demonstrated preferential extraction of any particular clade of bacteria, nor significantly altered the detection of gram-positive or gram-negative organisms. However, although the overall microbial composition remained the same and the most prevalent bacteria could be detected effectively using either method, we demonstrate that the homogenization extraction method provides higher microbial DNA content and higher read counts from human tissue biopsy samples of the gastrointestinal tract.</dcterms:abstract>
+    <dcterms:isPartOf rdf:resource="urn:issn:1664-302X"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N14512ccb76c5419aafdf7c4b5fcd1688">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    <rdf:_1 rdf:nodeID="Nd72a460019be41eda9f951282f0f2992"/>
+    <rdf:_2 rdf:nodeID="Nbd6ac2df72324f2d9c5c6967d11db53e"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N3a0d9a9ae0bd4efc94f98a497215e3e9">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Zhang</foaf:surname>
+    <foaf:givenName>Chao</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N6e356cdcd03443c09f8f9db2e8f5a8bf">
+    <foaf:surname>Kvapilová</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>P.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:issn:1179-1411">
+    <prism:volume>7</prism:volume>
+    <dcterms:alternative>Int J Womens Health</dcterms:alternative>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Journal"/>
+    <dc:title>International Journal of Women's Health</dc:title>
+    <dc:identifier>ISSN 1179-1411</dc:identifier>
+    <dc:identifier>DOI 10.2147/IJWH.S55561</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_106">
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+    <dc:title>Unclassified</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Neeed3cc48c50403fb8eee2ed5913e708">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>Sreekar</foaf:givenName>
+    <foaf:surname>Vennelaganti</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N9d669a7c780045d0b3b480b765fb0d35">
+    <foaf:givenName>Robin I. M.</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Dunbar</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ne0fcc6fe85c64670b49fe7e86ba60450">
+    <rdf:value>https://link.springer.com/content/pdf/10.1007%2Fs00248-018-1191-3.pdf</rdf:value>
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N5d21a78eb1a94060969f6084599b90f7">
+    <foaf:surname>Vagnerová</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>K.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N944704a3f76e45dc891354b351d856b1">
+    <foaf:givenName>Vicki Stover</foaf:givenName>
+    <foaf:surname>Hertzberg</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3262">
+    <z:linkMode>3</z:linkMode>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+    <z:itemType>attachment</z:itemType>
+    <dcterms:dateSubmitted>2019-04-01 03:58:15</dcterms:dateSubmitted>
+    <dc:identifier rdf:nodeID="Ncec66beba08b452b8c42e134f79e3f02"/>
+    <link:type>text/html</link:type>
+    <dc:title>PubMed entry</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:issn:1476-4687">
+    <dc:title>Nature</dc:title>
+    <prism:volume>528</prism:volume>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Journal"/>
+    <prism:number>7580</prism:number>
+    <dc:identifier>ISSN 1476-4687</dc:identifier>
+    <dc:identifier>DOI 10.1038/nature15744</dc:identifier>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.sciencedirect.com/science/article/pii/S1364661318300974">
+    <dc:identifier rdf:nodeID="N6c164985675b45e79d167f364af7e73f"/>
+    <dc:date>July 1, 2018</dc:date>
+    <dc:description>Number: 7</dc:description>
+    <dcterms:dateSubmitted>2019-11-21 19:11:49</dcterms:dateSubmitted>
+    <dcterms:isPartOf rdf:resource="urn:issn:1364-6613"/>
+    <z:itemType>journalArticle</z:itemType>
+    <dc:title>The Microbiome in Psychology and Cognitive Neuroscience</dc:title>
+    <bib:pages>611-636</bib:pages>
+    <bib:authors rdf:nodeID="N5ac5dd1f602249da893617b018261886"/>
+    <z:libraryCatalog>ScienceDirect</z:libraryCatalog>
+    <dc:subject>Biological</dc:subject>
+    <dcterms:isReferencedBy rdf:resource="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3259"/>
+    <dcterms:abstract>Psychology and microbiology make unlikely friends, but the past decade has witnessed striking bidirectional associations between intrinsic gut microbes and the brain, relationships with largely untested psychological implications. Although microbe–brain relationships are receiving a great deal of attention in biomedicine and neuroscience, psychologists have yet to join this journey. Here, we illustrate microbial associations with emotion, cognition, and social behavior. However, despite considerable enthusiasm and potential, technical and conceptual limitations including low statistical power and lack of mechanistic descriptions prevent a nuanced understanding of microbiome–brain–behavior relationships. Our goal is to describe microbial effects in domains of cognitive significance and the associated challenges to stimulate interdisciplinary research on the contribution of this hidden kingdom to psychological processes.</dcterms:abstract>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Article"/>
+    <z:language>en</z:language>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb191adb2bb0f40f2a85733d1d9ad2f4a">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Moeller</foaf:surname>
+    <foaf:givenName>Andrew H.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_116">
+    <dc:title>2 Proximal Level</dc:title>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb5743b5a557246588b7baaefe7b91bf2">
+    <foaf:surname>Fajstová</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>A.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_110">
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+    <dc:title>4 Distal Level</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nee6ed796c43e489f9f19ea043d0d9edb">
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+    <rdf:value>https://www.nature.com/articles/nature15744</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N9e7fb6eb3fe941968aa24b73e8a77407">
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+    <rdf:value>https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4399594/</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb08e540a1deb450188e505c7bab357b2">
+    <foaf:surname>Kozáková</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>H.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Neee238a6768544c48ba1c9f985060dd9">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Espinoza</foaf:surname>
+    <foaf:givenName>Josh L.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ncec66beba08b452b8c42e134f79e3f02">
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+    <rdf:value>http://www.ncbi.nlm.nih.gov/pubmed/29876609</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3259">
+    <rdf:value>&lt;p&gt;KM&lt;/p&gt;</rdf:value>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Memo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3265">
+    <dc:title>Full Text PDF</dc:title>
+    <dcterms:dateSubmitted>2019-02-24 19:15:54</dcterms:dateSubmitted>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+    <z:linkMode>3</z:linkMode>
+    <z:itemType>attachment</z:itemType>
+    <link:type>application/pdf</link:type>
+    <dc:identifier rdf:nodeID="Nb5e309328bbd4a09b60a625a2e9d6eef"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N0ffe3efd79c24393b6d83efe9a6e12b1">
+    <foaf:surname>Wall</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>Diana H.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd0cf54ee3fa340e98d47389f7d109d00">
+    <foaf:givenName>Siobhán</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Harty</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd5552edc05ff4543805da95dc7059d21">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Six</foaf:surname>
+    <foaf:givenName>Johan</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nbc6efefe457c4717ae32287172f94d12">
+    <foaf:givenName>P.</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Ergang</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd72a460019be41eda9f951282f0f2992">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>Kristyn E.</foaf:givenName>
+    <foaf:surname>Sylvia</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3253">
+    <rdf:value>&lt;p&gt;Accession Number: 2018-46110-061. PMID: 29990567 Partial author list: First Author &amp; Affiliation: Vodička, M.; Institute of Physiology, Academy of Sciences of the Czech Republic, Prague, Czech Republic. Release Date: 20181001. Publication Type: Journal (0100), Peer Reviewed Journal (0110). Format Covered: Electronic. Document Type: Journal Article. Language: English. Major Descriptor: Glucocorticoids; Hypothalamus; Psychosocial Factors; Stress. Classification: Neuropsychology &amp; Neurology (2520). Population: Animal (20); Male (30). Methodology: Empirical Study; Quantitative Study. Supplemental Data: Tables and Figures Internet. Page Count: 10. Issue Publication Date: Oct, 2018. Publication History: First Posted Date: Jul 7, 2018; Accepted Date: Jul 7, 2018; Revised Date: Jun 1, 2018; First Submitted Date: Jan 25, 2018. Copyright Statement: All rights reserved. Elsevier Inc. 2018.&lt;/p&gt;</rdf:value>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Memo"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3264">
+    <z:linkMode>3</z:linkMode>
+    <z:itemType>attachment</z:itemType>
+    <dcterms:dateSubmitted>2019-02-24 19:15:59</dcterms:dateSubmitted>
+    <dc:identifier rdf:nodeID="Nee6ed796c43e489f9f19ea043d0d9edb"/>
+    <link:type>text/html</link:type>
+    <dc:title>Snapshot</dc:title>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Attachment"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb5675fe56924472782f09046829f4c52">
+    <foaf:givenName>Sharon</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Norris</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#item_3257">
+    <rdf:value>&lt;p&gt;KM&lt;/p&gt;</rdf:value>
+    <rdf:type rdf:resource="http://purl.org/net/biblio#Memo"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N7f84bb4294bc410694e6bba17d817ad4">
+    <foaf:surname>Zhang</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>J.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nc5747eb3dc4f45218d11d4074c80011d">
+    <rdf:value>https://onlinelibrary.wiley.com/doi/abs/10.1111/jam.14124</rdf:value>
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N6bb847946058484485e3806da8cb2fc8">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>FlyHealthy Research Team</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N58672e69c65d495a9c4aad03555d24eb">
+    <foaf:surname>Hrnčíř</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>T.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nbbdccc83e60f4929965d37e2bcece61e">
+    <foaf:givenName>B.</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Šestáková</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_120">
+    <dc:title>2 Proximal Level</dc:title>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N0c0c9640cee641f39acffc22dbf04497">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>Uffe N.</foaf:givenName>
+    <foaf:surname>Nielsen</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nfc8d3470eb7845c782bfaba0fa33a7aa">
+    <foaf:givenName>M.</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Vodička</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N771cf2c247bc4fbbb8b93cdfbc729189">
+    <foaf:givenName>Prateek</foaf:givenName>
+    <foaf:surname>Sharma</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N363b6e63dc474948b325af075ff9fbae">
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+    <rdf:value>https://www.frontiersin.org/articles/10.3389/fmicb.2018.03246/pdf</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N45461e6c64a8447181e988e5dfc3b116">
+    <foaf:surname>Burnet</foaf:surname>
+    <foaf:givenName>Philip W. J.</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_114">
+    <dc:title>4 Distal Level</dc:title>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_117">
+    <dc:title>1 Micro Level</dc:title>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_112">
+    <dc:title>2 Proximal Level</dc:title>
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ncd2ae581657548b1831bf563bfac9339">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Kane Low</foaf:surname>
+    <foaf:givenName>Lisa</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ne24c3db8feb140078a99cb09e07a7977">
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+    <rdf:value>http://proxy-su.researchport.umd.edu/login?url=https://search.ebscohost.com/login.aspx?direct=true&amp;db=psyh&amp;AN=2018-46110-061&amp;site=ehost-live</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N9d86d00b4abb423fb06a55f413b85d8c">
+    <foaf:givenName>Timothy G.</foaf:givenName>
+    <foaf:surname>Dinan</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nf7495f4aa1a34278a82a2a727a95634b">
+    <foaf:surname>Nelson</foaf:surname>
+    <foaf:givenName>Karen</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N5db8814f55a442c5b0a50d7d4c95b05f">
+    <foaf:givenName>Amar</foaf:givenName>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Sarkar</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N2592976735e24be8968eab53a848e11d">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Hermanová</foaf:surname>
+    <foaf:givenName>P.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nbcaaa8dee78049809d98ddf470605781">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>Shawn</foaf:givenName>
+    <foaf:surname>Levy</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_115">
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+    <dc:title>3 Intermediate Level</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nbd6ac2df72324f2d9c5c6967d11db53e">
+    <foaf:surname>Demas</foaf:surname>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>Gregory E.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_111">
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+    <dc:title>3 Intermediate Level</dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb5e309328bbd4a09b60a625a2e9d6eef">
+    <rdf:type rdf:resource="http://purl.org/dc/terms/URI"/>
+    <rdf:value>https://www.nature.com/articles/nature15744.pdf</rdf:value>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N345b2c0aa3e64d55a37b4e3af8a783d8">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:givenName>A.</foaf:givenName>
+    <foaf:surname>Mikulecká</foaf:surname>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N2a8d92d8e45847ec83ee6f8c4283aee6">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    <foaf:surname>Liu</foaf:surname>
+    <foaf:givenName>C.</foaf:givenName>
+  </rdf:Description>
+  <rdf:Description rdf:about="file:///C:/Users/Trae/Documents/BIOME-z-Project/GUI/JacksTestGroup%20-%20Copy%20-%20Copy.rdf#collection_119">
+    <rdf:type rdf:resource="http://www.zotero.org/namespaces/export#Collection"/>
+    <dc:title>3 Intermediate Level</dc:title>
+  </rdf:Description>
+</rdf:RDF>

@@ -15,8 +15,15 @@ from builder import stats_data
 from rdfPredictor import rdfPredict
 
 from markdown2 import Markdown # For md in tk.
-from converter import parser # For rdf to csv.
+from converter import parser, insert, replacer # For rdf to csv. Insert and replacer used to test adding labels to RDF
 from tkinter import * # For more tk.
+
+import copy # Used to get deepcopy of data used in the table
+import re
+
+# Both used for testing adding labels to RDF
+import rdflib
+from rdflib import Literal, URIRef, XSD
 
 ######################################## Testing Tab Functions ########################################
 
@@ -29,11 +36,35 @@ def runPredictor(self):
 	elif self.abstractText.get("1.0", END) == '\n':
 		messagebox.showinfo('No Abstract Set', 'Please enter an abstract.')
 	else:
+		print("HERE, ", end="")
+		print(self.CLASS_NAME)
 		options, topOpt, smValues = predictor.predictor(self.CLASS_NAME, self.titleText.get("1.0", END) + self.abstractText.get("1.0", END))
+		self.predictionResults = options, topOpt, smValues # Saving the prediction for later use and to test if prediction has been made
 		results = ''
 		for num in range(len(smValues)):
 			results = results + '##### ' + options[num] + ' Confidence: ' + str(round(smValues[num], 5)) + ".\n"
-		self.predictResultLabel.set_html(self.mkdn2.convert(results))
+		self.predictResultLabel.set_html(self.mkdn2.convert(results))	
+
+# This function takes the top option from the 'Predict' button and saves it to the file
+def savePrediction(self):
+	# Check if a prediction happened
+	if len(self.predictionResults) == 0:
+		messagebox.showinfo('No prediction to confirm', 'Please hit prediction') # Gives a box and doesn't let them save a prediction
+	else:
+		fd = open('prediction.txt', 'w') # Temporarily using a text file. These predictions need to be saved to RDF
+		# Second element is the top option from the prediction. Write that to the file and close the file
+		fd.write(self.predictionResults[1])
+		fd.close()
+	
+def saveOverridePrediction(self):
+	#print(self.labelOptionVar.get())
+	# Check if predicition happened
+	if len(self.predictionResults) == 0:
+		messagebox.showinfo('No prediction to override', 'Please hit prediction')
+	else:
+		fd = open('prediction.txt', 'w') # Temporarily using a text file. These predictions need to be saved to RDF
+		fd.write(self.labelOptionVar.get()) # Get the option the user selects to override and close file
+		fd.close()
 
 # A class function used to select a file for the testing tab.
 def openFileDialog(self):
@@ -54,12 +85,14 @@ def openFileDialog(self):
 			self.convertButton['state'] = DISABLED
 			self.searchButton['state'] = DISABLED
 		elif ext == '.rdf':
-			self.convertButton['state'] = ACTIVE
+			#self.convertButton['state'] = ACTIVE
+			self.convertButton['state'] = NORMAL # Should be NORMAL not ACTIVE
 			self.fileError.place_forget()
 			self.searchButton['state'] = DISABLED
 		elif ext == '.csv':
 			self.csv_path = self.file_path
-			self.searchButton['state'] = ACTIVE
+			#self.searchButton['state'] = ACTIVE
+			self.searchButton['state'] = NORMAL
 			self.convertButton['state'] = DISABLED
 			self.fileError.place_forget()
 
@@ -69,29 +102,51 @@ def openFileDialog(self):
 # A function tied to the search button that queries and displays results in the table.
 def searchCSV(self, event):
 	# Clear the table.
-	for num in range(25):
+	#for num in range(25): # Was used before was not dynamic
+	# Check if they search for nothing
+	if self.searchEntry.get() == '':
+		# And they have searched before redraw the dable using the copied data
+		# in self.copyModel and copying it into self.data
+		if self.hasSearched == True:
+			self.data = copy.deepcopy(self.copyModel)
+			self.searchTable.model.importDict(self.data)
+			self.searchTable.redrawTable() 
+			self.hasSearched = False # Change back to false since they are done with the search
+			return # Return so nothing is deleted again
+		else:
+			return # If they have not searched and search nothing return nothing
+	# The previous group deletes everything in the data
+	# The range is not the size of the data since the table is now dynamic
+	for num in range(len(self.data)):#30):
 		self.searchTable.model.deleteCellRecord(num, 0)
 		self.searchTable.model.deleteCellRecord(num, 1)
 	# Get the search entry.
-	find = self.searchEntry.get()
+	self.hasSearched = True # They are searching for something that isn't blank so update value
+	find = self.searchEntry.get() # here
 	count = 0
 	# Get each row of the csv file:
-	csv_file = csv.reader(open(self.csv_path, 'r', encoding='utf-8'), delimiter=',')
+	filePath = './.data/' + self.CLASS_NAME + '/data.csv'
+	#csv_file = csv.reader(open(self.csv_path, 'r', encoding='utf-8'), delimiter=',')
+	csv_file = csv.reader(open(filePath, 'r', encoding='utf-8'), delimiter=',') # The previous path wasn't working
 	
 	# Loop through to see if the input gets any matches, then display them in to table.
 	for row in csv_file:
-		if count > 24:
+		#if count > 24:
+		#if count > 30:
+		# The length of the table has changed
+		if count > len(self.data):
 			break
+		# Previous row indexes need to be decreased by 1 since I changed the CSV
 		if self.checkButtons[0].get() == 1 and self.checkButtons[1].get() == 0 or self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 0:
+			result = find_near_matches(find, row[0], max_deletions=1, max_insertions=1, max_substitutions=0)
+		elif self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 1:                               
 			result = find_near_matches(find, row[1], max_deletions=1, max_insertions=1, max_substitutions=0)
-		elif self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 1:				
-			result = find_near_matches(find, row[2], max_deletions=1, max_insertions=1, max_substitutions=0)
 		else:
-			both = row[1] + ' ' + row[2]
+			both = row[0] + ' ' + row[1]
 			result = find_near_matches(find, both, max_deletions=1, max_insertions=1, max_substitutions=0)
 		if not not result:
-			self.searchTable.model.setValueAt(row[1], count, 0)
-			self.searchTable.model.setValueAt(row[2], count, 1)
+			self.searchTable.model.setValueAt(row[0], count, 0)
+			self.searchTable.model.setValueAt(row[1], count, 1)
 			count += 1
 
 	# Update the table.
@@ -106,8 +161,35 @@ def convertFile(self):
 	else:
 		_, self.CLASS_NAME = parserResults
 		setDefaultParameters(self, './.data/' + self.CLASS_NAME + '/')
-		self.wkdir.set('Current Directory: ' + self.CLASS_NAME)		
+		self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
 		self.classifyButton['state'] = NORMAL
+		self.searchButton['state'] = NORMAL
+
+	filePath = './.data/' + self.CLASS_NAME + '/data.csv'
+	csv_file = csv.reader(open(filePath, 'r', encoding='utf-8'), delimiter=',')
+	count = 0
+
+	for row in csv_file:
+		# Check to add space
+		if count > 24:
+			# Update the data and count
+			self.data[count] = {'Title': row[0], 'Abstract': row[1]}
+			count += 1
+
+			# Continue the loop
+			continue
+		# Row indexes are decreased by 1
+		self.data[count]['Title'] = row[0]
+		self.data[count]['Abstract'] = row[1]
+		# Update count
+		count += 1
+
+	# After updating the table data import dictionary to self.data
+	# Save a deep copy of that data which is used for searchCSV
+	# And redraw the table with the data
+	self.searchTable.model.importDict(self.data)
+	self.copyModel = copy.deepcopy(self.data)
+	self.searchTable.redrawTable()
 
 def selectPredictFile(self):
 	file_path = filedialog.askopenfilename(initialdir='./', title='Select Rdf File', filetypes=[('rdf files', '*.rdf')])
@@ -135,6 +217,10 @@ def pushRowContents(self):
 	self.titleText.insert(INSERT, self.searchTable.model.getValueAt(row, 0))
 	self.abstractText.insert(INSERT, self.searchTable.model.getValueAt(row, 1))
 
+	# Resetting prediction results so new predictions do not get old values
+	self.predictionResults = []
+
+
 #######################################################################################################
 
 
@@ -149,7 +235,6 @@ def openLabelWindow(self):
 	# Variables used
 	edit_Label_Font = 10
 	bdSize = 2 # Border size of the lists
-
 
 	# Deactivate the 'Edit Labels' button.
 	self.editLabelButton.config(state=DISABLED)
@@ -284,7 +369,7 @@ def delLabel(self):
 			if label == kept_index[len(kept_index) - 1]:
 				pass
 			else:
-				label = label + "\n"
+				label = label + '\n'
 			fd.write(label)
 		fd.close()
 
@@ -346,7 +431,7 @@ def runBuilder(self):
 # A function to allow the user to select a model from the folder.
 # May need more error checking.
 def selectFolder(self):
-	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
+	"""temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
 
 	if temp_folder:
 		end = temp_folder.rindex('/') + 1
@@ -367,8 +452,32 @@ def selectFolder(self):
 				self.classifyButton['state'] = DISABLED
 			else:
 				self.classifyButton['state'] = NORMAL
-	getTags(self)
+	getTags(self)"""
+	a = os.getcwd()
+	#print(a)
+	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
+	print(temp_folder)
 
+	if temp_folder:
+		end = temp_folder.rindex('/') + 1
+		modelName = temp_folder[end:]
+		start =  end - 6
+		if temp_folder[start:end - 1] == '.data':
+			self.CLASS_NAME = modelName
+			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
+			os.chdir(temp_folder) # Added
+			getLabels(self) # Added
+			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
+			self.classifyButton['state'] = NORMAL
+			self.editLabelButton['state'] = NORMAL # Added
+		else:
+			messagebox.showinfo('Incorrect folder',  'Please select a proper model folder.\nExample: \'./.data/example\'')
+			if self.CLASS_NAME == '':
+				self.classifyButton['state'] = DISABLED
+			else:
+				self.classifyButton['state'] = NORMAL
+	getTags(self) # Added
+	os.chdir(a)
 
 # Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
 # the edit labels button to select from various exisiting tags/labels.
@@ -464,6 +573,22 @@ def loadDefaultParameters(self, directory):
 
 # Saves default parameters for a specific directory.
 def setDefaultParameters(self, directory):
+	#JSON_FORMAT = {
+	#	'ngrams': self.neuralNetworkVar[0].get(),
+	#	'gamma': self.neuralNetworkVar[1].get(),
+	#	'batch-size': self.neuralNetworkVar[2].get(),
+	#	'initial-learn': self.neuralNetworkVar[3].get(),
+	#	'embedding-dim': self.neuralNetworkVar[4].get(),
+	#	'epochs': self.neuralNetworkVar[5].get()
+	#}
+	#with open(directory + 'default-parameters.json', 'w') as json_file:
+		#json.dump(JSON_FORMAT, json_file)
+	#-----------------------# MIKAYLA #-----------------------#
+	#loc = './.data/' + self.CLASS_NAME + '/'
+	loc = directory #'./.data/' + self.CLASS_NAME + '/'
+	a_file = open(loc + 'default-parameters.json', "r")
+	json_object = json.load(a_file)
+	a_file.close()
 	JSON_FORMAT = {
 		'ngrams': self.neuralNetworkVar[0].get(),
 		'gamma': self.neuralNetworkVar[1].get(),
@@ -473,8 +598,11 @@ def setDefaultParameters(self, directory):
 		'epochs': self.neuralNetworkVar[5].get()
 	}
 
-	with open(directory + 'default-parameters.json', 'w') as json_file:
-		json.dump(JSON_FORMAT, json_file)
+	a_file = open(loc + 'default-parameters.json', "w")
+	json.dump(JSON_FORMAT, a_file)
+	a_file.close()
+	#with open(directory + 'default-parameters.json', 'w') as json_file:
+		#json.dump(JSON_FORMAT, json_file)
 
 #######################################################################################################
 
