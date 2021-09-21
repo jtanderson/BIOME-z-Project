@@ -204,8 +204,7 @@ def generateTestTab(self):
 
 def generateBuildTab(self):
 	# Create a button to open a smaller window for label editing.
-	self.editLabelButton = Button(self.frame_build, text='Edit Labels', command=lambda: openLabelWindow(self))
-	self.editLabelButton.config(state=DISABLED)
+	self.editLabelButton = Button(self.frame_build, text='Edit Labels', command=lambda: openLabelWindow(self), state=DISABLED)
 	self.editLabelButton.place(relx=0.80, rely=0.10, width=150, height=25)
 
 	# Creates a label for showing the processor type used for the NN.

@@ -134,6 +134,7 @@ def trainingSplit(train_dataset, train_len, BATCH_SIZE, catCount):
         data = DataLoader(sub_valid_, batch_size=BATCH_SIZE, collate_fn=generate_batch) 
         equal = 0
         counter = 0
+
         for text, offsets, cls in data:
             
             counter += 1 
@@ -142,13 +143,17 @@ def trainingSplit(train_dataset, train_len, BATCH_SIZE, catCount):
                 exit()
 
             equal = len(cls) / catCount
+            print(cls)
 
             for i in cls:
                 valid_domain[i] += 1
 
         balanced = True
         for i in valid_domain:
+            print(math.floor(equal))
+            print(valid_domain)
             if i != math.floor(equal) and i != (math.floor(equal)+1):
+                print("Yep")
                 balanced = False
 
     return sub_train_, sub_valid_
