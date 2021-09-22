@@ -387,8 +387,7 @@ def updateListBox(self):
 	menu = self.labelOptionsMenu['menu']
 	menu.delete(0, 'end')
 	for lab in self.labelList:
-		menu.add_command(label=lab,
-			command=lambda value=lab: self.labelOptionVar.set(value))
+		menu.add_command(label=lab,command=lambda value=lab: self.labelOptionVar.set(value))
 		self.labelListBox.insert(END, lab.strip())
 
 # Opens the labels text file to update the label list.
@@ -431,7 +430,7 @@ def runBuilder(self):
 # A function to allow the user to select a model from the folder.
 # May need more error checking.
 def selectFolder(self):
-	"""temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
+	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
 
 	if temp_folder:
 		end = temp_folder.rindex('/') + 1
@@ -440,7 +439,6 @@ def selectFolder(self):
 		if temp_folder[start:end - 1] == '.data':
 			self.CLASS_NAME = modelName
 			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
-			#os.chdir(temp_folder)
 			self.TMP_DIRECTORY = temp_folder
 			getLabels(self)
 			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
@@ -452,38 +450,14 @@ def selectFolder(self):
 				self.classifyButton['state'] = DISABLED
 			else:
 				self.classifyButton['state'] = NORMAL
-	getTags(self)"""
-	a = os.getcwd()
-	#print(a)
-	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
-	print(temp_folder)
-
-	if temp_folder:
-		end = temp_folder.rindex('/') + 1
-		modelName = temp_folder[end:]
-		start =  end - 6
-		if temp_folder[start:end - 1] == '.data':
-			self.CLASS_NAME = modelName
-			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
-			os.chdir(temp_folder) # Added
-			getLabels(self) # Added
-			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
-			self.classifyButton['state'] = NORMAL
-			self.editLabelButton['state'] = NORMAL # Added
-		else:
-			messagebox.showinfo('Incorrect folder',  'Please select a proper model folder.\nExample: \'./.data/example\'')
-			if self.CLASS_NAME == '':
-				self.classifyButton['state'] = DISABLED
-			else:
-				self.classifyButton['state'] = NORMAL
-	getTags(self) # Added
-	os.chdir(a)
+	getTags(self)
 
 # Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
 # the edit labels button to select from various exisiting tags/labels.
 def getTags(self):
 	# Check if tagsList.txt exisits, if not, create it within the current directory    
-	if os.path.exists(self.TMP_DIRECTORY + '/tagsList.txt') is False:
+	if os.path.exists(self.TMP_DIRECTORY + "/tagsList.txt") is False:
+		print(self.TMP_DIRECTORY + "/tagsList.txt")
 		open(self.TMP_DIRECTORY + '/tagsList.txt', 'w')    
 	
 	
@@ -500,7 +474,7 @@ def getTags(self):
 		return 
     
 	# Empty the labels file in case of any deletion of tags within the labels.txt file
-	tmp = open("./labels.txt", 'w')
+	tmp = open(self.TMP_DIRECTORY + "/labels.txt", 'w')
 	tmp.truncate(0)
 	tmp.close()
     
@@ -554,11 +528,11 @@ def getTags(self):
 # Uses regualr expressions to clean up any useless characters and format tags
 def regexTags(line):
 	# Removes special characters, except '-' and ','
-	tmp = re.sub('[^a-zA-Z0-9-,)(]',' ',line).strip()
+	tmp = re.sub('[^a-zA-Z0-9-,)(]',' ',line)
 	# Checks and removes anything after ',' as the tags become repetitive with little difference
 	tmp = re.sub(',[\s\S]*$','',tmp)
 	# Checks and removes cases of '-' being the ending char
-	tmp = re.sub('[-]\Z','',tmp)
+	tmp = re.sub('[-]\Z','',tmp).strip()
 	return tmp
 
 
