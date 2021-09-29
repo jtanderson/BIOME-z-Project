@@ -281,7 +281,7 @@ def openLabelWindow(self):
 		
 	# From a class variable, insert the tag in each row.
 	for tag in self.tagsList:
-		self.tagListBox.insert(END, tag)
+		self.tagListBox.insert(END, tag.strip())
 
 	# Add a button for adding a label. It will call a corresponding function.
 	self.addLabelButton = Button(self.labelWindow, text='Add Label', command=lambda: addLabel(self))
@@ -308,10 +308,10 @@ def addLabel(self):
 	else:
 		newLabel = self.tagListBox.get(newLabel_Index[0])
 		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'a+')
-		if os.stat(self.TMP_DIRECTORY + '/labels.txt').st_size == 0:
-			fd.write(newLabel)
-		else:
-			fd.write("\n"+newLabel)
+		#if os.stat(self.TMP_DIRECTORY + '/labels.txt').st_size == 0:
+		#	fd.write(newLabel)
+		#else:
+		fd.write(newLabel+'\n')
 		fd.close()
 		labelSet(self)
 		getLabels(self)
@@ -332,7 +332,7 @@ def labelSet(self):
 		fd.truncate(0)
 		for x in labels:
 			# Ignore empty cases            
-			if x is "\n":
+			if x == "\n":
 				pass              
 			else:
 				fd.write(x)
@@ -400,7 +400,6 @@ def getLabels(self):
 		fdT.close()
 	# Case where labels.txt doesn't exist
 	if os.path.exists(self.TMP_DIRECTORY + '/labels.txt') is True:
-		#open('labels.txt', 'w')
 		fdL = open(self.TMP_DIRECTORY + '/labels.txt', 'r')
 		self.labelList = fdL.readlines()
 		fdL.close() # Never forget to close your files, Thank you Dr. Park
@@ -457,7 +456,6 @@ def selectFolder(self):
 def getTags(self):
 	# Check if tagsList.txt exisits, if not, create it within the current directory    
 	if os.path.exists(self.TMP_DIRECTORY + "/tagsList.txt") is False:
-		print(self.TMP_DIRECTORY + "/tagsList.txt")
 		open(self.TMP_DIRECTORY + '/tagsList.txt', 'w')    
 	
 	
@@ -520,8 +518,7 @@ def getTags(self):
 	tagFile.truncate(0)    # Empties file before writing
 	for x in tagSet:
 		if len(x) != 0:
-			tagFile.write(x.capitalize())
-			tagFile.write("\n")
+			tagFile.write(x.capitalize() + "\n")
 	tagFile.close()
 
 
