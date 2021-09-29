@@ -298,6 +298,10 @@ def openLabelWindow(self):
 
 	self.labelWindow.protocol('WM_DELETE_WINDOW', quit_label_window)
 
+	# Add a Save button to leave the window
+	self.saveButton = Button(self.labelWindow, text='Save', command=quit_label_window)
+	self.saveButton.place(relx=295/700, rely=350/400, relwidth=110/700, relheight=30/400)
+
 # Class function for adding a new label.
 def addLabel(self):
 	newLabel_Index = self.tagListBox.curselection()
@@ -308,9 +312,6 @@ def addLabel(self):
 	else:
 		newLabel = self.tagListBox.get(newLabel_Index[0])
 		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'a+')
-		#if os.stat(self.TMP_DIRECTORY + '/labels.txt').st_size == 0:
-		#	fd.write(newLabel)
-		#else:
 		fd.write(newLabel+'\n')
 		fd.close()
 		labelSet(self)
