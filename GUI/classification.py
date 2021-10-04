@@ -143,17 +143,13 @@ def trainingSplit(train_dataset, train_len, BATCH_SIZE, catCount):
                 exit()
 
             equal = len(cls) / catCount
-            print(cls)
 
             for i in cls:
                 valid_domain[i] += 1
 
         balanced = True
         for i in valid_domain:
-            print(math.floor(equal))
-            print(valid_domain)
             if i != math.floor(equal) and i != (math.floor(equal)+1):
-                print("Yep")
                 balanced = False
 
     return sub_train_, sub_valid_
