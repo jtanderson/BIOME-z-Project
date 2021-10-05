@@ -1,4 +1,4 @@
-import os, os.path, time, sys, csv, platform, predictor, builder, torch, json
+import os, time, sys, csv, platform, predictor, builder, torch, json
 
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk) # For showing plots in Tk
 from tkinter import ttk, scrolledtext, filedialog, simpledialog, messagebox # For Tk submodules
@@ -281,7 +281,7 @@ def openLabelWindow(self):
 		
 	# From a class variable, insert the tag in each row.
 	for tag in self.tagsList:
-		self.tagListBox.insert(END, tag)
+		self.tagListBox.insert(END, tag.strip())
 
 	# Add a button for adding a label. It will call a corresponding function.
 	self.addLabelButton = Button(self.labelWindow, text='Add Label', command=lambda: addLabel(self))
@@ -298,21 +298,21 @@ def openLabelWindow(self):
 
 	self.labelWindow.protocol('WM_DELETE_WINDOW', quit_label_window)
 
+	# Add a Save button to leave the window
+	self.saveButton = Button(self.labelWindow, text='Save', command=quit_label_window)
+	self.saveButton.place(relx=295/700, rely=350/400, relwidth=110/700, relheight=30/400)
+
 # Class function for adding a new label.
 def addLabel(self):
 	newLabel_Index = self.tagListBox.curselection()
 
 	# If the user did not enter anything: do nothing, otherwise; append to file.
-	if not newLabel_Index:       
+	if not newLabel_Index:
 		return
 	else:
 		newLabel = self.tagListBox.get(newLabel_Index[0])
-		fd = open('./labels.txt', 'a+')
-		#fd.open('./.data/' + self.CLASS_NAME + '/labels.txt', 'a+')
-		if os.stat("./labels.txt").st_size == 0:
-			fd.write(newLabel)
-		else:
-			fd.write("\n"+newLabel)
+		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'a+')
+		fd.write(newLabel+'\n')
 		fd.close()
 		labelSet(self)
 		getLabels(self)
@@ -321,7 +321,7 @@ def addLabel(self):
 
 #  Puts all components of label.txt into a set to sort and remove redundancy 
 def labelSet(self):
-	fd = open('./labels.txt', 'r')
+	fd = open(self.TMP_DIRECTORY + '/labels.txt', 'r')
 	lines = fd.readlines()
 	if lines == "":
 		pass
@@ -329,11 +329,11 @@ def labelSet(self):
 		labels = set(lines)
 		fd.close()
 		labels = sorted(labels)
-		fd = open('./labels.txt', 'w')
+		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
 		fd.truncate(0)
 		for x in labels:
 			# Ignore empty cases            
-			if x is "\n":
+			if x == "\n":
 				pass              
 			else:
 				fd.write(x)
@@ -358,15 +358,14 @@ def delLabel(self):
 
 	# Write over the file the remaining labels (assuming there are any).
 	if not kept_index:
-		fd = open('labels.txt', 'w')
+		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
 		fd.write("")
 	else:
 		fd = None
 		if self.CLASS_NAME == '':
-			fd = open('labels.txt', 'w')
+			fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
 		else:
-			fd = open('labels.txt', 'w')
-			#fd = open('./.data/' + self.CLASS_NAME + '/labels.txt', 'a+')
+			fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
 		for label in kept_index:
 			if label == kept_index[len(kept_index) - 1]:
 				pass
@@ -374,7 +373,7 @@ def delLabel(self):
 				label = label + '\n'
 			fd.write(label)
 		fd.close()
-		
+
 	# Get the labels from the file, and update the label list box.
 	getLabels(self)
 	updateListBox(self)
@@ -389,8 +388,7 @@ def updateListBox(self):
 	menu = self.labelOptionsMenu['menu']
 	menu.delete(0, 'end')
 	for lab in self.labelList:
-		menu.add_command(label=lab,
-			command=lambda value=lab: self.labelOptionVar.set(value))
+		menu.add_command(label=lab,command=lambda value=lab: self.labelOptionVar.set(value))
 		self.labelListBox.insert(END, lab.strip())
 
 # Opens the labels text file to update the label list.
@@ -398,13 +396,12 @@ def getLabels(self):
 	# Reads in tags
 	if self.CLASS_NAME != '':
 		getTags(self)        
-		fdT = open('tagsList.txt', 'r')
+		fdT = open(self.TMP_DIRECTORY + '/tagsList.txt', 'r')
 		self.tagsList = fdT.readlines()
 		fdT.close()
 	# Case where labels.txt doesn't exist
-	if os.path.exists('./labels.txt') is True:
-		#open('labels.txt', 'w')
-		fdL = open('labels.txt', 'r')
+	if os.path.exists(self.TMP_DIRECTORY + '/labels.txt') is True:
+		fdL = open(self.TMP_DIRECTORY + '/labels.txt', 'r')
 		self.labelList = fdL.readlines()
 		fdL.close() # Never forget to close your files, Thank you Dr. Park
 
@@ -433,7 +430,7 @@ def runBuilder(self):
 # A function to allow the user to select a model from the folder.
 # May need more error checking.
 def selectFolder(self):
-	"""temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
+	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
 
 	if temp_folder:
 		end = temp_folder.rindex('/') + 1
@@ -442,7 +439,7 @@ def selectFolder(self):
 		if temp_folder[start:end - 1] == '.data':
 			self.CLASS_NAME = modelName
 			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
-			os.chdir(temp_folder)
+			self.TMP_DIRECTORY = temp_folder
 			getLabels(self)
 			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
 			self.editLabelButton['state'] = NORMAL
@@ -453,55 +450,30 @@ def selectFolder(self):
 				self.classifyButton['state'] = DISABLED
 			else:
 				self.classifyButton['state'] = NORMAL
-	getTags(self)"""
-	a = os.getcwd()
-	#print(a)
-	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
-	print(temp_folder)
-
-	if temp_folder:
-		end = temp_folder.rindex('/') + 1
-		modelName = temp_folder[end:]
-		start =  end - 6
-		if temp_folder[start:end - 1] == '.data':
-			self.CLASS_NAME = modelName
-			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
-			os.chdir(temp_folder) # Added
-			getLabels(self) # Added
-			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
-			self.classifyButton['state'] = NORMAL
-			self.editLabelButton['state'] = NORMAL # Added
-		else:
-			messagebox.showinfo('Incorrect folder',  'Please select a proper model folder.\nExample: \'./.data/example\'')
-			if self.CLASS_NAME == '':
-				self.classifyButton['state'] = DISABLED
-			else:
-				self.classifyButton['state'] = NORMAL
-	getTags(self) # Added
-	os.chdir(a)
+	getTags(self)
 
 # Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
 # the edit labels button to select from various exisiting tags/labels.
 def getTags(self):
 	# Check if tagsList.txt exisits, if not, create it within the current directory    
-	if os.path.exists('./tagsList.txt') is False:
-		open('tagsList.txt', 'w')    
+	if os.path.exists(self.TMP_DIRECTORY + "/tagsList.txt") is False:
+		open(self.TMP_DIRECTORY + '/tagsList.txt', 'w')    
 	
 	
 	if self.CLASS_NAME == '':
 		return
 	
 	# Gets rdf file path and gets modification dates of the rdf and tagsList files
-	rdfRoot = './' + self.CLASS_NAME + '.rdf'
-	rdfDate = time.ctime(os.path.getmtime(self.CLASS_NAME + '.rdf'))
-	tagsDate = time.ctime(os.path.getmtime('tagsList.txt'))
+	rdfRoot = self.TMP_DIRECTORY + '/' + self.CLASS_NAME + '.rdf'
+	rdfDate = time.ctime(os.path.getmtime(self.TMP_DIRECTORY + '/' + self.CLASS_NAME + '.rdf'))
+	tagsDate = time.ctime(os.path.getmtime(self.TMP_DIRECTORY + '/tagsList.txt'))
 	
 	# Checks to make sure tags file is empty before filling or if the rdf has been recently updated
-	if os.stat('./tagsList.txt').st_size != 0 and ((rdfDate == tagsDate) or (rdfDate < tagsDate)):       
+	if os.stat(self.TMP_DIRECTORY + '/tagsList.txt').st_size != 0 and ((rdfDate == tagsDate) or (rdfDate < tagsDate)):       
 		return 
     
 	# Empty the labels file in case of any deletion of tags within the labels.txt file
-	tmp = open("./labels.txt", 'w')
+	tmp = open(self.TMP_DIRECTORY + "/labels.txt", 'w')
 	tmp.truncate(0)
 	tmp.close()
     
@@ -543,23 +515,22 @@ def getTags(self):
 	tagSet = sorted(tagSet)    # Sorts the set
 	
 	# Add Tags to label.txt
-	tagFile = open('./tagsList.txt','w')
+	tagFile = open(self.TMP_DIRECTORY + '/tagsList.txt','w')
 	tagFile.truncate(0)    # Empties file before writing
 	for x in tagSet:
 		if len(x) != 0:
-			tagFile.write(x.capitalize())
-			tagFile.write("\n")
+			tagFile.write(x.capitalize() + "\n")
 	tagFile.close()
 
 
 # Uses regualr expressions to clean up any useless characters and format tags
 def regexTags(line):
 	# Removes special characters, except '-' and ','
-	tmp = re.sub('[^a-zA-Z0-9-,)(]',' ',line).strip()
+	tmp = re.sub('[^a-zA-Z0-9-,)(]',' ',line)
 	# Checks and removes anything after ',' as the tags become repetitive with little difference
 	tmp = re.sub(',[\s\S]*$','',tmp)
 	# Checks and removes cases of '-' being the ending char
-	tmp = re.sub('[-]\Z','',tmp)
+	tmp = re.sub('[-]\Z','',tmp).strip()
 	return tmp
 
 

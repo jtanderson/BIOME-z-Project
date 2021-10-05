@@ -11,7 +11,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torch.utils.data.dataset import random_split
-from torchtext.datasets import text_classification
+#from torchtext.datasets import text_classification
 
 
 class TextSentiment(nn.Module):
@@ -134,6 +134,7 @@ def trainingSplit(train_dataset, train_len, BATCH_SIZE, catCount):
         data = DataLoader(sub_valid_, batch_size=BATCH_SIZE, collate_fn=generate_batch) 
         equal = 0
         counter = 0
+
         for text, offsets, cls in data:
             
             counter += 1 
