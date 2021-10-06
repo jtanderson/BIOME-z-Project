@@ -130,12 +130,12 @@ def parser(rdf_file):
 	collection = []
 
 
-
 	# This will find the URIRef ID for every paper that has an abstract attached to it
 	start = time.time()
 	#TODO -- the order of this loop is very strange, change to be paper-first
+	# Can not figure out inconsistency swapping loops - may have to do with graph
 	for i in range(len(categories)):
-		print(f"doing category {categories[i]}")
+		#print(f"doing category {categories[i]}")
 		for s, p, o in graph:
 			obj = str(o)
 			obj = obj.lower()
@@ -145,9 +145,10 @@ def parser(rdf_file):
 			if TITLE in p:
 				collection = insert(collection, s, o, 't', 0)
 			if SUBJECT in p:
-				print(f"'{categories[i].lower().strip()}' tested in '{obj}'")
+				# Swap outter loop here potentially 
+				#print(f"'{categories[i].lower().strip()}' tested in '{obj}'")
 				if categories[i].lower().strip() in obj:
-					print(f"obj = {obj}")
+					#print(f"obj = {obj}")
 					true_domain_count[i] += 1
 					collection = insert(collection, s, o, 'c', i+1)
 
@@ -166,7 +167,6 @@ def parser(rdf_file):
 					output.write(f"\"{str(obj.category)}\",\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n") #Saving this just in case
 					#output.write(f"\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n")	# Category is not needed
 
-	
 	end = time.time()
 	counter = 0
 
