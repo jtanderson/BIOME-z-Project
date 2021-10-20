@@ -25,6 +25,9 @@ import re
 import rdflib
 from rdflib import Literal, URIRef, XSD
 
+# Used for default parameters
+import shutil
+
 ######################################## Testing Tab Functions ########################################
 
 # This function is attached to the 'Predict' button, and will concat the abstract + title to use to
@@ -558,6 +561,9 @@ def setDefaultParameters(self, directory):
 	#-----------------------# MIKAYLA #-----------------------#
 	#loc = './.data/' + self.CLASS_NAME + '/'
 	loc = directory #'./.data/' + self.CLASS_NAME + '/'
+	# Check if there default parameters exists otherwise copy from /GUI
+	if (os.path.exists(loc + 'default-parameters.json') != True):
+		shutil.copyfile(os.getcwd() + '/default-parameters.json', directory + '/default-parameters.json')
 	a_file = open(loc + 'default-parameters.json', "r")
 	json_object = json.load(a_file)
 	a_file.close()
