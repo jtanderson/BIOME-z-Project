@@ -450,7 +450,6 @@ def selectFolder(self):
 				self.classifyButton['state'] = DISABLED
 			else:
 				self.classifyButton['state'] = NORMAL
-	getTags(self)
 
 # Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
 # the edit labels button to select from various exisiting tags/labels.
@@ -476,7 +475,7 @@ def getTags(self):
 	tmp = open(self.TMP_DIRECTORY + "/labels.txt", 'w')
 	tmp.truncate(0)
 	tmp.close()
-    
+
 	# Reads in Tags
 	tags = open(rdfRoot, 'r', encoding = 'utf-8')
 	line = tags.readline() # Tmp string for reading thru rdf
@@ -495,7 +494,7 @@ def getTags(self):
 	# (3) <dc:subject>
 	#          <z:AutomaticTag><rdf:value>TagName</rdf:value></z:AutomaticTag>
 	#     </dc:subject>
-	
+
 	while line != "rdf RDF":        
 		line = regexTags(tags.readline())
 		if "dc subject" in line:
