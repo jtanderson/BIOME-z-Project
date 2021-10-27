@@ -498,7 +498,7 @@ def getTags(self):
 	# (3) <dc:subject>
 	#          <z:AutomaticTag><rdf:value>TagName</rdf:value></z:AutomaticTag>
 	#     </dc:subject>
-	
+
 	while line != "rdf RDF":        
 		line = regexTags(tags.readline())
 		if "dc subject" in line:
