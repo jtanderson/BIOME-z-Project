@@ -1,0 +1,11 @@
+tkintertable
+Pillow
+fuzzysearch
+tkhtmlview
+markdown2
+torch
+matplotlib
+torchtext
+tqdm
+rdflib
+

@@ -25,9 +25,9 @@ class Application(Frame):
 		self.neuralNetworkVar = [DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar()]
 		self.buildProgress = DoubleVar()
 		self.checkButtons = [IntVar(), IntVar()]
-		self.csv_path, self.CLASS_NAME = '', ''
+		self.csv_path, self.CLASS_NAME, self.TMP_DIRECTORY = '', '', ''
 		self.mkdn2 = Markdown()
-		self.labelList, self.labelOptions = [], []
+		self.labelList, self.tagsList,self.labelOptions = [], [],[]
 
 	def configureStyles(self):
 		self.Program_Style = ttk.Style()
