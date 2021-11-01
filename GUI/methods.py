@@ -305,8 +305,9 @@ def openLabelWindow(self):
 	self.labelWindow.protocol('WM_DELETE_WINDOW', quit_label_window)
 
 	# Add a Save button to leave the window
-	self.saveButton = Button(self.labelWindow, text='Save', command=quit_label_window)
-	self.saveButton.place(relx=295/700, rely=350/400, relwidth=110/700, relheight=30/400)
+	# Naming conflict - changed the name from self.saveButton to self.labelSaveButton
+	self.labelSaveButton = Button(self.labelWindow, text='Save', command=quit_label_window)
+	self.labelSaveButton.place(relx=295/700, rely=350/400, relwidth=110/700, relheight=30/400)
 
 # Class function for adding a new label.
 def addLabel(self):
