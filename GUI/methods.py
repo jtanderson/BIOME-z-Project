@@ -140,16 +140,17 @@ def searchCSV(self, event):
 		if count > len(self.data):
 			break
 		# Previous row indexes need to be decreased by 1 since I changed the CSV
+		# Changing it back need to add by 1 now 9/26/21
 		if self.checkButtons[0].get() == 1 and self.checkButtons[1].get() == 0 or self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 0:
-			result = find_near_matches(find, row[0], max_deletions=1, max_insertions=1, max_substitutions=0)
-		elif self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 1:                               
 			result = find_near_matches(find, row[1], max_deletions=1, max_insertions=1, max_substitutions=0)
+		elif self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 1:                               
+			result = find_near_matches(find, row[2], max_deletions=1, max_insertions=1, max_substitutions=0)
 		else:
-			both = row[0] + ' ' + row[1]
+			both = row[1] + ' ' + row[2]
 			result = find_near_matches(find, both, max_deletions=1, max_insertions=1, max_substitutions=0)
 		if not not result:
-			self.searchTable.model.setValueAt(row[0], count, 0)
-			self.searchTable.model.setValueAt(row[1], count, 1)
+			self.searchTable.model.setValueAt(row[1], count, 0)
+			self.searchTable.model.setValueAt(row[2], count, 1)
 			count += 1
 
 	# Update the table.
@@ -176,14 +177,16 @@ def convertFile(self):
 		# Check to add space
 		if count > 24:
 			# Update the data and count
-			self.data[count] = {'Title': row[0], 'Abstract': row[1]}
+			# Changed so increaased by 1 9/26/21
+			self.data[count] = {'Title': row[1], 'Abstract': row[2]}
 			count += 1
 
 			# Continue the loop
 			continue
 		# Row indexes are decreased by 1
-		self.data[count]['Title'] = row[0]
-		self.data[count]['Abstract'] = row[1]
+		# Changed so increaased by 1 9/26/21
+		self.data[count]['Title'] = row[1]
+		self.data[count]['Abstract'] = row[2]
 		# Update count
 		count += 1
 
@@ -302,8 +305,9 @@ def openLabelWindow(self):
 	self.labelWindow.protocol('WM_DELETE_WINDOW', quit_label_window)
 
 	# Add a Save button to leave the window
-	self.saveButton = Button(self.labelWindow, text='Save', command=quit_label_window)
-	self.saveButton.place(relx=295/700, rely=350/400, relwidth=110/700, relheight=30/400)
+	# Naming conflict - changed the name from self.saveButton to self.labelSaveButton
+	self.labelSaveButton = Button(self.labelWindow, text='Save', command=quit_label_window)
+	self.labelSaveButton.place(relx=295/700, rely=350/400, relwidth=110/700, relheight=30/400)
 
 # Class function for adding a new label.
 def addLabel(self):
