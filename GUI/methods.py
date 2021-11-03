@@ -466,6 +466,8 @@ def getTags(self):
 	if os.path.exists(self.TMP_DIRECTORY + "/tagsList.txt") is False:
 		open(self.TMP_DIRECTORY + '/tagsList.txt', 'w')    
 	
+	tag_file = self.TMP_DIRECTORY + "/tagCount.csv"
+	tagOutput = open(tag_file, 'w', encoding = 'utf-8')
 	
 	if self.CLASS_NAME == '':
 		return
@@ -520,6 +522,7 @@ def getTags(self):
 				tagSet.add(line[11:len(line)-11].capitalize())
 	tags.close()
 	tagSet = sorted(tagSet)    # Sorts the set
+	tagCount = 1
 	
 	# Add Tags to label.txt
 	tagFile = open(self.TMP_DIRECTORY + '/tagsList.txt','w')
@@ -527,6 +530,8 @@ def getTags(self):
 	for x in tagSet:
 		if len(x) != 0:
 			tagFile.write(x.capitalize() + "\n")
+			tagOutput.write(f"\"{tagCount}\",\"{x}\"\n")
+			tagCount += 1
 	tagFile.close()
 
 
