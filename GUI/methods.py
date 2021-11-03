@@ -344,6 +344,7 @@ def labelSet(self):
 				pass              
 			else:
 				fd.write(x)
+	fd.write("\n");
 	fd.close()
 
 
