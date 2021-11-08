@@ -4,6 +4,8 @@ from methods import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
+import os
+
 # Creates the user interface.
 def create_UI(self):
 	self.notebook = ttk.Notebook(self.master)
@@ -28,6 +30,10 @@ def create_UI(self):
 	generateBuildTab(self)
 	generateStatsTab(self)
 	generateManualTab(self)
+	
+	self.root = os.getcwd()
+	self.modelRoot = None
+
 
 # ======================================== TESTING TAB ========================================
 def generateTestTab(self):
@@ -48,15 +54,16 @@ def generateTestTab(self):
 
 	# A button that opens a prompt for the user to select an rdf file to load.
 	self.chooseRdfButton = Button(self.loadArticleLF, text="Choose File", command=lambda: openFileDialog(self))
-	self.chooseRdfButton.place(x=150, y=15)
+	self.chooseRdfButton.place(x=5, y=50) #150 15
 
 	# A label for the loaded/selected file name.
-	self.fileNameLabel = Label(self.loadArticleLF, textvariable=self.rdf_csv_file_name)
-	self.fileNameLabel.place(x=225, y=20)
-
+	#if (len(self.rdf_csv_file_name.get()
+	#SUNKEN adds 3D effect and anchor set to "w" for west so text starts at the left
+	self.fileNameLabel = Label(self.loadArticleLF, textvariable=self.rdf_csv_file_name, relief=SUNKEN, width=20, anchor="w")
+	self.fileNameLabel.place(x=143, y=20) #225 20
 
 	self.classifyButton = Button(self.loadArticleLF, state=DISABLED, text='Classify', command=lambda: selectPredictFile(self))
-	self.classifyButton.place(x=325, y=15)
+	self.classifyButton.place(x=85, y=50) #375 15
 
 
 	# Create an error label for invalid file types.
@@ -64,16 +71,19 @@ def generateTestTab(self):
 
 	# A Button to convert an rdf file to a csv file.
 	self.convertButton = Button(self.loadArticleLF, state=DISABLED, text='Convert to csv', command=lambda: convertFile(self))
-	self.convertButton.place(x=5, y=50)
+	self.convertButton.place(x=290, y=50) #5 50
 
 	# Creates a label for displaying the 'working directory'.
-	self.dirNameLabel = Label(self.loadArticleLF, textvariable=self.wkdir)
-	self.dirNameLabel.place(x=110, y=54)
+	self.dirNameLabel = Label(self.loadArticleLF, textvariable=self.wkdir) 
+	self.dirNameLabel.place(x=290, y=20) #110 4
 
 	# A label telling the user to input for a search.
 	self.searchLabel = Label(self.loadArticleLF, text='Search for an Article:')
 	self.searchLabel.place(x=5, y=103)
 
+	# Used to check if the user has already searched something
+	# and to redraw the table if they search for nothing
+	self.hasSearched = False
 	# A text entry to act as the search bar.
 	self.searchEntry = Entry(self.loadArticleLF, text='Search')
 	self.searchEntry.place(relx=0.275, y=103, relwidth=0.50, height=23)
@@ -114,11 +124,15 @@ def generateTestTab(self):
 		model=self.tableModel,
 		rowheaderwidth=0,
 		showkeynamesinheader=False,
-		editable=False
+		read_only=True #editable was not a real parameter
 	)
 
 	# Finally, show the table on startup.
 	self.searchTable.show()
+	self.searchTable.adjustColumnWidths() #Temp fix?
+
+	# Used to copy the current model (self.data)
+	self.copyModel = ""
 
 	# A button below the table to transfer the contents of the row to text fields.
 	self.transferRowButton = Button(self.loadArticleLF, text='<-- Send', command=lambda: pushRowContents(self))
@@ -155,18 +169,27 @@ def generateTestTab(self):
 	self.predictResultLabel.place(relx=0.0, rely=0.00, relwidth=1.00, relheight=1.00)
 	self.predictResultLabel.set_html(self.mkdn2.convert(''))
 
+	# A list of the prediction results if they exist
+	# This list is cleared after confirming or override the label results
+	self.predictionResults = []
+	
 	# A button to confirm the neural networks predictions.
-	self.confirmButton = Button(self.predictionsLF, text='Confirm')
+	# Confirm button did not work now with temp solution of savePrediction()
+	self.confirmButton = Button(self.predictionsLF, text='Confirm', command=lambda: savePrediction(self))
 	self.confirmButton.place(relx=0.800, rely=0.80, relwidth=0.15, height=23)
 
 	# An override button the user clicks in case an incorrect prediction is displayed.
-	self.overrideButton = Button(self.predictionsLF, text='Override')
+	# Override button did not work now with temp solution of saveOverridePrediction()
+	self.overrideButton = Button(self.predictionsLF, text='Override', command=lambda: saveOverridePrediction(self))
 	self.overrideButton.place(relx=0.800, rely=0.90, relwidth=0.15, height=23)
 
 	# ========== Creating an options menu for each of the labels ===========
 	self.labelOptions = []
-	for label in self.labelList:
-		self.labelOptions.append(label.strip())
+	if self.CLASS_NAME == '':
+		self.labelOptions.append('')      
+	else:
+		for label in self.labelList:
+			self.labelOptions.append(label.strip())
 
 	self.labelOptionVar = StringVar(self.frame_test)
 	self.labelOptionVar.set(self.labelOptions[0])
@@ -180,6 +203,8 @@ def generateTestTab(self):
 # ======================================== BUILD TAB ========================================
 
 def generateBuildTab(self):
+	self.model_file_name.set('No Model Chosen')#MH
+	
 	# Create a button to open a smaller window for label editing.
 	self.editLabelButton = Button(self.frame_build, text='Edit Labels', command=lambda: openLabelWindow(self))
 	self.editLabelButton.place(relx=0.80, rely=0.10, width=150, height=25)
@@ -190,7 +215,13 @@ def generateBuildTab(self):
 
 	# Creates a label to assist user in selecting a model.
 	self.modelLabel = Label(self.frame_build, text='Select a model (e.g. ./.data/modelName)')
-	self.modelLabel.place(relx=0.05, rely=0.10, width=250, height=25)
+	self.modelLabel.place(relx=0.04, rely=0.05, width=250, height=25)#MH --change location: relx=0.05, rely=0.10
+
+	# Creates a label to assist user in knowing current model.  MIKAYLA -- MH
+	self.modelLabel = Label(self.frame_build, text='Current model:')
+	self.modelLabel.place(relx=0.05, rely=0.10, width=79, height=25)#w=250->100->80->70?->75->78?
+	self.modelLabel = Label(self.frame_build, textvariable=self.model_file_name, relief=SUNKEN, width=16, anchor="w")
+	self.modelLabel.place(relx=.14, rely=0.10, width=150, height=25)#(x=40, y=10)
 
 	# Creates a button for selecting the model.
 	self.selectFolderButton = Button(self.frame_build, text='Select Model', command=lambda: selectFolder(self))
@@ -223,12 +254,17 @@ def generateBuildTab(self):
 	self.epochSpin.place(relx=0.1, y=252, relwidth=0.15)
 	#########################################
 
-
+	# Creates a popup for advanced settings. Set default parameters & change parameter ranges. -- MH
+	self.AdvSetButton = Button(self.frame_build, text='Advanced Settings', command=lambda: openAdvSetWindow(self))
+	self.AdvSetButton.place(relx=0.05, rely=0.90, relwidth=0.15)#, height=25)# width 150
+	
 	# Creates a button to save parameters to the default file in the main directory.
-	self.setDefaultButton = Button(self.frame_build, text='Set New Default Parameter', command=lambda: setDefaultParameters(self, './'))
-	self.setDefaultButton.place(relx=0.05, rely=0.90, relwidth=0.15)
+	#self.setDefaultButton = Button(self.frame_build, text='Set New Default Parameter', command=lambda: setDefaultParameters(self, './'))
+	#self.setDefaultButton.place(relx=0.05, rely=0.90, relwidth=0.15)
 
 	# Setup a button for building the network from scratch.
+	#--MH--When model is built automatically saves parameters used to run model as new.
+	#MH--implement after build is fixed: command=lambda:[setDefaultParameters(self, './'), runBuilder(self)])
 	self.buildNNButton = Button(self.frame_build, text='Build Neural Network', command=lambda: runBuilder(self))
 	self.buildNNButton.place(relx=0.30, rely=0.90, relwidth=0.15, height=25)
 
