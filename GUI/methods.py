@@ -473,7 +473,7 @@ def getTags(self):
 	if os.path.exists(tagsListPath) is False:
 		open(tagsListPath, 'w')    
 	
-	tag_file = root + "/tagCount.csv"
+	tag_file = root + "/tagNum.csv"
 	tagOutput = open(tag_file, 'w', encoding = 'utf-8')
 	
 	if self.CLASS_NAME == '':
