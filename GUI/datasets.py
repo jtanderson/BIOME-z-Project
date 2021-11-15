@@ -70,12 +70,10 @@ class TextClassificationDataset(torch.utils.data.Dataset):
 		return self._vocab
 
 def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False, rebuild=False):
-        # Should be root +
-        # gave error otherwise could not predict or build neural 
+  
 	train_csv_path = root + 'train.csv'
 	test_csv_path = root + 'test.csv' 
-	#train_csv_path = 'train.csv'
-	#test_csv_path = 'test.csv'
+
 	while True:
 		if rebuild or (not os.path.isfile(train_csv_path) or not os.path.isfile(test_csv_path)):
 			train_csv_path, test_csv_path = splitter(data, root, train_csv_path, test_csv_path)
@@ -90,9 +88,11 @@ def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False, rebuild
 		logging.info('Vocab has {} entries'.format(len(vocab)))
 
 		logging.info('Creating training data')
+		
+		#################ERROR CHECKING##################
 		train_data, train_labels = _create_data_from_iterator(
 			vocab, _csv_iterator(train_csv_path, ngrams, yield_cls=True), include_unk)
-
+#######################################################################################################
 		logging.info('Creating testing data')
 		test_data, test_labels = _create_data_from_iterator(
 			vocab, _csv_iterator(test_csv_path, ngrams, yield_cls=True), include_unk)

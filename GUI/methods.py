@@ -172,6 +172,7 @@ def convertFile(self):
 	filePath = './.data/' + self.CLASS_NAME + '/data.csv'
 	csv_file = csv.reader(open(filePath, 'r', encoding='utf-8'), delimiter=',')
 	count = 0
+	getTags(self)
 
 	for row in csv_file:
 		# Check to add space
@@ -312,6 +313,8 @@ def openLabelWindow(self):
 
 # Class function for adding a new label.
 def addLabel(self):
+	root = "./.data/" + self.CLASS_NAME
+  
 	newLabel_Index = self.tagListBox.curselection()
 
 	# If the user did not enter anything: do nothing, otherwise; append to file.
@@ -319,7 +322,7 @@ def addLabel(self):
 		return
 	else:
 		newLabel = self.tagListBox.get(newLabel_Index[0])
-		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'a+')
+		fd = open(root + '/labels.txt', 'a+')
 		fd.write(newLabel+'\n')
 		fd.close()
 		labelSet(self)
@@ -329,7 +332,9 @@ def addLabel(self):
 
 #  Puts all components of label.txt into a set to sort and remove redundancy 
 def labelSet(self):
-	fd = open(self.TMP_DIRECTORY + '/labels.txt', 'r')
+	root = "./.data/" + self.CLASS_NAME
+  
+	fd = open(root + '/labels.txt', 'r')
 	lines = fd.readlines()
 	if lines == "":
 		pass
@@ -337,7 +342,7 @@ def labelSet(self):
 		labels = set(lines)
 		fd.close()
 		labels = sorted(labels)
-		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
+		fd = open(root + '/labels.txt', 'w')
 		fd.truncate(0)
 		for x in labels:
 			# Ignore empty cases            
@@ -345,12 +350,13 @@ def labelSet(self):
 				pass              
 			else:
 				fd.write(x)
+	fd.write("\n");
 	fd.close()
 
 
 # Function to delete labels selected.
 def delLabel(self):
-
+	root = "./.data/" + self.CLASS_NAME
 	# Get a tuple of the indexes selected (the ones to be deleted).
 	delete_index = self.labelListBox.curselection()
 	
@@ -366,14 +372,14 @@ def delLabel(self):
 
 	# Write over the file the remaining labels (assuming there are any).
 	if not kept_index:
-		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
+		fd = open(root + '/labels.txt', 'w')
 		fd.write("")
 	else:
 		fd = None
 		if self.CLASS_NAME == '':
-			fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
+			fd = open(root + '/labels.txt', 'w')
 		else:
-			fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
+			fd = open(root + '/labels.txt', 'w')
 		for label in kept_index:
 			if label == kept_index[len(kept_index) - 1]:
 				pass
@@ -399,17 +405,17 @@ def updateListBox(self):
 		menu.add_command(label=lab,command=lambda value=lab: self.labelOptionVar.set(value))
 		self.labelListBox.insert(END, lab.strip())
 
-# Opens the labels text file to update the label list.
+# Opens the labels text file to update the list.
 def getLabels(self):
+	root = "./.data/" + self.CLASS_NAME
 	# Reads in tags
-	if self.CLASS_NAME != '':
-		getTags(self)        
-		fdT = open(self.TMP_DIRECTORY + '/tagsList.txt', 'r')
+	if self.CLASS_NAME != '':        
+		fdT = open(root + '/tagsList.txt', 'r')
 		self.tagsList = fdT.readlines()
 		fdT.close()
-	# Case where labels.txt doesn't exist
-	if os.path.exists(self.TMP_DIRECTORY + '/labels.txt') is True:
-		fdL = open(self.TMP_DIRECTORY + '/labels.txt', 'r')
+	# Reads in labels
+	if os.path.exists(root + '/labels.txt') is True:
+		fdL = open(root + '/labels.txt', 'r')
 		self.labelList = fdL.readlines()
 		fdL.close() # Never forget to close your files, Thank you Dr. Park
 
@@ -458,33 +464,36 @@ def selectFolder(self):
 				self.classifyButton['state'] = DISABLED
 			else:
 				self.classifyButton['state'] = NORMAL
-	getTags(self)
 
 # Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
 # the edit labels button to select from various exisiting tags/labels.
 def getTags(self):
+	root = "./.data/" + self.CLASS_NAME 
+	tagsListPath = root + "/tagsList.txt"
 	# Check if tagsList.txt exisits, if not, create it within the current directory    
-	if os.path.exists(self.TMP_DIRECTORY + "/tagsList.txt") is False:
-		open(self.TMP_DIRECTORY + '/tagsList.txt', 'w')    
+	if os.path.exists(tagsListPath) is False:
+		open(tagsListPath, 'w')    
 	
+	tag_file = root + "/tagNum.csv"
+	tagOutput = open(tag_file, 'w', encoding = 'utf-8')
 	
 	if self.CLASS_NAME == '':
 		return
 	
 	# Gets rdf file path and gets modification dates of the rdf and tagsList files
-	rdfRoot = self.TMP_DIRECTORY + '/' + self.CLASS_NAME + '.rdf'
-	rdfDate = time.ctime(os.path.getmtime(self.TMP_DIRECTORY + '/' + self.CLASS_NAME + '.rdf'))
-	tagsDate = time.ctime(os.path.getmtime(self.TMP_DIRECTORY + '/tagsList.txt'))
+	rdfRoot = root + '/' + self.CLASS_NAME + '.rdf'
+	rdfDate = time.ctime(os.path.getmtime(rdfRoot))
+	tagsDate = time.ctime(os.path.getmtime(tagsListPath))
 	
 	# Checks to make sure tags file is empty before filling or if the rdf has been recently updated
-	if os.stat(self.TMP_DIRECTORY + '/tagsList.txt').st_size != 0 and ((rdfDate == tagsDate) or (rdfDate < tagsDate)):       
+	if os.stat(tagsListPath).st_size != 0 and ((rdfDate == tagsDate) or (rdfDate < tagsDate)):       
 		return 
     
 	# Empty the labels file in case of any deletion of tags within the labels.txt file
-	tmp = open(self.TMP_DIRECTORY + "/labels.txt", 'w')
-	tmp.truncate(0)
-	tmp.close()
-    
+	fd = open(root + "/labels.txt", 'w')
+	fd.truncate(0)
+	fd.close()
+
 	# Reads in Tags
 	tags = open(rdfRoot, 'r', encoding = 'utf-8')
 	line = tags.readline() # Tmp string for reading thru rdf
@@ -521,13 +530,16 @@ def getTags(self):
 				tagSet.add(line[11:len(line)-11].capitalize())
 	tags.close()
 	tagSet = sorted(tagSet)    # Sorts the set
+	tagCount = 1
 	
 	# Add Tags to label.txt
-	tagFile = open(self.TMP_DIRECTORY + '/tagsList.txt','w')
+	tagFile = open(tagsListPath,'w')
 	tagFile.truncate(0)    # Empties file before writing
 	for x in tagSet:
 		if len(x) != 0:
 			tagFile.write(x.capitalize() + "\n")
+			tagOutput.write(f"\"{tagCount}\",\"{x}\"\n")
+			tagCount += 1
 	tagFile.close()
 
 
