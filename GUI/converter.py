@@ -93,6 +93,12 @@ def parser(rdf_file):
 	data_file = newDir + "data.csv"
 	output = open(data_file, 'w', encoding='utf-8')
 
+	# Unique ID for each paper
+	ids_file = newDir + "ids.csv"
+	ids_output = open(ids_file, 'w', encoding='utf-8')
+	idsCount = 1
+	
+
 	graph = rdflib.Graph()
 
 	start = time.time()
@@ -159,6 +165,7 @@ def parser(rdf_file):
 	newArr = true_domain_count.copy()
 	newArr.sort(reverse=False)
 
+	# Change to set sort than write to both output and ids?
 	start = time.time()
 	for obj in collection:
 			if obj.abstract != "":
@@ -166,7 +173,8 @@ def parser(rdf_file):
 					domain_count[obj.category-1] += 1
 					output.write(f"\"{str(obj.category)}\",\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n") #Saving this just in case
 					#output.write(f"\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n")	# Category is not needed
-
+					ids_output.write(f"\"{idsCount}\",\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n")
+					idsCount += 1
 	end = time.time()
 	counter = 0
 
