@@ -158,7 +158,7 @@ def searchCSV(self, event):
 
 # Function to convert rdf to csv and save it under a '.data' folder.
 def convertFile(self):
-	parserResults = parser(self.file_path)
+	parserResults = parser(self.file_path, self)
 	if parserResults == -1:
 		messagebox.showerror('No Labels', 'Please add your label(s) in the build tab.')
 		self.classifyButton['state'] = DISABLED
@@ -172,7 +172,7 @@ def convertFile(self):
 	filePath = './.data/' + self.CLASS_NAME + '/data.csv'
 	csv_file = csv.reader(open(filePath, 'r', encoding='utf-8'), delimiter=',')
 	count = 0
-	getTags(self)
+	#getTags(self)
 
 	for row in csv_file:
 		# Check to add space
@@ -466,30 +466,27 @@ def selectFolder(self):
 
 # Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
 # the edit labels button to select from various exisiting tags/labels.
-def getTags(self):
-	root = "./.data/" + self.CLASS_NAME 
-	tagsListPath = root + "/tagsList.txt"
+def getTags(self, root):
+	# Grabs the rdf name from the root to store into self.CLASS_NAME
+	self.CLASS_NAME = root.replace("./.data/", "")
+	self.CLASS_NAME = self.CLASS_NAME.replace("/", "")
+
+	tagsListPath = root + "tagsList.txt"
 	# Check if tagsList.txt exisits, if not, create it within the current directory    
 	if os.path.exists(tagsListPath) is False:
 		open(tagsListPath, 'w')    
 	
-	tag_file = root + "/tagNum.csv"
+	tag_file = root + "tagNum.csv"
 	tagOutput = open(tag_file, 'w', encoding = 'utf-8')
 	
 	if self.CLASS_NAME == '':
 		return
 	
 	# Gets rdf file path and gets modification dates of the rdf and tagsList files
-	rdfRoot = root + '/' + self.CLASS_NAME + '.rdf'
-	rdfDate = time.ctime(os.path.getmtime(rdfRoot))
-	tagsDate = time.ctime(os.path.getmtime(tagsListPath))
-	
-	# Checks to make sure tags file is empty before filling or if the rdf has been recently updated
-	if os.stat(tagsListPath).st_size != 0 and ((rdfDate == tagsDate) or (rdfDate < tagsDate)):       
-		return 
+	rdfRoot = root + self.CLASS_NAME + '.rdf'
     
 	# Empty the labels file in case of any deletion of tags within the labels.txt file
-	fd = open(root + "/labels.txt", 'w')
+	fd = open(root + "labels.txt", 'w')
 	fd.truncate(0)
 	fd.close()
 

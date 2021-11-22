@@ -80,8 +80,11 @@ def makeDir(rdf_file):
 
 # Converts the .rdf file to a .csv file
 def parser(rdf_file):
-	
+	from methods import getTags
+
 	file, newDir, name = makeDir(rdf_file)
+
+	getTags(self, newDir)
 
 	if os.path.exists('./labels.txt'):
 		if os.path.getsize('./labels.txt'):
