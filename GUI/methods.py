@@ -513,24 +513,54 @@ def getTags(self):
 	#          <z:AutomaticTag><rdf:value>TagName</rdf:value></z:AutomaticTag>
 	#     </dc:subject>
 
+	data = []
+	total = []
+	titleData = []	
+	bibCount = 0
+	# make copies of title data then append then clear
 	while line != "rdf RDF":        
 		line = regexTags(tags.readline())
+		#print(line)
+		if "bib Article" in line:
+			#print(line)
+			#print('hi')
+			if bibCount == 0:
+				bibCount += 1
+			else:
+				tmp = copy.deepcopy(data)
+				titleData.append(tmp)
+				data.clear()
+				bibCount = 0
+				newTmp = copy.deepcopy(titleData)
+				total.append(newTmp)
+				titleData.clear()	
 		if "dc subject" in line:
 			if len(line) == 10:                
 				line = regexTags(tags.readline())
 				if len(line) == 14: #Case (3)
 					line = regexTags(tags.readline())
 					tagSet.add(line[10:len(line)-10].capitalize())
+					data.append(line[10:len(line)-10].capitalize())
 					line = tags.readline()
 					line = tags.readline()
 				else:   # Case(2)
 					tagSet.add(line[26:len(line)-27].capitalize())
+					data.append(line[26:len(line)-27].capitalize())
 					line = tags.readline()
 			else:  # Case (1)             
 				tagSet.add(line[11:len(line)-11].capitalize())
+				data.append(line[11:len(line)-11].capitalize())
+		if "dc title" in line:
+			#print(line)
+			#data.append(line)	
+			data.insert(0, line)
 	tags.close()
 	tagSet = sorted(tagSet)    # Sorts the set
 	tagCount = 1
+		
+	tt = 0
+	for i in range(0, 10):
+		print(total[i])
 	
 	# Add Tags to label.txt
 	tagFile = open(tagsListPath,'w')
