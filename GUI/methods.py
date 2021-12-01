@@ -554,18 +554,16 @@ def getTags(self, root):
 				tagSet.add(line[11:len(line)-11].capitalize())
 				data.append(line[11:len(line)-11].capitalize())
 		if "dc title" in line and added != 1:
-			title = line + "sdad"	
-		if "dcterms abstract" in line and added != 1:
-			#print(line)
-			#data.append(line)	
+			tmp = tmp.strip()
+			title = tmp[10:len(tmp)-11]
+		if "dcterms abstract" in line and added != 1:	
 			data.insert(0, title)
 			added = 1
 	tags.close()
 	tagSet = sorted(tagSet)    # Sorts the set
 	tagCount = 1
-		
-	tt = 0
-	for i in range(0, 10):
+
+	for i in range(0, 2):
 		print(total[i])
 	
 	# Add Tags to label.txt

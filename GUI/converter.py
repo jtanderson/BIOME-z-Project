@@ -63,7 +63,7 @@ def makeDir(rdf_file):
 
 	if not os.path.isdir(root):
 		os.mkdir(root)	
-	print(rdf_file)
+
 	for i in range(1,len(rdf_file)):
 		if rdf_file[-i] == '/' and name == "":
 			name = rdf_file[-(i-1):]
