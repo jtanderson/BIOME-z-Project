@@ -79,7 +79,7 @@ def makeDir(rdf_file):
 	return newDir + name, newDir, name
 
 # Converts the .rdf file to a .csv file
-def parser(rdf_file):
+def parser(self, rdf_file):
 	from methods import getTags
 
 	file, newDir, name = makeDir(rdf_file)

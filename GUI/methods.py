@@ -518,8 +518,8 @@ def getTags(self, root):
 	added = 0
 	# make copies of title data then append then clear
 	while line != "rdf RDF":        
-		line = regexTags(tags.readline())
-		#print(line)
+		tmp = tags.readline()
+		line = regexTags(tmp)
 		if "bib Article" in line:
 			if bibCount == 0:
 				bibCount += 1
@@ -554,7 +554,7 @@ def getTags(self, root):
 				tagSet.add(line[11:len(line)-11].capitalize())
 				data.append(line[11:len(line)-11].capitalize())
 		if "dc title" in line and added != 1:
-			title = line	
+			title = line + "sdad"	
 		if "dcterms abstract" in line and added != 1:
 			#print(line)
 			#data.append(line)	
