@@ -63,7 +63,7 @@ def makeDir(rdf_file):
 
 	if not os.path.isdir(root):
 		os.mkdir(root)	
-
+	print(rdf_file)
 	for i in range(1,len(rdf_file)):
 		if rdf_file[-i] == '/' and name == "":
 			name = rdf_file[-(i-1):]
@@ -79,7 +79,7 @@ def makeDir(rdf_file):
 	return newDir + name, newDir, name
 
 # Converts the .rdf file to a .csv file
-def parser(rdf_file):
+def parser(rdf_file, self):
 	from methods import getTags
 
 	file, newDir, name = makeDir(rdf_file)
