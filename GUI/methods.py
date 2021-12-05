@@ -516,6 +516,7 @@ def getTags(self, root):
 	bibCount = 0
 	title = ""
 	added = 0
+	count = 0
 	# make copies of title data then append then clear
 	while line != "rdf RDF":        
 		tmp = tags.readline()
@@ -554,6 +555,7 @@ def getTags(self, root):
 				tagSet.add(line[11:len(line)-11].capitalize())
 				data.append(line[11:len(line)-11].capitalize())
 		if "dc title" in line and added != 1:
+			count = count + 1
 			tmp = tmp.strip()
 			title = tmp[10:len(tmp)-11]
 		if "dcterms abstract" in line and added != 1:	
@@ -563,7 +565,9 @@ def getTags(self, root):
 	tagSet = sorted(tagSet)    # Sorts the set
 	tagCount = 1
 
-	for i in range(0, 2):
+	# Create json and add to json the titles and their corresponding tags
+	
+	for i in range(0,1):
 		print(total[i])
 	
 	# Add Tags to label.txt
