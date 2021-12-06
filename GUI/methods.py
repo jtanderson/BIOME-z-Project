@@ -568,6 +568,11 @@ def getTags(self, root):
 	
 	for i in range(0,1):
 		print(total[i])
+
+	tmp = json.dumps(total)
+	json_file = open(root + 'titlesAndTags.json', 'w')
+	json_file.write(tmp)
+	json_file.close()
 	
 	# Add Tags to label.txt
 	tagFile = open(tagsListPath,'w')
