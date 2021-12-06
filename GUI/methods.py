@@ -172,7 +172,6 @@ def convertFile(self):
 	filePath = './.data/' + self.CLASS_NAME + '/data.csv'
 	csv_file = csv.reader(open(filePath, 'r', encoding='utf-8'), delimiter=',')
 	count = 0
-	#getTags(self)
 
 	for row in csv_file:
 		# Check to add space
