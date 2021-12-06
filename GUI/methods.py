@@ -517,56 +517,11 @@ def getTags(self, root):
 	added = 0
 	count = 0
 	title = ""
+	fake = 0
 	# make copies of title data then append then clear
-	"""
 	while line != "rdf RDF":        
 		tmp = tags.readline()
 		line = regexTags(tmp)
-		if "bib Article" in line:
-			if bibCount == 0:
-				bibCount += 1
-			else:
-				if added != 1:
-					data.clear()
-					titleData.clear()	
-				else:
-					tmp = copy.deepcopy(data)
-					titleData.append(tmp)
-					data.clear()
-					bibCount = 0
-					newTmp = copy.deepcopy(titleData)
-					total.append(newTmp)
-					titleData.clear()	
-					added = 0
-
-		if "dc subject" in line:
-			if len(line) == 10:                
-				line = regexTags(tags.readline())
-				if len(line) == 14: #Case (3)
-					line = regexTags(tags.readline())
-					tagSet.add(line[10:len(line)-10].capitalize())
-					data.append(line[10:len(line)-10].capitalize())
-					line = tags.readline()
-					line = tags.readline()
-				else:   # Case(2)
-					tagSet.add(line[26:len(line)-27].capitalize())
-					data.append(line[26:len(line)-27].capitalize())
-					line = tags.readline()
-			else:  # Case (1)             
-				tagSet.add(line[11:len(line)-11].capitalize())
-				data.append(line[11:len(line)-11].capitalize())
-		if "dc title" in line and added != 1:
-			count = count + 1
-			tmp = tmp.strip()
-			title = tmp[10:len(tmp)-11]
-		if "dcterms abstract" in line and added != 1:	
-			data.insert(0, title)
-			added = 1
-	"""
-	fake = 0
-	while line != "rdf RDF":        
-		line = regexTags(tags.readline())
-		#print(line)
 		if "bib Article" in line:
 			if bibCount == 0:
 				bibCount += 1
@@ -578,16 +533,8 @@ def getTags(self, root):
 				fake = 0
 				newTmp = copy.deepcopy(titleData)
 				total.append(newTmp)
-				titleData.clear()	
-	
-		#if "bib Journal" in line and bibCount == 1:
-		if "bib Journal" in line and bibCount == 1:
-			#print(fake)
-			if fake == 0:
-				fake += 1 
-			else:
-				fake = 0
-			
+				titleData.clear()
+
 		if "dc subject" in line:
 			if len(line) == 10:                
 				line = regexTags(tags.readline())
@@ -604,13 +551,14 @@ def getTags(self, root):
 			else:  # Case (1)             
 				tagSet.add(line[11:len(line)-11].capitalize())
 				data.append(line[11:len(line)-11].capitalize())
-		#if "dc title" in line and bibCount != 0 and fake != 1:	
 		if "dc title" in line and bibCount == 1 and fake == 0:
+			count = count + 1
+			tmp = tmp.strip()
+			title = tmp[10:len(tmp)-11]
 			#print(line)
-			data.insert(0, line)
-			fake = 0
+			data.insert(0, title)
+			fake = 0	
 			
-
 	tags.close()
 	tagSet = sorted(tagSet)    # Sorts the set
 	tagCount = 1
