@@ -555,7 +555,6 @@ def getTags(self, root):
 			count = count + 1
 			tmp = tmp.strip()
 			title = tmp[10:len(tmp)-11]
-			#print(line)
 			data.insert(0, title)
 			fake = 0	
 			
@@ -563,46 +562,31 @@ def getTags(self, root):
 	tagSet = sorted(tagSet)    # Sorts the set
 	tagCount = 1
 
-	# Create json and add to json the titles and their corresponding tags
-	
-	for i in range(0,1):
-		print(total[i])
-
-	tmp = json.dumps(total)
-	json_file = open(root + 'titlesAndTags.json', 'w')
-	json_file.write(tmp)
-	json_file.close()
-
 	tagList = list(tagSet)
 		
 	tt = 0
-	#for i in range(0, 10):
-		#print(total[i])
 	there = 0
 	a = 0
+	# Gets the tags associated numbers and replaces them
 	for i in total:
 		for j in i:
-			#print(j)
-			#for k in j:
 			for index, k in enumerate(j):
-				#print(k)
 				if "dc title" in k:
 					tt += 1
-					#print(f"{tt}\n")
 					there = 1
 				else:
 					if k in tagList:
-						#print(k)
 						j[index] = tagList.index(k)	
-						#print(k)
 			if there == 1:
 				a += 1
 				there = 0
-					
+
+	tmp = open(root + "/titlesAndTags.txt", "w")
 	for i in total:
 		print(i)
-	#print(f"title {tt} - not {a} = {tt-a}")
-	
+		tmp.writelines(["%s\n" % i  for i in total])
+	tmp.close()
+
 	# Add Tags to label.txt
 	tagFile = open(tagsListPath,'w')
 	tagFile.truncate(0)    # Empties file before writing
