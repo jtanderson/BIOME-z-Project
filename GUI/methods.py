@@ -599,8 +599,8 @@ def getTags(self, root):
 				a += 1
 				there = 0
 					
-	for i in total:
-		print(i)
+	#for i in total:
+		#print(i)
 	#print(f"title {tt} - not {a} = {tt-a}")
 	
 	# Add Tags to label.txt
