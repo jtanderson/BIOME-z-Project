@@ -143,9 +143,11 @@ def parser(rdf_file, self):
 	start = time.time()
 	#TODO -- the order of this loop is very strange, change to be paper-first
 	# Can not figure out inconsistency swapping loops - may have to do with graph
-	for i in range(len(categories)):
+	#for i in range(len(categories)):
+	for s, p, o in graph:
 		#print(f"doing category {categories[i]}")
-		for s, p, o in graph:
+		#for s, p, o in graph:
+		for i in range(len(categories)):
 			obj = str(o)
 			obj = obj.lower()
 			if ABSTRACT in p:
