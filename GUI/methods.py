@@ -581,6 +581,8 @@ def getTags(self, root):
 				a += 1
 				there = 0
 
+        # Testing: Prints all list data of abstract, plus numbers assigned to tags
+        # Also writing data to txt file
 	tmp = open(root + "/titlesAndTags.txt", "w")
 	for i in total:
 		print(i)
