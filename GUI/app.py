@@ -29,6 +29,7 @@ class Application(Frame):
 
 		self.rdf_csv_file_name, self.manual_text, self.wkdir, self.type, self.model_file_name = StringVar(), StringVar(), StringVar(), StringVar(), StringVar()
 		self.neuralNetworkVar = [DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar()]
+		self.customRangeVar = [DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar(), DoubleVar()]
 		self.buildProgress = DoubleVar()
 		self.checkButtons = [IntVar(), IntVar()]
 		self.csv_path, self.CLASS_NAME, self.TMP_DIRECTORY = '', '', ''
