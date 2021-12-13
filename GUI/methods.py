@@ -69,6 +69,27 @@ def saveOverridePrediction(self):
 		fd.write(self.labelOptionVar.get()) # Get the option the user selects to override and close file
 		fd.close()
 
+# This function takes the top option from the 'Predict' button and saves it to the file
+def savePrediction(self):
+	# Check if a prediction happened
+	if len(self.predictionResults) == 0:
+		messagebox.showinfo('No prediction to confirm', 'Please hit prediction') # Gives a box and doesn't let them save a prediction
+	else:
+		fd = open('prediction.txt', 'w') # Temporarily using a text file. These predictions need to be saved to RDF
+		# Second element is the top option from the prediction. Write that to the file and close the file
+		fd.write(self.predictionResults[1])
+		fd.close()
+	
+def saveOverridePrediction(self):
+	#print(self.labelOptionVar.get())
+	# Check if predicition happened
+	if len(self.predictionResults) == 0:
+		messagebox.showinfo('No prediction to override', 'Please hit prediction')
+	else:
+		fd = open('prediction.txt', 'w') # Temporarily using a text file. These predictions need to be saved to RDF
+		fd.write(self.labelOptionVar.get()) # Get the option the user selects to override and close file
+		fd.close()
+
 # A class function used to select a file for the testing tab.
 def openFileDialog(self):
 	# Open up a file selection prompt for the user with two options: RDF / ALL types.
@@ -146,11 +167,11 @@ def searchCSV(self, event):
 		elif self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 1:                               
 			result = find_near_matches(find, row[2], max_deletions=1, max_insertions=1, max_substitutions=0)
 		else:
-			both = row[1] + ' ' + row[2]
+			both = row[0] + ' ' + row[1]
 			result = find_near_matches(find, both, max_deletions=1, max_insertions=1, max_substitutions=0)
 		if not not result:
-			self.searchTable.model.setValueAt(row[1], count, 0)
-			self.searchTable.model.setValueAt(row[2], count, 1)
+			self.searchTable.model.setValueAt(row[0], count, 0)
+			self.searchTable.model.setValueAt(row[1], count, 1)
 			count += 1
 
 	# Update the table.
@@ -236,8 +257,175 @@ def pushRowContents(self):
 def getDeviceType(self):
 	self.type.set('Running on: ' + str(torch.device('cuda' if torch.cuda.is_available() else 'cpu')))
 
+# Class function to create the smaller window for advanced settigs. -- MH
+def openAdvSetWindow(self):  
+	### Deactivate the 'Advanced Settings' button.
+	self.AdvSetButton.config(state=DISABLED)
+
+	### Create the window itself.
+	self.settingsWindow = Toplevel(self)
+	self.settingsWindow.title('Advanced Settings')
+	self.settingsWindow.geometry('800x780')
+	
+	generateAdvTab(self)
+
+	# On window exit, reactivate the button.
+	def quit_settings_window():
+		self.AdvSetButton.config(state=NORMAL)
+		self.settingsWindow.destroy()
+
+	self.settingsWindow.protocol('WM_DELETE_WINDOW', quit_settings_window)
+
+# ================Default Parameters Tab
+def generateAdvTab(self):
+	# Create a label frame to hold the setting categories.
+	self.defaultLF = LabelFrame(self.settingsWindow, text='Set New Default Parameters')
+	self.defaultLF.place(x=10, y=5, relwidth=0.98, height=520)
+	
+	########## Parameters #########
+	self.paramLF = LabelFrame(self.settingsWindow, text='Parameters')
+	self.paramLF.place(relx=0.027, y=28, relwidth=0.95, height=480)
+
+	self.ngramsScale = Scale(self.paramLF, label='NGRAMS', from_=2, to=8, tickinterval=1, orient=HORIZONTAL, variable=self.neuralNetworkVar[0])
+	self.ngramsScale.place(relx=0.0, y=0, relwidth=1.00)
+
+	self.gammaScale = Scale(self.paramLF, label='Gamma', from_=0.85, to=0.99, tickinterval=0.01, resolution=0.02, orient=HORIZONTAL, variable=self.neuralNetworkVar[1])
+	self.gammaScale.place(relx=0.0, y=80, relwidth=1.00)
+
+	self.batchSizeScale = Scale(self.paramLF, label='Batch Size', from_=16, to=256, tickinterval=32, orient=HORIZONTAL, variable=self.neuralNetworkVar[2])
+	self.batchSizeScale.place(relx=0.0, y=160, relwidth=1.00)
+
+	self.initLrnRateScale = Scale(self.paramLF, label='Initial Learning Rate', from_=1.0, to=7.0, tickinterval=1.00, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[3])
+	self.initLrnRateScale.place(relx=0.0, y=240, relwidth=1.00)
+
+	self.embedDimScale = Scale(self.paramLF, label='Embedding Dimension', from_=32, to=160, tickinterval=8, orient=HORIZONTAL, variable=self.neuralNetworkVar[4])
+	self.embedDimScale.place(relx=0.0, y=320, relwidth=1.00)
+
+	self.epochLabel = Label(self.paramLF, text='Epochs:', font=('Times, 15')) 
+	self.epochLabel.place(relx=0.0, y=420)
+
+	self.epochSpin = Spinbox(self.paramLF, from_=1, to=25000000, textvariable=self.neuralNetworkVar[5], font=('Times, 15'))
+	self.epochSpin.place( relx=0.1, y=420, relwidth=0.15)
+
+	##################################################################
+	
+	# Create a label frame to hold the parameter range category.
+	self.rangeLF = LabelFrame(self.settingsWindow, text='Set New Parameter Ranges')
+	self.rangeLF.place(x=10, y=530, relwidth=0.98, height=210)
+
+	########## Parameter Ranges ##########
+	## A label telling the user to input new values for NGRAMS range.
+	self.ngramRange = LabelFrame(self.rangeLF, text='NGRAMS:')
+	self.ngramRange.place(relx=0.05, y=4, relwidth=0.26, height=80)
+	ngFrom = Label(self.ngramRange, text="From: ")
+	ngFrom.grid(column=0, row=0)
+	ng1 = Entry(self.ngramRange, width=10)
+	ng1.grid(column=1, row=0)
+	ngTO = Label(self.ngramRange, text="To: ")
+	ngTO.grid(column=0, row=1)
+	ng2 = Entry(self.ngramRange, width=10)
+	ng2.grid(column=1, row=1)
+	## A label telling the user to input range for Gamma.
+	self.gammaRange = LabelFrame(self.rangeLF, text='Gamma:')
+	self.gammaRange.place(relx=0.37, y=4, relwidth=0.26, height=80)
+	gamFrom = Label(self.gammaRange, text="From: ")
+	gamFrom.grid(column=0, row=0)
+	gam1 = Entry(self.gammaRange, width=10)
+	gam1.grid(column=1, row=0)
+	gamTO = Label(self.gammaRange, text="To: ")
+	gamTO.grid(column=0, row=1)
+	gam2 = Entry(self.gammaRange, width=10)
+	gam2.grid(column=1, row=1)
+	## A label telling the user to input range for Batch Size.
+	self.batchRange = LabelFrame(self.rangeLF, text='Batch Size:')
+	self.batchRange.place(relx=0.69, y=4, relwidth=0.26, height=80)
+	batchFrom = Label(self.batchRange, text="From: ")
+	batchFrom.grid(column=1, row=0)
+	batch1 = Entry(self.batchRange, width=10)
+	batch1.grid(column=2, row=0)
+	batchTO = Label(self.batchRange, text="To: ")
+	batchTO.grid(column=1, row=1)
+	batch2 = Entry(self.batchRange, width=10)
+	batch2.grid(column=2, row=1)
+	# A label telling the user to input range for ILR(initial learn rate).
+	self.ilrRange = LabelFrame(self.rangeLF, text='Initial Learning Rate:')
+	self.ilrRange.place(relx=0.05, y=95, relwidth=0.26, height=80)
+	ilrFrom = Label(self.ilrRange, text="From: ")
+	ilrFrom.grid(column=0, row=0)
+	ilr1 = Entry(self.ilrRange, width=10)
+	ilr1.grid(column=1, row=0)
+	ilrTO = Label(self.ilrRange, text="To: ")
+	ilrTO.grid(column=0, row=1)
+	ilr2 = Entry(self.ilrRange, width=10)
+	ilr2.grid(column=1, row=1)
+	# A label telling the user to input range for Embedding Dimension.
+	self.edRange = LabelFrame(self.rangeLF, text='Embeddding Dimension:')
+	self.edRange.place(relx=0.37, y=95, relwidth=0.26, height=80)
+	edFrom = Label(self.edRange, text="From: ")
+	edFrom.grid(column=0, row=0)
+	ed1 = Entry(self.edRange, width=10)
+	ed1.grid(column=1, row=0)
+	edTO = Label(self.edRange, text="To: ")
+	edTO.grid(column=0, row=1)
+	ed2 = Entry(self.edRange, width=10)
+	ed2.grid(column=1, row=1)
+	# A label telling the user to input range for Epochs.
+	self.epochRange = LabelFrame(self.rangeLF, text='Epochs:')
+	self.epochRange.place(relx=0.69, y=95, relwidth=0.26, height=80)
+	epochFrom = Label(self.epochRange, text="From: ")
+	epochFrom.grid(column=0, row=0)
+	epoch1 = Entry(self.epochRange, width=10)
+	epoch1.grid(column=1, row=0)
+	epochTO = Label(self.epochRange, text="To: ")
+	epochTO.grid(column=0, row=1)
+	epoch2 = Entry(self.epochRange, width=10)
+	epoch2.grid(column=1, row=1)
+	##################################################################
+
+	# Creates a button to save new parameters and the ranges in the models folder.
+	self.saveRangeButton = Button(self.settingsWindow, text='Save All Changes', command=lambda: [ setRanges(self, './'), setDefaultParameters(self, './') ])
+	self.saveRangeButton.place(relx=0.83, y=745, width=120, height=30)
+
+#class function to save users custom parameter ranges
+def setRanges(self, directoy):
+	loca = directory
+	#Check if there default parameters exists otherwise copy from /GUI
+	if (os.path.exists(loc + 'default-ranges.json') != True):  
+		shutil.copyfile(os.getcwd() + '/default-ranges.json', directory + '/default-ranges.json')
+	a_file = open(loca + 'default-ranges.json', "r")
+	json_object = json.load(a_file)
+	a_file.close()
+	JSON_FORMAT = {
+		'ngFrom': self.customRangeVar[0].get(),
+		'ngTo': self.customRangeVar[1].get(),
+		'gamFrom': self.customRangeVar[2].get(),
+		'gamTo': self.customRangeVar[3].get(),
+		'batchFrom': self.customRangeVar[4].get(),
+		'batchTo': self.customRangeVar[5].get(),
+                'ilrFrom': self.customRangeVar[6].get(),
+		'ilrTo': self.customRangeVar[7].get(),
+		'edFrom': self.customRangeVar[8].get(),
+		'edTo': self.customRangeVar[9].get(),
+		'epochFrom': self.customRangeVar[10].get(),
+		'epochTo': self.customRangeVar[11].get()
+	}
+
+	a_file = open(loc + 'default-ranges.json', "w")
+	json.dump(JSON_FORMAT, a_file)
+	a_file.close()
+
+# Loads default parameter ranges for a specific directory.
+def loadRanges(self, directory):
+	pos = 0
+	with open(directory + 'default-ranges.json') as json_file:
+		data = json.load(json_file)
+		for item in data:
+			self.customRangeVar[pos].set(float(data.get(item)))
+			pos += 1
+	
+
 # Class function to create the smaller window for editing labels.
-def openLabelWindow(self):  
+def openLabelWindow(self):
 	# Variables used
 	edit_Label_Font = 10
 	bdSize = 2 # Border size of the lists
@@ -443,6 +631,10 @@ def runBuilder(self):
 # A function to allow the user to select a model from the folder.
 # May need more error checking.
 def selectFolder(self):
+	#--MH--disable use of advanced setting button after folder is selected
+	# temporary fix for advanced settings 'set default parameter' button taking current directory not /GUI
+	self.AdvSetButton.config(state=DISABLED)
+	
 	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
 
 	if temp_folder:
@@ -451,10 +643,12 @@ def selectFolder(self):
 		start =  end - 6
 		if temp_folder[start:end - 1] == '.data':
 			self.CLASS_NAME = modelName
+			self.model_file_name.set(self.CLASS_NAME)#--MH-- global varible to display current model for user convenience
 			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
 			self.TMP_DIRECTORY = temp_folder
 			getLabels(self)
 			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
+			#TODO ANDERSON# loadRanges(self, temp_folder[:end] + self.CLASS_NAME + '/')
 			self.editLabelButton['state'] = NORMAL
 			self.classifyButton['state'] = NORMAL
 		else:
@@ -463,6 +657,89 @@ def selectFolder(self):
 				self.classifyButton['state'] = DISABLED
 			else:
 				self.classifyButton['state'] = NORMAL
+	getTags(self)
+
+# Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
+# the edit labels button to select from various exisiting tags/labels.
+def getTags(self):
+	# Check if tagsList.txt exisits, if not, create it within the current directory    
+	if os.path.exists(self.TMP_DIRECTORY + "/tagsList.txt") is False:
+		open(self.TMP_DIRECTORY + '/tagsList.txt', 'w')    
+	
+	
+	if self.CLASS_NAME == '':
+		return
+	
+	# Gets rdf file path and gets modification dates of the rdf and tagsList files
+	rdfRoot = self.TMP_DIRECTORY + '/' + self.CLASS_NAME + '.rdf'
+	rdfDate = time.ctime(os.path.getmtime(self.TMP_DIRECTORY + '/' + self.CLASS_NAME + '.rdf'))
+	tagsDate = time.ctime(os.path.getmtime(self.TMP_DIRECTORY + '/tagsList.txt'))
+	
+	# Checks to make sure tags file is empty before filling or if the rdf has been recently updated
+	if os.stat(self.TMP_DIRECTORY + '/tagsList.txt').st_size != 0 and ((rdfDate == tagsDate) or (rdfDate < tagsDate)):       
+		return 
+    
+	# Empty the labels file in case of any deletion of tags within the labels.txt file
+	tmp = open(self.TMP_DIRECTORY + "/labels.txt", 'w')
+	tmp.truncate(0)
+	tmp.close()
+    
+	# Reads in Tags
+	tags = open(rdfRoot, 'r', encoding = 'utf-8')
+	line = tags.readline() # Tmp string for reading thru rdf
+	tagSet = set()    # Set for all tags
+	
+	# File ends with </rdf:RDF>, but with regex, it would be changed to "rdf RDF"
+	# There's 3 cases where tags occur:
+	# (1) <dc:subject>TagName</dc:subject>
+	#
+	# (2) <dc:subject>
+	#          <z:AutomaticTag>
+	#              <rdf:value>TagName</rdf:value>
+	#          </z:AutomaticTag>
+	#     </dc:subject>
+	# 
+	# (3) <dc:subject>
+	#          <z:AutomaticTag><rdf:value>TagName</rdf:value></z:AutomaticTag>
+	#     </dc:subject>
+	
+	while line != "rdf RDF":        
+		line = regexTags(tags.readline())
+		if "dc subject" in line:
+			if len(line) == 10:                
+				line = regexTags(tags.readline())
+				if len(line) == 14: #Case (3)
+					line = regexTags(tags.readline())
+					tagSet.add(line[10:len(line)-10].capitalize())
+					line = tags.readline()
+					line = tags.readline()
+				else:   # Case(2)
+					tagSet.add(line[26:len(line)-27].capitalize())
+					line = tags.readline()
+			else:  # Case (1)             
+				tagSet.add(line[11:len(line)-11].capitalize())
+	tags.close()
+	tagSet = sorted(tagSet)    # Sorts the set
+	
+	# Add Tags to label.txt
+	tagFile = open(self.TMP_DIRECTORY + '/tagsList.txt','w')
+	tagFile.truncate(0)    # Empties file before writing
+	for x in tagSet:
+		if len(x) != 0:
+			tagFile.write(x.capitalize() + "\n")
+	tagFile.close()
+
+
+# Uses regualr expressions to clean up any useless characters and format tags
+def regexTags(line):
+	# Removes special characters, except '-' and ','
+	tmp = re.sub('[^a-zA-Z0-9-,)(]',' ',line)
+	# Checks and removes anything after ',' as the tags become repetitive with little difference
+	tmp = re.sub(',[\s\S]*$','',tmp)
+	# Checks and removes cases of '-' being the ending char
+	tmp = re.sub('[-]\Z','',tmp).strip()
+	return tmp
+
 
 # Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
 # the edit labels button to select from various exisiting tags/labels.
@@ -622,23 +899,8 @@ def loadDefaultParameters(self, directory):
 
 # Saves default parameters for a specific directory.
 def setDefaultParameters(self, directory):
-	#JSON_FORMAT = {
-	#	'ngrams': self.neuralNetworkVar[0].get(),
-	#	'gamma': self.neuralNetworkVar[1].get(),
-	#	'batch-size': self.neuralNetworkVar[2].get(),
-	#	'initial-learn': self.neuralNetworkVar[3].get(),
-	#	'embedding-dim': self.neuralNetworkVar[4].get(),
-	#	'epochs': self.neuralNetworkVar[5].get()
-	#}
-	#with open(directory + 'default-parameters.json', 'w') as json_file:
-		#json.dump(JSON_FORMAT, json_file)
-	#-----------------------# MIKAYLA #-----------------------#
-	#loc = './.data/' + self.CLASS_NAME + '/'
-	loc = directory #'./.data/' + self.CLASS_NAME + '/'
-	# Check if there default parameters exists otherwise copy from /GUI
-	if (os.path.exists(loc + 'default-parameters.json') != True):
-		shutil.copyfile(os.getcwd() + '/default-parameters.json', directory + '/default-parameters.json')
-	a_file = open(loc + 'default-parameters.json', "r")
+	loca = directory #'./.data/' + self.CLASS_NAME + '/'
+	a_file = open(loca + 'default-parameters.json', "r")
 	json_object = json.load(a_file)
 	a_file.close()
 	JSON_FORMAT = {
@@ -653,8 +915,6 @@ def setDefaultParameters(self, directory):
 	a_file = open(loc + 'default-parameters.json', "w")
 	json.dump(JSON_FORMAT, a_file)
 	a_file.close()
-	#with open(directory + 'default-parameters.json', 'w') as json_file:
-		#json.dump(JSON_FORMAT, json_file)
 
 #######################################################################################################
 
