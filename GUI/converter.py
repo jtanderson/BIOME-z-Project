@@ -79,15 +79,18 @@ def makeDir(rdf_file):
 	return newDir + name, newDir, name
 
 # Converts the .rdf file to a .csv file
-def parser(rdf_file):
-	
+def parser(rdf_file, self):
+	from methods import getTags
+
 	file, newDir, name = makeDir(rdf_file)
 
-	if os.path.exists('./labels.txt'):
-		if os.path.getsize('./labels.txt'):
-			shutil.copy(os.path.join(os.getcwd(),'labels.txt'), os.path.join(newDir, 'labels.txt'))
-	else:
-		return -1
+	getTags(self, newDir)
+
+#	if os.path.exists('./labels.txt'):
+#		if os.path.getsize('./labels.txt'):
+#			shutil.copy(os.path.join(os.getcwd(),'labels.txt'), os.path.join(newDir, 'labels.txt'))
+#	else:
+#		return -1
 
 
 	data_file = newDir + "data.csv"
@@ -110,7 +113,7 @@ def parser(rdf_file):
 	print(f"{(end-start):.2f} seconds to parse BIOME-z.rdf \n")
 	print(newDir)
 	categories = []
-	labels = open(newDir + 'labels.txt', 'r')
+	labels = open(newDir + 'tagsList.txt', 'r')
 
 	for line in labels:
 		categories.append(line.replace('\n', ''))
@@ -140,9 +143,11 @@ def parser(rdf_file):
 	start = time.time()
 	#TODO -- the order of this loop is very strange, change to be paper-first
 	# Can not figure out inconsistency swapping loops - may have to do with graph
-	for i in range(len(categories)):
+	#for i in range(len(categories)):
+	for s, p, o in graph:
 		#print(f"doing category {categories[i]}")
-		for s, p, o in graph:
+		#for s, p, o in graph:
+		for i in range(len(categories)):
 			obj = str(o)
 			obj = obj.lower()
 			if ABSTRACT in p:

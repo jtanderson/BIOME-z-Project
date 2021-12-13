@@ -158,7 +158,7 @@ def searchCSV(self, event):
 
 # Function to convert rdf to csv and save it under a '.data' folder.
 def convertFile(self):
-	parserResults = parser(self.file_path)
+	parserResults = parser(self.file_path, self)
 	if parserResults == -1:
 		messagebox.showerror('No Labels', 'Please add your label(s) in the build tab.')
 		self.classifyButton['state'] = DISABLED
@@ -172,7 +172,6 @@ def convertFile(self):
 	filePath = './.data/' + self.CLASS_NAME + '/data.csv'
 	csv_file = csv.reader(open(filePath, 'r', encoding='utf-8'), delimiter=',')
 	count = 0
-	getTags(self)
 
 	for row in csv_file:
 		# Check to add space
@@ -309,6 +308,7 @@ def openLabelWindow(self):
 	# Naming conflict - changed the name from self.saveButton to self.labelSaveButton
 	self.labelSaveButton = Button(self.labelWindow, text='Save', command=quit_label_window)
 	self.labelSaveButton.place(relx=295/700, rely=350/400, relwidth=110/700, relheight=30/400)
+
 
 # Class function for adding a new label.
 def addLabel(self):
@@ -466,30 +466,27 @@ def selectFolder(self):
 
 # Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
 # the edit labels button to select from various exisiting tags/labels.
-def getTags(self):
-	root = "./.data/" + self.CLASS_NAME 
-	tagsListPath = root + "/tagsList.txt"
+def getTags(self, root):
+	# Grabs the rdf name from the root to store into self.CLASS_NAME
+	self.CLASS_NAME = root.replace("./.data/", "")
+	self.CLASS_NAME = self.CLASS_NAME.replace("/", "")
+
+	tagsListPath = root + "tagsList.txt"
 	# Check if tagsList.txt exisits, if not, create it within the current directory    
 	if os.path.exists(tagsListPath) is False:
 		open(tagsListPath, 'w')    
 	
-	tag_file = root + "/tagNum.csv"
+	tag_file = root + "tagNum.csv"
 	tagOutput = open(tag_file, 'w', encoding = 'utf-8')
 	
 	if self.CLASS_NAME == '':
 		return
 	
 	# Gets rdf file path and gets modification dates of the rdf and tagsList files
-	rdfRoot = root + '/' + self.CLASS_NAME + '.rdf'
-	rdfDate = time.ctime(os.path.getmtime(rdfRoot))
-	tagsDate = time.ctime(os.path.getmtime(tagsListPath))
-	
-	# Checks to make sure tags file is empty before filling or if the rdf has been recently updated
-	if os.stat(tagsListPath).st_size != 0 and ((rdfDate == tagsDate) or (rdfDate < tagsDate)):       
-		return 
+	rdfRoot = root + self.CLASS_NAME + '.rdf'
     
 	# Empty the labels file in case of any deletion of tags within the labels.txt file
-	fd = open(root + "/labels.txt", 'w')
+	fd = open(root + "labels.txt", 'w')
 	fd.truncate(0)
 	fd.close()
 
@@ -512,25 +509,86 @@ def getTags(self):
 	#          <z:AutomaticTag><rdf:value>TagName</rdf:value></z:AutomaticTag>
 	#     </dc:subject>
 
+	data = []
+	total = []
+	titleData = []	
+	bibCount = 0
+	journalCount = 0
+	added = 0
+	count = 0
+	title = ""
+	fake = 0
+	# make copies of title data then append then clear
 	while line != "rdf RDF":        
-		line = regexTags(tags.readline())
+		tmp = tags.readline()
+		line = regexTags(tmp)
+		if "bib Article" in line:
+			if bibCount == 0:
+				bibCount += 1
+			else:
+				tmp = copy.deepcopy(data)
+				titleData.append(tmp)
+				data.clear()
+				bibCount = 0
+				fake = 0
+				newTmp = copy.deepcopy(titleData)
+				total.append(newTmp)
+				titleData.clear()
+
 		if "dc subject" in line:
 			if len(line) == 10:                
 				line = regexTags(tags.readline())
 				if len(line) == 14: #Case (3)
 					line = regexTags(tags.readline())
 					tagSet.add(line[10:len(line)-10].capitalize())
+					data.append(line[10:len(line)-10].capitalize())
 					line = tags.readline()
 					line = tags.readline()
 				else:   # Case(2)
 					tagSet.add(line[26:len(line)-27].capitalize())
+					data.append(line[26:len(line)-27].capitalize())
 					line = tags.readline()
 			else:  # Case (1)             
 				tagSet.add(line[11:len(line)-11].capitalize())
+				data.append(line[11:len(line)-11].capitalize())
+		if "dc title" in line and bibCount == 1 and fake == 0:
+			count = count + 1
+			tmp = tmp.strip()
+			title = tmp[10:len(tmp)-11]
+			data.insert(0, title)
+			fake = 0	
+			
 	tags.close()
 	tagSet = sorted(tagSet)    # Sorts the set
 	tagCount = 1
-	
+
+	tagList = list(tagSet)
+		
+	tt = 0
+	there = 0
+	a = 0
+	# Gets the tags associated numbers and replaces them
+	for i in total:
+		for j in i:
+			for index, k in enumerate(j):
+				if "dc title" in k:
+					tt += 1
+					there = 1
+				else:
+					if k in tagList:
+						j[index] = tagList.index(k)	
+			if there == 1:
+				a += 1
+				there = 0
+
+        # Testing: Prints all list data of abstract, plus numbers assigned to tags
+        # Also writing data to txt file
+	tmp = open(root + "/titlesAndTags.txt", "w")
+	for i in total:
+		print(i)
+		tmp.writelines(["%s\n" % i  for i in total])
+	tmp.close()
+
 	# Add Tags to label.txt
 	tagFile = open(tagsListPath,'w')
 	tagFile.truncate(0)    # Empties file before writing
