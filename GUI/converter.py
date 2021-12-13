@@ -86,11 +86,11 @@ def parser(rdf_file, self):
 
 	getTags(self, newDir)
 
-#	if os.path.exists('./labels.txt'):
-#		if os.path.getsize('./labels.txt'):
-#			shutil.copy(os.path.join(os.getcwd(),'labels.txt'), os.path.join(newDir, 'labels.txt'))
-#	else:
-#		return -1
+	if os.path.exists('./labels.txt'):
+		if os.path.getsize('./labels.txt'):
+			shutil.copy(os.path.join(os.getcwd(),'labels.txt'), os.path.join(newDir, 'labels.txt'))
+	else:
+		return -1
 
 
 	data_file = newDir + "data.csv"
@@ -113,7 +113,7 @@ def parser(rdf_file, self):
 	print(f"{(end-start):.2f} seconds to parse BIOME-z.rdf \n")
 	print(newDir)
 	categories = []
-	labels = open(newDir + 'tagsList.txt', 'r')
+	labels = open(newDir + 'labels.txt', 'r')
 
 	for line in labels:
 		categories.append(line.replace('\n', ''))

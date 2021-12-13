@@ -272,7 +272,7 @@ def generateBuildTab(self):
 
 	# Setup a button to save parameters to the module's folder.
 	# Once the module is selected and loaded, the parameters will load too.
-	self.setModParamButton = Button(self.frame_build, text='Set Model Parameters', command=lambda: setDefaultParameters(self, './.data' + self.CLASS_NAME + '/'))
+	self.setModParamButton = Button(self.frame_build, text='Set Model Parameters', command=lambda: setDefaultParameters(self, './.data/' + self.CLASS_NAME + '/'))
 	self.setModParamButton.place(relx=0.80, rely=0.90, relwidth=0.15)
 
 	# A Progress bar to show build/training progress.

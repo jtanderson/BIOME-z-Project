@@ -387,10 +387,10 @@ def generateAdvTab(self):
 	self.saveRangeButton.place(relx=0.83, y=745, width=120, height=30)
 
 #class function to save users custom parameter ranges
-def setRanges(self, directoy):
+def setRanges(self, directory):
 	loca = directory
 	#Check if there default parameters exists otherwise copy from /GUI
-	if (os.path.exists(loc + 'default-ranges.json') != True):  
+	if (os.path.exists(loca + 'default-ranges.json') != True):  
 		shutil.copyfile(os.getcwd() + '/default-ranges.json', directory + '/default-ranges.json')
 	a_file = open(loca + 'default-ranges.json', "r")
 	json_object = json.load(a_file)
@@ -410,7 +410,7 @@ def setRanges(self, directoy):
 		'epochTo': self.customRangeVar[11].get()
 	}
 
-	a_file = open(loc + 'default-ranges.json', "w")
+	a_file = open(loca + 'default-ranges.json', "w")
 	json.dump(JSON_FORMAT, a_file)
 	a_file.close()
 
@@ -657,7 +657,6 @@ def selectFolder(self):
 				self.classifyButton['state'] = DISABLED
 			else:
 				self.classifyButton['state'] = NORMAL
-	getTags(self)
 
 # Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
 # the edit labels button to select from various exisiting tags/labels.
@@ -900,6 +899,9 @@ def loadDefaultParameters(self, directory):
 # Saves default parameters for a specific directory.
 def setDefaultParameters(self, directory):
 	loca = directory #'./.data/' + self.CLASS_NAME + '/'
+	# Check if there default parameters exists otherwise copy from /GUI
+	if (os.path.exists(loca + 'default-parameters.json') != True):
+		shutil.copyfile(os.getcwd() + '/default-parameters.json', directory + 'default-parameters.json')
 	a_file = open(loca + 'default-parameters.json', "r")
 	json_object = json.load(a_file)
 	a_file.close()
@@ -912,7 +914,7 @@ def setDefaultParameters(self, directory):
 		'epochs': self.neuralNetworkVar[5].get()
 	}
 
-	a_file = open(loc + 'default-parameters.json', "w")
+	a_file = open(loca + 'default-parameters.json', "w")
 	json.dump(JSON_FORMAT, a_file)
 	a_file.close()
 
