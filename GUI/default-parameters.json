@@ -1,1 +1,1 @@
-{"ngrams": 4.0, "gamma": 1.0, "batch-size": 100.0, "initial-learn": 6.0, "embedding-dim": 160.0, "epochs": 10.0}
+{"ngrams": 5.0, "gamma": 0.99, "batch-size": 100.0, "initial-learn": 6.0, "embedding-dim": 160.0, "epochs": 4.0}

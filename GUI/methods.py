@@ -25,6 +25,9 @@ import re
 import rdflib
 from rdflib import Literal, URIRef, XSD
 
+# Used for default parameters
+import shutil
+
 ######################################## Testing Tab Functions ########################################
 
 # This function is attached to the 'Predict' button, and will concat the abstract + title to use to
@@ -44,6 +47,27 @@ def runPredictor(self):
 		for num in range(len(smValues)):
 			results = results + '##### ' + options[num] + ' Confidence: ' + str(round(smValues[num], 5)) + ".\n"
 		self.predictResultLabel.set_html(self.mkdn2.convert(results))	
+
+# This function takes the top option from the 'Predict' button and saves it to the file
+def savePrediction(self):
+	# Check if a prediction happened
+	if len(self.predictionResults) == 0:
+		messagebox.showinfo('No prediction to confirm', 'Please hit prediction') # Gives a box and doesn't let them save a prediction
+	else:
+		fd = open('prediction.txt', 'w') # Temporarily using a text file. These predictions need to be saved to RDF
+		# Second element is the top option from the prediction. Write that to the file and close the file
+		fd.write(self.predictionResults[1])
+		fd.close()
+	
+def saveOverridePrediction(self):
+	#print(self.labelOptionVar.get())
+	# Check if predicition happened
+	if len(self.predictionResults) == 0:
+		messagebox.showinfo('No prediction to override', 'Please hit prediction')
+	else:
+		fd = open('prediction.txt', 'w') # Temporarily using a text file. These predictions need to be saved to RDF
+		fd.write(self.labelOptionVar.get()) # Get the option the user selects to override and close file
+		fd.close()
 
 # This function takes the top option from the 'Predict' button and saves it to the file
 def savePrediction(self):
@@ -137,10 +161,11 @@ def searchCSV(self, event):
 		if count > len(self.data):
 			break
 		# Previous row indexes need to be decreased by 1 since I changed the CSV
+		# Changing it back need to add by 1 now 9/26/21
 		if self.checkButtons[0].get() == 1 and self.checkButtons[1].get() == 0 or self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 0:
-			result = find_near_matches(find, row[0], max_deletions=1, max_insertions=1, max_substitutions=0)
-		elif self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 1:                               
 			result = find_near_matches(find, row[1], max_deletions=1, max_insertions=1, max_substitutions=0)
+		elif self.checkButtons[0].get() == 0 and self.checkButtons[1].get() == 1:                               
+			result = find_near_matches(find, row[2], max_deletions=1, max_insertions=1, max_substitutions=0)
 		else:
 			both = row[0] + ' ' + row[1]
 			result = find_near_matches(find, both, max_deletions=1, max_insertions=1, max_substitutions=0)
@@ -154,7 +179,7 @@ def searchCSV(self, event):
 
 # Function to convert rdf to csv and save it under a '.data' folder.
 def convertFile(self):
-	parserResults = parser(self.file_path)
+	parserResults = parser(self.file_path, self)
 	if parserResults == -1:
 		messagebox.showerror('No Labels', 'Please add your label(s) in the build tab.')
 		self.classifyButton['state'] = DISABLED
@@ -173,14 +198,16 @@ def convertFile(self):
 		# Check to add space
 		if count > 24:
 			# Update the data and count
-			self.data[count] = {'Title': row[0], 'Abstract': row[1]}
+			# Changed so increaased by 1 9/26/21
+			self.data[count] = {'Title': row[1], 'Abstract': row[2]}
 			count += 1
 
 			# Continue the loop
 			continue
 		# Row indexes are decreased by 1
-		self.data[count]['Title'] = row[0]
-		self.data[count]['Abstract'] = row[1]
+		# Changed so increaased by 1 9/26/21
+		self.data[count]['Title'] = row[1]
+		self.data[count]['Abstract'] = row[2]
 		# Update count
 		count += 1
 
@@ -230,8 +257,175 @@ def pushRowContents(self):
 def getDeviceType(self):
 	self.type.set('Running on: ' + str(torch.device('cuda' if torch.cuda.is_available() else 'cpu')))
 
+# Class function to create the smaller window for advanced settigs. -- MH
+def openAdvSetWindow(self):  
+	### Deactivate the 'Advanced Settings' button.
+	self.AdvSetButton.config(state=DISABLED)
+
+	### Create the window itself.
+	self.settingsWindow = Toplevel(self)
+	self.settingsWindow.title('Advanced Settings')
+	self.settingsWindow.geometry('800x780')
+	
+	generateAdvTab(self)
+
+	# On window exit, reactivate the button.
+	def quit_settings_window():
+		self.AdvSetButton.config(state=NORMAL)
+		self.settingsWindow.destroy()
+
+	self.settingsWindow.protocol('WM_DELETE_WINDOW', quit_settings_window)
+
+# ================Default Parameters Tab
+def generateAdvTab(self):
+	# Create a label frame to hold the setting categories.
+	self.defaultLF = LabelFrame(self.settingsWindow, text='Set New Default Parameters')
+	self.defaultLF.place(x=10, y=5, relwidth=0.98, height=520)
+	
+	########## Parameters #########
+	self.paramLF = LabelFrame(self.settingsWindow, text='Parameters')
+	self.paramLF.place(relx=0.027, y=28, relwidth=0.95, height=480)
+
+	self.ngramsScale = Scale(self.paramLF, label='NGRAMS', from_=2, to=8, tickinterval=1, orient=HORIZONTAL, variable=self.neuralNetworkVar[0])
+	self.ngramsScale.place(relx=0.0, y=0, relwidth=1.00)
+
+	self.gammaScale = Scale(self.paramLF, label='Gamma', from_=0.85, to=0.99, tickinterval=0.01, resolution=0.02, orient=HORIZONTAL, variable=self.neuralNetworkVar[1])
+	self.gammaScale.place(relx=0.0, y=80, relwidth=1.00)
+
+	self.batchSizeScale = Scale(self.paramLF, label='Batch Size', from_=16, to=256, tickinterval=32, orient=HORIZONTAL, variable=self.neuralNetworkVar[2])
+	self.batchSizeScale.place(relx=0.0, y=160, relwidth=1.00)
+
+	self.initLrnRateScale = Scale(self.paramLF, label='Initial Learning Rate', from_=1.0, to=7.0, tickinterval=1.00, resolution=0.01, orient=HORIZONTAL, variable=self.neuralNetworkVar[3])
+	self.initLrnRateScale.place(relx=0.0, y=240, relwidth=1.00)
+
+	self.embedDimScale = Scale(self.paramLF, label='Embedding Dimension', from_=32, to=160, tickinterval=8, orient=HORIZONTAL, variable=self.neuralNetworkVar[4])
+	self.embedDimScale.place(relx=0.0, y=320, relwidth=1.00)
+
+	self.epochLabel = Label(self.paramLF, text='Epochs:', font=('Times, 15')) 
+	self.epochLabel.place(relx=0.0, y=420)
+
+	self.epochSpin = Spinbox(self.paramLF, from_=1, to=25000000, textvariable=self.neuralNetworkVar[5], font=('Times, 15'))
+	self.epochSpin.place( relx=0.1, y=420, relwidth=0.15)
+
+	##################################################################
+	
+	# Create a label frame to hold the parameter range category.
+	self.rangeLF = LabelFrame(self.settingsWindow, text='Set New Parameter Ranges')
+	self.rangeLF.place(x=10, y=530, relwidth=0.98, height=210)
+
+	########## Parameter Ranges ##########
+	## A label telling the user to input new values for NGRAMS range.
+	self.ngramRange = LabelFrame(self.rangeLF, text='NGRAMS:')
+	self.ngramRange.place(relx=0.05, y=4, relwidth=0.26, height=80)
+	ngFrom = Label(self.ngramRange, text="From: ")
+	ngFrom.grid(column=0, row=0)
+	ng1 = Entry(self.ngramRange, width=10)
+	ng1.grid(column=1, row=0)
+	ngTO = Label(self.ngramRange, text="To: ")
+	ngTO.grid(column=0, row=1)
+	ng2 = Entry(self.ngramRange, width=10)
+	ng2.grid(column=1, row=1)
+	## A label telling the user to input range for Gamma.
+	self.gammaRange = LabelFrame(self.rangeLF, text='Gamma:')
+	self.gammaRange.place(relx=0.37, y=4, relwidth=0.26, height=80)
+	gamFrom = Label(self.gammaRange, text="From: ")
+	gamFrom.grid(column=0, row=0)
+	gam1 = Entry(self.gammaRange, width=10)
+	gam1.grid(column=1, row=0)
+	gamTO = Label(self.gammaRange, text="To: ")
+	gamTO.grid(column=0, row=1)
+	gam2 = Entry(self.gammaRange, width=10)
+	gam2.grid(column=1, row=1)
+	## A label telling the user to input range for Batch Size.
+	self.batchRange = LabelFrame(self.rangeLF, text='Batch Size:')
+	self.batchRange.place(relx=0.69, y=4, relwidth=0.26, height=80)
+	batchFrom = Label(self.batchRange, text="From: ")
+	batchFrom.grid(column=1, row=0)
+	batch1 = Entry(self.batchRange, width=10)
+	batch1.grid(column=2, row=0)
+	batchTO = Label(self.batchRange, text="To: ")
+	batchTO.grid(column=1, row=1)
+	batch2 = Entry(self.batchRange, width=10)
+	batch2.grid(column=2, row=1)
+	# A label telling the user to input range for ILR(initial learn rate).
+	self.ilrRange = LabelFrame(self.rangeLF, text='Initial Learning Rate:')
+	self.ilrRange.place(relx=0.05, y=95, relwidth=0.26, height=80)
+	ilrFrom = Label(self.ilrRange, text="From: ")
+	ilrFrom.grid(column=0, row=0)
+	ilr1 = Entry(self.ilrRange, width=10)
+	ilr1.grid(column=1, row=0)
+	ilrTO = Label(self.ilrRange, text="To: ")
+	ilrTO.grid(column=0, row=1)
+	ilr2 = Entry(self.ilrRange, width=10)
+	ilr2.grid(column=1, row=1)
+	# A label telling the user to input range for Embedding Dimension.
+	self.edRange = LabelFrame(self.rangeLF, text='Embeddding Dimension:')
+	self.edRange.place(relx=0.37, y=95, relwidth=0.26, height=80)
+	edFrom = Label(self.edRange, text="From: ")
+	edFrom.grid(column=0, row=0)
+	ed1 = Entry(self.edRange, width=10)
+	ed1.grid(column=1, row=0)
+	edTO = Label(self.edRange, text="To: ")
+	edTO.grid(column=0, row=1)
+	ed2 = Entry(self.edRange, width=10)
+	ed2.grid(column=1, row=1)
+	# A label telling the user to input range for Epochs.
+	self.epochRange = LabelFrame(self.rangeLF, text='Epochs:')
+	self.epochRange.place(relx=0.69, y=95, relwidth=0.26, height=80)
+	epochFrom = Label(self.epochRange, text="From: ")
+	epochFrom.grid(column=0, row=0)
+	epoch1 = Entry(self.epochRange, width=10)
+	epoch1.grid(column=1, row=0)
+	epochTO = Label(self.epochRange, text="To: ")
+	epochTO.grid(column=0, row=1)
+	epoch2 = Entry(self.epochRange, width=10)
+	epoch2.grid(column=1, row=1)
+	##################################################################
+
+	# Creates a button to save new parameters and the ranges in the models folder.
+	self.saveRangeButton = Button(self.settingsWindow, text='Save All Changes', command=lambda: [ setRanges(self, './'), setDefaultParameters(self, './') ])
+	self.saveRangeButton.place(relx=0.83, y=745, width=120, height=30)
+
+#class function to save users custom parameter ranges
+def setRanges(self, directory):
+	loca = directory
+	#Check if there default parameters exists otherwise copy from /GUI
+	if (os.path.exists(loca + 'default-ranges.json') != True):  
+		shutil.copyfile(os.getcwd() + '/default-ranges.json', directory + '/default-ranges.json')
+	a_file = open(loca + 'default-ranges.json', "r")
+	json_object = json.load(a_file)
+	a_file.close()
+	JSON_FORMAT = {
+		'ngFrom': self.customRangeVar[0].get(),
+		'ngTo': self.customRangeVar[1].get(),
+		'gamFrom': self.customRangeVar[2].get(),
+		'gamTo': self.customRangeVar[3].get(),
+		'batchFrom': self.customRangeVar[4].get(),
+		'batchTo': self.customRangeVar[5].get(),
+                'ilrFrom': self.customRangeVar[6].get(),
+		'ilrTo': self.customRangeVar[7].get(),
+		'edFrom': self.customRangeVar[8].get(),
+		'edTo': self.customRangeVar[9].get(),
+		'epochFrom': self.customRangeVar[10].get(),
+		'epochTo': self.customRangeVar[11].get()
+	}
+
+	a_file = open(loca + 'default-ranges.json', "w")
+	json.dump(JSON_FORMAT, a_file)
+	a_file.close()
+
+# Loads default parameter ranges for a specific directory.
+def loadRanges(self, directory):
+	pos = 0
+	with open(directory + 'default-ranges.json') as json_file:
+		data = json.load(json_file)
+		for item in data:
+			self.customRangeVar[pos].set(float(data.get(item)))
+			pos += 1
+	
+
 # Class function to create the smaller window for editing labels.
-def openLabelWindow(self):  
+def openLabelWindow(self):
 	# Variables used
 	edit_Label_Font = 10
 	bdSize = 2 # Border size of the lists
@@ -299,11 +493,15 @@ def openLabelWindow(self):
 	self.labelWindow.protocol('WM_DELETE_WINDOW', quit_label_window)
 
 	# Add a Save button to leave the window
-	self.saveButton = Button(self.labelWindow, text='Save', command=quit_label_window)
-	self.saveButton.place(relx=295/700, rely=350/400, relwidth=110/700, relheight=30/400)
+	# Naming conflict - changed the name from self.saveButton to self.labelSaveButton
+	self.labelSaveButton = Button(self.labelWindow, text='Save', command=quit_label_window)
+	self.labelSaveButton.place(relx=295/700, rely=350/400, relwidth=110/700, relheight=30/400)
+
 
 # Class function for adding a new label.
 def addLabel(self):
+	root = "./.data/" + self.CLASS_NAME
+  
 	newLabel_Index = self.tagListBox.curselection()
 
 	# If the user did not enter anything: do nothing, otherwise; append to file.
@@ -311,7 +509,7 @@ def addLabel(self):
 		return
 	else:
 		newLabel = self.tagListBox.get(newLabel_Index[0])
-		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'a+')
+		fd = open(root + '/labels.txt', 'a+')
 		fd.write(newLabel+'\n')
 		fd.close()
 		labelSet(self)
@@ -321,7 +519,9 @@ def addLabel(self):
 
 #  Puts all components of label.txt into a set to sort and remove redundancy 
 def labelSet(self):
-	fd = open(self.TMP_DIRECTORY + '/labels.txt', 'r')
+	root = "./.data/" + self.CLASS_NAME
+  
+	fd = open(root + '/labels.txt', 'r')
 	lines = fd.readlines()
 	if lines == "":
 		pass
@@ -329,7 +529,7 @@ def labelSet(self):
 		labels = set(lines)
 		fd.close()
 		labels = sorted(labels)
-		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
+		fd = open(root + '/labels.txt', 'w')
 		fd.truncate(0)
 		for x in labels:
 			# Ignore empty cases            
@@ -337,12 +537,13 @@ def labelSet(self):
 				pass              
 			else:
 				fd.write(x)
+	fd.write("\n");
 	fd.close()
 
 
 # Function to delete labels selected.
 def delLabel(self):
-
+	root = "./.data/" + self.CLASS_NAME
 	# Get a tuple of the indexes selected (the ones to be deleted).
 	delete_index = self.labelListBox.curselection()
 	
@@ -358,14 +559,14 @@ def delLabel(self):
 
 	# Write over the file the remaining labels (assuming there are any).
 	if not kept_index:
-		fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
+		fd = open(root + '/labels.txt', 'w')
 		fd.write("")
 	else:
 		fd = None
 		if self.CLASS_NAME == '':
-			fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
+			fd = open(root + '/labels.txt', 'w')
 		else:
-			fd = open(self.TMP_DIRECTORY + '/labels.txt', 'w')
+			fd = open(root + '/labels.txt', 'w')
 		for label in kept_index:
 			if label == kept_index[len(kept_index) - 1]:
 				pass
@@ -391,17 +592,17 @@ def updateListBox(self):
 		menu.add_command(label=lab,command=lambda value=lab: self.labelOptionVar.set(value))
 		self.labelListBox.insert(END, lab.strip())
 
-# Opens the labels text file to update the label list.
+# Opens the labels text file to update the list.
 def getLabels(self):
+	root = "./.data/" + self.CLASS_NAME
 	# Reads in tags
-	if self.CLASS_NAME != '':
-		getTags(self)        
-		fdT = open(self.TMP_DIRECTORY + '/tagsList.txt', 'r')
+	if self.CLASS_NAME != '':        
+		fdT = open(root + '/tagsList.txt', 'r')
 		self.tagsList = fdT.readlines()
 		fdT.close()
-	# Case where labels.txt doesn't exist
-	if os.path.exists(self.TMP_DIRECTORY + '/labels.txt') is True:
-		fdL = open(self.TMP_DIRECTORY + '/labels.txt', 'r')
+	# Reads in labels
+	if os.path.exists(root + '/labels.txt') is True:
+		fdL = open(root + '/labels.txt', 'r')
 		self.labelList = fdL.readlines()
 		fdL.close() # Never forget to close your files, Thank you Dr. Park
 
@@ -430,6 +631,10 @@ def runBuilder(self):
 # A function to allow the user to select a model from the folder.
 # May need more error checking.
 def selectFolder(self):
+	#--MH--disable use of advanced setting button after folder is selected
+	# temporary fix for advanced settings 'set default parameter' button taking current directory not /GUI
+	self.AdvSetButton.config(state=DISABLED)
+	
 	temp_folder = filedialog.askdirectory(initialdir='./', title='Select a Model Folder')
 
 	if temp_folder:
@@ -438,10 +643,12 @@ def selectFolder(self):
 		start =  end - 6
 		if temp_folder[start:end - 1] == '.data':
 			self.CLASS_NAME = modelName
+			self.model_file_name.set(self.CLASS_NAME)#--MH-- global varible to display current model for user convenience
 			self.wkdir.set('Current Directory: ' + self.CLASS_NAME)
 			self.TMP_DIRECTORY = temp_folder
 			getLabels(self)
 			loadDefaultParameters(self, temp_folder[:end] + self.CLASS_NAME + '/')
+			#TODO ANDERSON# loadRanges(self, temp_folder[:end] + self.CLASS_NAME + '/')
 			self.editLabelButton['state'] = NORMAL
 			self.classifyButton['state'] = NORMAL
 		else:
@@ -450,7 +657,6 @@ def selectFolder(self):
 				self.classifyButton['state'] = DISABLED
 			else:
 				self.classifyButton['state'] = NORMAL
-	getTags(self)
 
 # Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
 # the edit labels button to select from various exisiting tags/labels.
@@ -534,6 +740,153 @@ def regexTags(line):
 	return tmp
 
 
+# Reads the tags from the rdf file and lists them inside tagsList.txt, which will be displayed to user in
+# the edit labels button to select from various exisiting tags/labels.
+def getTags(self, root):
+	# Grabs the rdf name from the root to store into self.CLASS_NAME
+	self.CLASS_NAME = root.replace("./.data/", "")
+	self.CLASS_NAME = self.CLASS_NAME.replace("/", "")
+
+	tagsListPath = root + "tagsList.txt"
+	# Check if tagsList.txt exisits, if not, create it within the current directory    
+	if os.path.exists(tagsListPath) is False:
+		open(tagsListPath, 'w')    
+	
+	tag_file = root + "tagNum.csv"
+	tagOutput = open(tag_file, 'w', encoding = 'utf-8')
+	
+	if self.CLASS_NAME == '':
+		return
+	
+	# Gets rdf file path and gets modification dates of the rdf and tagsList files
+	rdfRoot = root + self.CLASS_NAME + '.rdf'
+    
+	# Empty the labels file in case of any deletion of tags within the labels.txt file
+	fd = open(root + "labels.txt", 'w')
+	fd.truncate(0)
+	fd.close()
+
+	# Reads in Tags
+	tags = open(rdfRoot, 'r', encoding = 'utf-8')
+	line = tags.readline() # Tmp string for reading thru rdf
+	tagSet = set()    # Set for all tags
+	
+	# File ends with </rdf:RDF>, but with regex, it would be changed to "rdf RDF"
+	# There's 3 cases where tags occur:
+	# (1) <dc:subject>TagName</dc:subject>
+	#
+	# (2) <dc:subject>
+	#          <z:AutomaticTag>
+	#              <rdf:value>TagName</rdf:value>
+	#          </z:AutomaticTag>
+	#     </dc:subject>
+	# 
+	# (3) <dc:subject>
+	#          <z:AutomaticTag><rdf:value>TagName</rdf:value></z:AutomaticTag>
+	#     </dc:subject>
+
+	data = []
+	total = []
+	titleData = []	
+	bibCount = 0
+	journalCount = 0
+	added = 0
+	count = 0
+	title = ""
+	fake = 0
+	# make copies of title data then append then clear
+	while line != "rdf RDF":        
+		tmp = tags.readline()
+		line = regexTags(tmp)
+		if "bib Article" in line:
+			if bibCount == 0:
+				bibCount += 1
+			else:
+				tmp = copy.deepcopy(data)
+				titleData.append(tmp)
+				data.clear()
+				bibCount = 0
+				fake = 0
+				newTmp = copy.deepcopy(titleData)
+				total.append(newTmp)
+				titleData.clear()
+
+		if "dc subject" in line:
+			if len(line) == 10:                
+				line = regexTags(tags.readline())
+				if len(line) == 14: #Case (3)
+					line = regexTags(tags.readline())
+					tagSet.add(line[10:len(line)-10].capitalize())
+					data.append(line[10:len(line)-10].capitalize())
+					line = tags.readline()
+					line = tags.readline()
+				else:   # Case(2)
+					tagSet.add(line[26:len(line)-27].capitalize())
+					data.append(line[26:len(line)-27].capitalize())
+					line = tags.readline()
+			else:  # Case (1)             
+				tagSet.add(line[11:len(line)-11].capitalize())
+				data.append(line[11:len(line)-11].capitalize())
+		if "dc title" in line and bibCount == 1 and fake == 0:
+			count = count + 1
+			tmp = tmp.strip()
+			title = tmp[10:len(tmp)-11]
+			data.insert(0, title)
+			fake = 0	
+			
+	tags.close()
+	tagSet = sorted(tagSet)    # Sorts the set
+	tagCount = 1
+
+	tagList = list(tagSet)
+		
+	tt = 0
+	there = 0
+	a = 0
+	# Gets the tags associated numbers and replaces them
+	for i in total:
+		for j in i:
+			for index, k in enumerate(j):
+				if "dc title" in k:
+					tt += 1
+					there = 1
+				else:
+					if k in tagList:
+						j[index] = tagList.index(k)	
+			if there == 1:
+				a += 1
+				there = 0
+
+        # Testing: Prints all list data of abstract, plus numbers assigned to tags
+        # Also writing data to txt file
+	tmp = open(root + "/titlesAndTags.txt", "w")
+	for i in total:
+		print(i)
+		tmp.writelines(["%s\n" % i  for i in total])
+	tmp.close()
+
+	# Add Tags to label.txt
+	tagFile = open(tagsListPath,'w')
+	tagFile.truncate(0)    # Empties file before writing
+	for x in tagSet:
+		if len(x) != 0:
+			tagFile.write(x.capitalize() + "\n")
+			tagOutput.write(f"\"{tagCount}\",\"{x}\"\n")
+			tagCount += 1
+	tagFile.close()
+
+
+# Uses regualr expressions to clean up any useless characters and format tags
+def regexTags(line):
+	# Removes special characters, except '-' and ','
+	tmp = re.sub('[^a-zA-Z0-9-,)(]',' ',line)
+	# Checks and removes anything after ',' as the tags become repetitive with little difference
+	tmp = re.sub(',[\s\S]*$','',tmp)
+	# Checks and removes cases of '-' being the ending char
+	tmp = re.sub('[-]\Z','',tmp).strip()
+	return tmp
+
+
 # Loads default parameters for a specific directory.
 def loadDefaultParameters(self, directory):
 	pos = 0
@@ -545,20 +898,11 @@ def loadDefaultParameters(self, directory):
 
 # Saves default parameters for a specific directory.
 def setDefaultParameters(self, directory):
-	#JSON_FORMAT = {
-	#	'ngrams': self.neuralNetworkVar[0].get(),
-	#	'gamma': self.neuralNetworkVar[1].get(),
-	#	'batch-size': self.neuralNetworkVar[2].get(),
-	#	'initial-learn': self.neuralNetworkVar[3].get(),
-	#	'embedding-dim': self.neuralNetworkVar[4].get(),
-	#	'epochs': self.neuralNetworkVar[5].get()
-	#}
-	#with open(directory + 'default-parameters.json', 'w') as json_file:
-		#json.dump(JSON_FORMAT, json_file)
-	#-----------------------# MIKAYLA #-----------------------#
-	#loc = './.data/' + self.CLASS_NAME + '/'
-	loc = directory #'./.data/' + self.CLASS_NAME + '/'
-	a_file = open(loc + 'default-parameters.json', "r")
+	loca = directory #'./.data/' + self.CLASS_NAME + '/'
+	# Check if there default parameters exists otherwise copy from /GUI
+	if (os.path.exists(loca + 'default-parameters.json') != True):
+		shutil.copyfile(os.getcwd() + '/default-parameters.json', directory + 'default-parameters.json')
+	a_file = open(loca + 'default-parameters.json', "r")
 	json_object = json.load(a_file)
 	a_file.close()
 	JSON_FORMAT = {
@@ -570,11 +914,9 @@ def setDefaultParameters(self, directory):
 		'epochs': self.neuralNetworkVar[5].get()
 	}
 
-	a_file = open(loc + 'default-parameters.json', "w")
+	a_file = open(loca + 'default-parameters.json', "w")
 	json.dump(JSON_FORMAT, a_file)
 	a_file.close()
-	#with open(directory + 'default-parameters.json', 'w') as json_file:
-		#json.dump(JSON_FORMAT, json_file)
 
 #######################################################################################################
 

@@ -79,9 +79,12 @@ def makeDir(rdf_file):
 	return newDir + name, newDir, name
 
 # Converts the .rdf file to a .csv file
-def parser(rdf_file):
-	
+def parser(rdf_file, self):
+	from methods import getTags
+
 	file, newDir, name = makeDir(rdf_file)
+
+	getTags(self, newDir)
 
 	if os.path.exists('./labels.txt'):
 		if os.path.getsize('./labels.txt'):
@@ -92,6 +95,12 @@ def parser(rdf_file):
 
 	data_file = newDir + "data.csv"
 	output = open(data_file, 'w', encoding='utf-8')
+
+	# Unique ID for each paper
+	ids_file = newDir + "ids.csv"
+	ids_output = open(ids_file, 'w', encoding='utf-8')
+	idsCount = 1
+	
 
 	graph = rdflib.Graph()
 
@@ -132,8 +141,13 @@ def parser(rdf_file):
 
 	# This will find the URIRef ID for every paper that has an abstract attached to it
 	start = time.time()
-	for i in range(len(categories)):
-		for s, p, o in graph:
+	#TODO -- the order of this loop is very strange, change to be paper-first
+	# Can not figure out inconsistency swapping loops - may have to do with graph
+	#for i in range(len(categories)):
+	for s, p, o in graph:
+		#print(f"doing category {categories[i]}")
+		#for s, p, o in graph:
+		for i in range(len(categories)):
 			obj = str(o)
 			obj = obj.lower()
 			if ABSTRACT in p:
@@ -142,7 +156,10 @@ def parser(rdf_file):
 			if TITLE in p:
 				collection = insert(collection, s, o, 't', 0)
 			if SUBJECT in p:
-				if categories[i].lower() in obj:
+				# Swap outter loop here potentially 
+				#print(f"'{categories[i].lower().strip()}' tested in '{obj}'")
+				if categories[i].lower().strip() in obj:
+					#print(f"obj = {obj}")
 					true_domain_count[i] += 1
 					collection = insert(collection, s, o, 'c', i+1)
 
@@ -153,15 +170,16 @@ def parser(rdf_file):
 	newArr = true_domain_count.copy()
 	newArr.sort(reverse=False)
 
+	# Change to set sort than write to both output and ids?
 	start = time.time()
 	for obj in collection:
 			if obj.abstract != "":
 				if obj.category != 0:
 					domain_count[obj.category-1] += 1
-					#output.write(f"\"{str(obj.category)}\",\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n") #Saving this just in case
-					output.write(f"\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n")	# Category is not needed
-
-	
+					output.write(f"\"{str(obj.category)}\",\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n") #Saving this just in case
+					#output.write(f"\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n")	# Category is not needed
+					ids_output.write(f"\"{idsCount}\",\"{str(obj.title)}\",\"{str(obj.abstract)}\"\n")
+					idsCount += 1
 	end = time.time()
 	counter = 0
 

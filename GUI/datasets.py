@@ -17,6 +17,7 @@ def _csv_iterator(data_path, ngrams, yield_cls=False):
 	tokenizer = get_tokenizer("basic_english")
 	with io.open(data_path, encoding="utf8") as f:
 		reader = unicode_csv_reader(f)
+		# Loops through each row of the given csv file
 		for row in reader:
 			tokens = ' '.join(row[1:])
 			tokens = tokenizer(tokens)
@@ -70,12 +71,10 @@ class TextClassificationDataset(torch.utils.data.Dataset):
 		return self._vocab
 
 def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False, rebuild=False):
-        # Should be root +
-        # gave error otherwise could not predict or build neural 
-	train_csv_path = root + 'train.csv'
-	test_csv_path = root + 'test.csv' 
-	#train_csv_path = 'train.csv'
-	#test_csv_path = 'test.csv'
+  
+	train_csv_path = root + '/train.csv'
+	test_csv_path = root + '/test.csv' 
+
 	while True:
 		if rebuild or (not os.path.isfile(train_csv_path) or not os.path.isfile(test_csv_path)):
 			train_csv_path, test_csv_path = splitter(data, root, train_csv_path, test_csv_path)
@@ -90,9 +89,10 @@ def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False, rebuild
 		logging.info('Vocab has {} entries'.format(len(vocab)))
 
 		logging.info('Creating training data')
+
+
 		train_data, train_labels = _create_data_from_iterator(
 			vocab, _csv_iterator(train_csv_path, ngrams, yield_cls=True), include_unk)
-
 		logging.info('Creating testing data')
 		test_data, test_labels = _create_data_from_iterator(
 			vocab, _csv_iterator(test_csv_path, ngrams, yield_cls=True), include_unk)
@@ -105,7 +105,6 @@ def _setup_datasets(data, root, ngrams=1, vocab=None, include_unk=False, rebuild
 		TextClassificationDataset(vocab, test_data, test_labels))
 
 def splitter(data, root, train_csv_path, test_csv_path):
-	print(train_csv_path)
 	train_file = open(train_csv_path, 'w', encoding='utf-8')
 	test_file = open(test_csv_path, 'w', encoding='utf-8')
 

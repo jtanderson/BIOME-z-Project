@@ -61,14 +61,11 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
 	Statistics.batch = BATCH_SIZE
 	Statistics.embed = EMBED_DIM
 
-	root = './.data/' + folder + '/'
-	#data_file = 'data.csv'
-	#labels = open('labels.txt', 'r')
-	data_file = root + 'data.csv' #Might need to be this not sure at the moment
-	print(root + 'labels.txt')
-	labels = open(root+'labels.txt', 'r')
+	root = './.data/' + folder
+	data_file = root + '/data.csv'
+	labels = open(root + '/labels.txt', 'r')
 
-	categories = []
+	categories = []	# Will hold the selected labels
 
 	for line in labels:
 		categories.append(line.replace('\n', ''))
@@ -83,7 +80,8 @@ def builder(folder, NGRAMS, GAMMA, BATCH_SIZE, LEARNING_RATE, EMBED_DIM, EPOCHS,
 
 	# Calculate start time.
 	start_time = time.time()
-		
+
+	# Creates the train/test csv's and setsup data sets
 	train_dataset, test_dataset = _setup_datasets(data=data_file, root=root, ngrams=NGRAMS, vocab=None)
 
 	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
